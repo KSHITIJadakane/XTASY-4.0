@@ -1,0 +1,83 @@
+Here is the comprehensive prompt you can copy and paste into an AI website builder (like v0.dev, bolt.new, or ChatGPT) to generate this exact Squid Game landing page.
+
+Prompt:
+
+Build a responsive, single-page scrolling landing page inspired by the Netflix show Squid Game. The design must feature a dark, cinematic aesthetic with a high-contrast neon color palette. If possible, use React and Tailwind CSS for the structure and styling.
+
+Global Design System:
+
+Background: Pure Black (#000000).
+
+Primary Text: White (#FFFFFF) with varying opacities for subtitles.
+
+Accent Color: Neon Hot Pink / Magenta (approx #E41A4A or #FF007F).
+
+Typography: A sleek, modern sans-serif for body text. Use a wider, stylized font for main headings to mimic the show's title sequence.
+
+Animations: Add smooth scroll reveals and slight hover effects on buttons and images.
+
+Section 1: Sticky Navigation Bar
+
+Layout: Flexbox, space-between, fixed to the top with a slight glassmorphism effect (dark translucent background).
+
+Left: A small "Squid Game" logo text.
+
+Center: Navigation links side-by-side: "About the Game", "Pricing", "Contact". The text should be small, white, and uppercase.
+
+Right: A solid neon pink button with rounded pill-shaped corners that says "Play Game".
+
+Section 2: Hero Section
+
+Layout: Full viewport height, centered content.
+
+Typography: A massive, screen-width title reading "SQUID GAME". The letters should be bold and stylized (e.g., incorporating the circle, triangle, or square motifs into the letters like the 'O' or 'A').
+
+Imagery: A large, high-quality, cutout image of a Pink Guard centered perfectly over the text. The background behind the text should feature faint silhouettes of players in green tracksuits.
+
+Text Overlay: On the middle-left, include the text: "Only one ___ survive. Test yourself!".
+
+Section 3: The Invitation (Welcome Players)
+
+Heading: Top center text reading "WELCOME PLAYERS" in a spaced-out, glowing pink/red hue.
+
+Layout: A two-column grid.
+
+Left Column: A large heading "HOLD THE CARD". Below it, the subtitle "Begin the game. Accept it ___ or walk away". Below the text, a neon pink "PLAY" button.
+
+Right Column: A 3D render or high-quality image of a metallic hand dropping the iconic brown Squid Game invitation cards (with the circle, triangle, and square symbols).
+
+Section 4: Rules of Survival
+
+Heading: Right-aligned heading reading "RULES OF SURVIVAL", with "RULES" highlighted in neon pink.
+
+Layout: An asymmetrical grid displaying 4 specific rules.
+
+Content:
+
+Rule 1: Large neon number "1" next to text "6 games. Each harder. Each deadlier."
+
+Rule 2: Large neon number "2" next to text "No second chances. One move. One shot."
+
+Rule 3: Large neon number "3" next to text "Trust no one. Allies can betray you."
+
+Rule 4: Large neon number "4" next to text "Time is running. Decide fast... or die."
+
+Visuals: Place faint, glowing, wireframe geometric shapes (circle, triangle, square) floating in the background of this section.
+
+Section 5: Inside the Game (Gallery)
+
+Heading: "INSIDE THE GAME", centered with a neon accent.
+
+Layout: A masonry or overlapping image grid displaying 3 to 4 distinct environments.
+
+Content: Use placeholder images that feature heavily saturated neon colors (e.g., pink labyrinth stairs, red illuminated hallways, and a stark playground environment). Give the images slight rounded corners and a subtle drop shadow.
+
+Section 6: Call to Action (Footer)
+
+Heading: A massive, screen-width background text reading "READY TO PLAY?" in a dark grey or hollow outline.
+
+Imagery: A large, centered, high-contrast image of the Frontman's geometric mask.
+
+Action: A pink "Play Game" pill button directly below the mask.
+
+Footer: A small logo at the very bottom with the text "© 2023 Squid Game All Rights Reserved" centered below it.

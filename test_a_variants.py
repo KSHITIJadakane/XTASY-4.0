@@ -1,0 +1,66 @@
+import os
+
+svg_tmpl = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700" style="background:#000">
+  <defs>
+    <linearGradient id="metallicWhite" x1="0" y1="245" x2="0" y2="455" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="60%" stop-color="#F1F5F9"/>
+      <stop offset="100%" stop-color="#94A3B8"/>
+    </linearGradient>
+    <linearGradient id="pinkNeon" x1="0" y1="230" x2="0" y2="455" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF007F"/>
+      <stop offset="100%" stop-color="#D6006C"/>
+    </linearGradient>
+    <filter id="pinkGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14" result="blur1"/>
+      <feGaussianBlur stdDeviation="28" result="blur2"/>
+      <feMerge>
+        <feMergeNode in="blur2"/>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Letters X, T, S, Y -->
+  <path d="M 265 245 L 420 455" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="round"/>
+  <path d="M 420 245 L 310 400 C 275 445 230 455 160 455 L 0 455" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="butt" stroke-linejoin="round" fill="none"/>
+  
+  <g filter="url(#pinkGlow)">
+    <path d="M 475 245 L 630 245" stroke="url(#pinkNeon)" stroke-width="48" stroke-linecap="round"/>
+    <path d="M 552 245 L 552 455" stroke="url(#pinkNeon)" stroke-width="48" stroke-linecap="round"/>
+    <circle cx="552" cy="502" r="18" stroke="#FF007F" stroke-width="3.5" fill="none" opacity="0.85"/>
+  </g>
+
+  <path d="M 1105 245 L 1005 245 C 965 245 945 268 945 305 C 945 340 965 358 1005 358 L 1045 358 C 1085 358 1105 372 1105 410 C 1105 448 1085 455 1045 455 L 940 455" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <path d="M 1150 245 L 1215 345" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="round"/>
+  <path d="M 1280 245 L 1215 345" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="round"/>
+  <path d="M 1215 345 L 1215 455" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="round"/>
+
+  {A_VARIANT}
+</svg>"""
+
+# Variant 1: Pure triangle apex at y=245, crossbar at y=360
+v1 = '''
+  <path d="M 680 455 L 800 245 L 920 455" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <line x1="725" y1="360" x2="875" y2="360" stroke="url(#metallicWhite)" stroke-width="32" stroke-linecap="round"/>
+'''
+
+# Variant 2: Architectural flat-top A at y=245, crossbar at y=360
+v2 = '''
+  <path d="M 675 455 L 765 245 L 835 245 L 925 455" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <line x1="715" y1="360" x2="885" y2="360" stroke="url(#metallicWhite)" stroke-width="32" stroke-linecap="round"/>
+'''
+
+# Variant 3: Sleek arched Squid Game A (rounded top plateau)
+v3 = '''
+  <path d="M 680 455 L 755 275 C 775 245 825 245 845 275 L 920 455" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <line x1="720" y1="360" x2="880" y2="360" stroke="url(#metallicWhite)" stroke-width="32" stroke-linecap="round"/>
+'''
+
+os.makedirs('scratch_frames', exist_ok=True)
+with open('scratch_frames/test_a1.svg', 'w') as f: f.write(svg_tmpl.format(A_VARIANT=v1))
+with open('scratch_frames/test_a2.svg', 'w') as f: f.write(svg_tmpl.format(A_VARIANT=v2))
+with open('scratch_frames/test_a3.svg', 'w') as f: f.write(svg_tmpl.format(A_VARIANT=v3))
+print("SVG variants written successfully")

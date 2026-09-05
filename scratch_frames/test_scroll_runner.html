@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body style="margin:0;background:#000">
+  <iframe id="ifr" src="../index.html" style="width:1440px;height:900px;border:none;"></iframe>
+  <script>
+    var ifr = document.getElementById('ifr');
+    ifr.onload = function() {
+      setTimeout(function() {
+        var doc = ifr.contentDocument || ifr.contentWindow.document;
+        var el = doc.getElementById('welcome');
+        if (el) el.scrollIntoView();
+      }, 400);
+    };
+  </script>
+</body>
+</html>

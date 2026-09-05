@@ -1,0 +1,148 @@
+import os, sys
+sys.path.insert(0, os.path.abspath('.'))
+import take_snap
+from PIL import Image
+
+html_template = """<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Diffusion Endings for 4.0</title>
+  <style>
+    body { margin: 0; background: #000000; color: #fff; font-family: 'Space Grotesk', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
+    h2 { font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; color: #94A3B8; margin: 30px 0 10px; font-weight: 600; }
+    .card { background: #000000; border: 1px solid #1E293B; border-radius: 12px; padding: 30px 40px; margin-bottom: 20px; width: 850px; display: flex; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+  </style>
+</head>
+<body>
+
+  <!-- Common Defs -->
+  <svg width="0" height="0">
+    <defs>
+      <linearGradient id="pinkNeon4" x1="0" y1="410" x2="0" y2="545" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#BA134D"/>
+        <stop offset="60%" stop-color="#A10E42"/>
+        <stop offset="100%" stop-color="#780A30"/>
+      </linearGradient>
+      <linearGradient id="metallicWhite40" x1="0" y1="410" x2="0" y2="545" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#FFFFFF"/>
+        <stop offset="60%" stop-color="#F1F5F9"/>
+        <stop offset="100%" stop-color="#94A3B8"/>
+      </linearGradient>
+
+      <!-- Diffusion 1: Multi-stop Exponential Light Decay (1365 to 1640) -->
+      <linearGradient id="diffuse1" x1="1365" y1="475" x2="1640" y2="475" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/>
+        <stop offset="25%" stop-color="#F1F5F9" stop-opacity="0.85"/>
+        <stop offset="50%" stop-color="#CBD5E1" stop-opacity="0.45"/>
+        <stop offset="75%" stop-color="#94A3B8" stop-opacity="0.15"/>
+        <stop offset="90%" stop-color="#64748B" stop-opacity="0.04"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+      </linearGradient>
+
+      <!-- Diffusion 2: Ultra-Long Laser Dissolve (1365 to 1750, reaches edge of frame) -->
+      <linearGradient id="diffuse2" x1="1365" y1="475" x2="1750" y2="475" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/>
+        <stop offset="35%" stop-color="#F1F5F9" stop-opacity="0.7"/>
+        <stop offset="65%" stop-color="#CBD5E1" stop-opacity="0.3"/>
+        <stop offset="85%" stop-color="#94A3B8" stop-opacity="0.08"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+      </linearGradient>
+
+      <!-- Diffusion 3: Tapering Aerodynamic Light Ray (Geometric Taper + Dissolve) -->
+      <linearGradient id="taperGrad" x1="1365" y1="475" x2="1650" y2="475" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/>
+        <stop offset="40%" stop-color="#F1F5F9" stop-opacity="0.8"/>
+        <stop offset="70%" stop-color="#94A3B8" stop-opacity="0.3"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+      </linearGradient>
+
+      <!-- Diffusion 4: Dual-Layer Glow Diffusion (Core + Soft Dissolving Aura) -->
+      <filter id="auraBlur" x="-20%" y="-100%" width="140%" height="300%">
+        <feGaussianBlur stdDeviation="7"/>
+      </filter>
+      <linearGradient id="auraGrad" x1="1365" y1="475" x2="1660" y2="475" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+        <stop offset="30%" stop-color="#E2E8F0" stop-opacity="0.5"/>
+        <stop offset="70%" stop-color="#94A3B8" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <h2>Option A: Exponential Light Decay (Clean Parallel Beam Dissolving into Darkness, 275px)</h2>
+  <div class="card">
+    <svg width="700" height="200" viewBox="1000 375 700 200" fill="none">
+      <!-- 4 -->
+      <path d="M 1125 405 L 1045 490 L 1180 490" stroke="url(#pinkNeon4)" stroke-width="36" stroke-linecap="butt" stroke-linejoin="miter" fill="none"/>
+      <path d="M 1135 395 L 1135 468" stroke="url(#pinkNeon4)" stroke-width="36" stroke-linecap="butt"/>
+      <path d="M 1135 506 L 1135 550" stroke="url(#pinkNeon4)" stroke-width="36" stroke-linecap="butt"/>
+      <!-- . -->
+      <rect x="1215" y="520" width="24" height="24" fill="url(#metallicWhite40)"/>
+      <!-- 0 -->
+      <rect x="1270" y="405" width="95" height="140" rx="26" stroke="url(#metallicWhite40)" stroke-width="34" fill="none"/>
+      <!-- Diffusion Beam -->
+      <path d="M 1365 475 L 1640 475" stroke="url(#diffuse1)" stroke-width="34" stroke-linecap="butt"/>
+    </svg>
+  </div>
+
+  <h2>Option B: Ultra-Long Infinite Laser Diffusion (Extends past viewport edge, 385px)</h2>
+  <div class="card">
+    <svg width="700" height="200" viewBox="1000 375 700 200" fill="none">
+      <!-- 4 -->
+      <path d="M 1125 405 L 1045 490 L 1180 490" stroke="url(#pinkNeon4)" stroke-width="36" stroke-linecap="butt" stroke-linejoin="miter" fill="none"/>
+      <path d="M 1135 395 L 1135 468" stroke="url(#pinkNeon4)" stroke-width="36" stroke-linecap="butt"/>
+      <path d="M 1135 506 L 1135 550" stroke="url(#pinkNeon4)" stroke-width="36" stroke-linecap="butt"/>
+      <!-- . -->
+      <rect x="1215" y="520" width="24" height="24" fill="url(#metallicWhite40)"/>
+      <!-- 0 -->
+      <rect x="1270" y="405" width="95" height="140" rx="26" stroke="url(#metallicWhite40)" stroke-width="34" fill="none"/>
+      <!-- Diffusion Beam -->
+      <path d="M 1365 475 L 1750 475" stroke="url(#diffuse2)" stroke-width="34" stroke-linecap="butt"/>
+    </svg>
+  </div>
+
+  <h2>Option C: Tapered Aerodynamic Light Ray (Smooth Width Decay 34px -> 0px + Dissolve)</h2>
+  <div class="card">
+    <svg width="700" height="200" viewBox="1000 375 700 200" fill="none">
+      <!-- 4 -->
+      <path d="M 1125 405 L 1045 490 L 1180 490" stroke="url(#pinkNeon4)" stroke-width="36" stroke-linecap="butt" stroke-linejoin="miter" fill="none"/>
+      <path d="M 1135 395 L 1135 468" stroke="url(#pinkNeon4)" stroke-width="36" stroke-linecap="butt"/>
+      <path d="M 1135 506 L 1135 550" stroke="url(#pinkNeon4)" stroke-width="36" stroke-linecap="butt"/>
+      <!-- . -->
+      <rect x="1215" y="520" width="24" height="24" fill="url(#metallicWhite40)"/>
+      <!-- 0 -->
+      <rect x="1270" y="405" width="95" height="140" rx="26" stroke="url(#metallicWhite40)" stroke-width="34" fill="none"/>
+      <!-- Tapered Ray from exact outer stroke of 0 (y=458 to 492) smoothly tapering to point at 1650,475 -->
+      <path d="M 1365 458 Q 1480 472 1650 475 Q 1480 478 1365 492 Z" fill="url(#taperGrad)"/>
+    </svg>
+  </div>
+
+  <h2>Option D: Dual-Layer Glowing Dispersion (Solid Core + Soft Diffuse Aura)</h2>
+  <div class="card">
+    <svg width="700" height="200" viewBox="1000 375 700 200" fill="none">
+      <!-- 4 -->
+      <path d="M 1125 405 L 1045 490 L 1180 490" stroke="url(#pinkNeon4)" stroke-width="36" stroke-linecap="butt" stroke-linejoin="miter" fill="none"/>
+      <path d="M 1135 395 L 1135 468" stroke="url(#pinkNeon4)" stroke-width="36" stroke-linecap="butt"/>
+      <path d="M 1135 506 L 1135 550" stroke="url(#pinkNeon4)" stroke-width="36" stroke-linecap="butt"/>
+      <!-- . -->
+      <rect x="1215" y="520" width="24" height="24" fill="url(#metallicWhite40)"/>
+      <!-- 0 -->
+      <rect x="1270" y="405" width="95" height="140" rx="26" stroke="url(#metallicWhite40)" stroke-width="34" fill="none"/>
+      <!-- Soft Ambient Aura -->
+      <path d="M 1365 475 L 1660 475" stroke="url(#auraGrad)" stroke-width="50" filter="url(#auraBlur)"/>
+      <!-- Crisp Core Dissolving Beam -->
+      <path d="M 1365 475 L 1640 475" stroke="url(#diffuse1)" stroke-width="34" stroke-linecap="butt"/>
+    </svg>
+  </div>
+
+</body>
+</html>
+"""
+
+with open('scratch_frames/compare_diffusion.html', 'w', encoding='utf-8') as f:
+    f.write(html_template)
+
+print('Generated compare_diffusion.html')
+take_snap.take_snapshot('scratch_frames/compare_diffusion.html', 'scratch_frames/compare_diffusion.png', delay_s=1.0, width=950, height=1350)
+print('Snapshot taken of compare_diffusion.png')

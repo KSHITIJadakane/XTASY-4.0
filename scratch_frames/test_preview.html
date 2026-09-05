@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>XTASY 4.0 - Perfect Reference Match</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #000000;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* 16:10 Cinema Container matching exact laptop screen in video */
+.hero-canvas {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  overflow: hidden;
+}
+.hero-stage {
+  position: relative;
+  width: min(100%, calc(100vh * 1.639));
+  height: min(100vh, calc(100vw / 1.639));
+  aspect-ratio: 1600 / 976;
+  max-width: 1600px;
+  max-height: 976px;
+  background: #000;
+  overflow: hidden;
+}
+
+/* Top Header */
+.top-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 44px;
+  z-index: 100;
+  pointer-events: none;
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-icon {
+  width: 24px;
+  height: 24px;
+  color: #FF007F;
+  filter: drop-shadow(0 0 8px #FF007F);
+}
+.logo-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0.08em;
+}
+.logo-ver {
+  font-size: 10px;
+  font-weight: 700;
+  color: #FF007F;
+  margin-left: 2px;
+}
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+.nav-item {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.03em;
+}
+.nav-item.active {
+  color: #FFFFFF;
+  position: relative;
+}
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: #FF007F;
+  box-shadow: 0 0 6px #FF007F;
+}
+.header-btn {
+  font-size: 12px;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: #FF007F;
+  padding: 7px 22px;
+  border-radius: 9999px;
+  box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+  border: none;
+}
+
+/* Layer 1 (z: 8): Ambient Pink Bloom (NO GUARD HERE -> ZERO GHOST GUARD!) */
+.ambient-bloom {
+  position: absolute;
+  top: 18%;
+  left: 30%;
+  width: 40%;
+  height: 50%;
+  background: radial-gradient(circle, rgba(255, 0, 127, 0.16) 0%, rgba(255, 0, 127, 0.03) 50%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 8;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 2.0s cubic-bezier(0.16, 1, 0.3, 1), transform 2.0s cubic-bezier(0.16, 1, 0.3, 1);
+}
+body.intro-active .ambient-bloom {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Layer 2 (z: 20): Architectural SVG Typography (BEHIND pink guard) */
+.text-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 20;
+}
+.text-stage svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Layer 3 (z: 30): Pink Guard Cutout (STANDS IN FRONT OF THE TEXT!) */
+.guard-cutout-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 30;
+}
+.guard-cutout-layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* Layer 4 (z: 35): Crowd of Players (At the bottom, BELOW text, fades in over 2s) */
+.crowd-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 35;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 2.0s cubic-bezier(0.16, 1, 0.3, 1), transform 2.0s cubic-bezier(0.16, 1, 0.3, 1);
+}
+body.intro-active .crowd-layer {
+  opacity: 1;
+  transform: translateY(0);
+}
+.crowd-layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+}
+
+/* Gliding Animations for Text Elements (2.0s duration matching video) */
+.glide-left {
+  opacity: 0;
+  transform: translateX(-80px);
+  filter: blur(10px);
+  transition: opacity 2.0s cubic-bezier(0.16, 1, 0.3, 1), transform 2.0s cubic-bezier(0.16, 1, 0.3, 1), filter 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+.glide-right {
+  opacity: 0;
+  transform: translateX(80px);
+  filter: blur(10px);
+  transition: opacity 2.0s cubic-bezier(0.16, 1, 0.3, 1), transform 2.0s cubic-bezier(0.16, 1, 0.3, 1), filter 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+.glide-center {
+  opacity: 0;
+  transform: scale(0.85) translateY(-18px);
+  filter: blur(12px);
+  transform-origin: 809px 340px;
+  transition: opacity 2.0s cubic-bezier(0.16, 1, 0.3, 1), transform 2.0s cubic-bezier(0.16, 1, 0.3, 1), filter 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+body.intro-active .glide-left,
+body.intro-active .glide-right,
+body.intro-active .glide-center {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+/* Replay Button */
+.replay-btn {
+  position: absolute;
+  top: 80px;
+  right: 44px;
+  z-index: 100;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(10, 10, 10, 0.7);
+  border: 1px solid rgba(255, 0, 127, 0.4);
+  border-radius: 20px;
+  padding: 5px 14px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s;
+}
+.replay-btn:hover {
+  color: #FFFFFF;
+  border-color: #FF007F;
+  box-shadow: 0 0 16px rgba(255, 0, 127, 0.6);
+}
+</style>
+</head>
+<body>
+
+<div class="hero-canvas">
+  <div class="hero-stage">
+
+    <!-- Header -->
+    <header class="top-header">
+      <div class="header-logo">
+        <svg class="logo-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+          <circle cx="50" cy="45" r="32" stroke-width="12"/>
+          <path d="M68 62 L88 88" stroke-width="14" stroke-linecap="round"/>
+        </svg>
+        <div><span class="logo-text">XTASY</span><span class="logo-ver">4.0</span></div>
+      </div>
+      <nav class="header-nav">
+        <span class="nav-item active">About the Game</span>
+        <span class="nav-item">Pricing</span>
+        <span class="nav-item">Contact</span>
+      </nav>
+      <button class="header-btn">Play Game</button>
+    </header>
+
+    <!-- Replay Button -->
+    <button class="replay-btn" onclick="triggerIntro()">&#8635; REPLAY</button>
+
+    <!-- Layer 1: Ambient Pink Bloom (NO GHOST GUARD BEHIND TEXT) -->
+    <div class="ambient-bloom"></div>
+
+    <!-- Layer 2: Text Stage (z-index: 20) — BEHIND the Pink Guard Cutout -->
+    <div class="text-stage">
+      <svg viewBox="0 0 1600 976" fill="none" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Pink Glow Filter -->
+          <filter id="pinkGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#FF007F" flood-opacity="0.95"/>
+            <feDropShadow dx="0" dy="0" stdDeviation="18" flood-color="#FF007F" flood-opacity="0.75"/>
+            <feDropShadow dx="0" dy="0" stdDeviation="38" flood-color="#FF007F" flood-opacity="0.45"/>
+          </filter>
+          <!-- Cyan Glow for 'survive' -->
+          <filter id="cyanGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#00F0FF" flood-opacity="0.85"/>
+          </filter>
+          <!-- Metallic Gradient for XTASY -->
+          <linearGradient id="metallicWhite" x1="0" y1="230" x2="0" y2="455" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="55%" stop-color="#F1F5F9"/>
+            <stop offset="100%" stop-color="#94A3B8"/>
+          </linearGradient>
+          <!-- Metallic Gradient for 4.0 -->
+          <linearGradient id="metallicWhite40" x1="0" y1="480" x2="0" y2="620" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="60%" stop-color="#F1F5F9"/>
+            <stop offset="100%" stop-color="#94A3B8"/>
+          </linearGradient>
+          <!-- Pink Neon Gradient for T -->
+          <linearGradient id="pinkNeon" x1="0" y1="230" x2="0" y2="455" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FF007F"/>
+            <stop offset="100%" stop-color="#D6006C"/>
+          </linearGradient>
+          <!-- Pink Neon Gradient for 4 -->
+          <linearGradient id="pinkNeon4" x1="0" y1="480" x2="0" y2="620" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FF007F"/>
+            <stop offset="100%" stop-color="#D6006C"/>
+          </linearGradient>
+          <!-- Extension Bar Gradient -->
+          <linearGradient id="extLine" x1="1120" y1="555" x2="1550" y2="555" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="65%" stop-color="rgba(255,255,255,0.7)"/>
+            <stop offset="100%" stop-color="transparent"/>
+          </linearGradient>
+        </defs>
+
+        <!-- LEFT TEXT GROUP: X, T, and Quote (Glides from left) -->
+        <g id="leftGroup" class="glide-left">
+          <!-- 'X': Top-left to bottom-right, and top-right curving out to x=0 -->
+          <path d="M 265 245 L 420 455" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="round"/>
+          <path d="M 420 245 L 310 400 C 275 445 230 455 160 455 L 0 455" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="butt" stroke-linejoin="round" fill="none"/>
+          <!-- Glowing pink accent dot -->
+          <circle cx="240" cy="422" r="5" fill="#FF007F" filter="url(#pinkGlow)"/>
+
+          <!-- 'T': Radiant Hot Pink Letter with Glow -->
+          <g filter="url(#pinkGlow)">
+            <path d="M 475 245 L 630 245" stroke="url(#pinkNeon)" stroke-width="48" stroke-linecap="round"/>
+            <path d="M 552 245 L 552 455" stroke="url(#pinkNeon)" stroke-width="48" stroke-linecap="round"/>
+            <circle cx="552" cy="502" r="18" stroke="#FF007F" stroke-width="3.5" fill="none" opacity="0.85"/>
+          </g>
+
+          <!-- Subtext Quote on Left (Well above crowd) -->
+          <g transform="translate(160, 528)">
+            <text x="0" y="0" font-family="'Space Grotesk', sans-serif" font-size="21" font-weight="500" fill="#FFFFFF" letter-spacing="1">
+              Only one
+            </text>
+            <line x1="100" y1="-4" x2="205" y2="-4" stroke="#FFFFFF" stroke-width="2.5" opacity="0.8"/>
+            <text x="220" y="0" font-family="'Space Grotesk', sans-serif" font-size="21" font-weight="700" fill="#00F0FF" filter="url(#cyanGlow)" letter-spacing="1">
+              survive
+            </text>
+            <text x="0" y="36" font-family="'Space Grotesk', sans-serif" font-size="23" font-weight="700" letter-spacing="0.5">
+              <tspan fill="#FF007F" filter="url(#pinkGlow)">Test</tspan> <tspan fill="#FFFFFF">yourself!</tspan>
+            </text>
+          </g>
+        </g>
+
+        <!-- CENTER LETTER: 'A' (EMERGES CLEANLY BEHIND GUARD'S HOOD - ZERO CROWN PROTRUSION) -->
+        <g id="centerGroup" class="glide-center">
+          <!-- Left leg of A (slants up behind the guard's left neck/hood) -->
+          <path d="M 670 455 L 758 350" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="round"/>
+          <!-- Right leg of A (slants down from behind the guard's right neck/hood) -->
+          <path d="M 860 350 L 945 455" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="round"/>
+          <!-- Crossbar of A behind the guard's neck -->
+          <line x1="718" y1="410" x2="898" y2="410" stroke="url(#metallicWhite)" stroke-width="30" stroke-linecap="round"/>
+        </g>
+
+        <!-- RIGHT TEXT GROUP: S, Y, and '4.0' (Glides from right, BEHIND guard's left shoulder) -->
+        <g id="rightGroup" class="glide-right">
+          <!-- 'S': Architectural 3-bar Squid Game S -->
+          <path d="M 1105 245 L 1005 245 C 965 245 945 268 945 305 C 945 340 965 358 1005 358 L 1045 358 C 1085 358 1105 372 1105 410 C 1105 448 1085 455 1045 455 L 940 455" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+          <!-- 'Y': Geometric Y -->
+          <path d="M 1150 245 L 1215 345" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="round"/>
+          <path d="M 1280 245 L 1215 345" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="round"/>
+          <path d="M 1215 345 L 1215 455" stroke="url(#metallicWhite)" stroke-width="48" stroke-linecap="round"/>
+
+          <!-- '4.0': Bold architectural secondary title matching 'GAME' in reference -->
+          <g id="frontTitle40">
+            <!-- '4': Bold Hot Pink Neon Number matching 'G' in GAME -->
+            <g filter="url(#pinkGlow)">
+              <path d="M 945 490 L 875 565 L 985 565" stroke="url(#pinkNeon4)" stroke-width="44" stroke-linecap="round" stroke-linejoin="miter" fill="none"/>
+              <path d="M 955 480 L 955 615" stroke="url(#pinkNeon4)" stroke-width="44" stroke-linecap="round"/>
+            </g>
+            <!-- Dot '.' (square futuristic dot) -->
+            <rect x="1018" y="580" width="24" height="24" fill="url(#metallicWhite40)" rx="4"/>
+            <!-- '0': Bold geometric Squid Game glyph matching 'E' in GAME -->
+            <rect x="1070" y="490" width="90" height="125" rx="44" stroke="url(#metallicWhite40)" stroke-width="36" fill="none"/>
+            <!-- Horizontal extending line to right edge with Squid terminal -->
+            <path d="M 1160 555 L 1500 555" stroke="url(#extLine)" stroke-width="36" stroke-linecap="round"/>
+            <path d="M 1475 535 L 1500 555 L 1475 575" stroke="url(#extLine)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Layer 3: Pink Guard Cutout (IN FRONT OF THE TEXT!) -->
+    <div class="guard-cutout-layer">
+      <img src="../assets/guard_clean_cutout.png" alt="XTASY Guard Cutout"/>
+    </div>
+
+    <!-- Layer 4: Crowd of Players (At bottom, in front of guard's waist, BELOW text) -->
+    <div class="crowd-layer">
+      <img src="../assets/hero_players_foreground.png" alt="Players Foreground"/>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function triggerIntro() {
+  document.body.classList.remove('intro-active');
+  void document.body.offsetHeight;
+  setTimeout(function() {
+    document.body.classList.add('intro-active');
+  }, 100);
+}
+window.addEventListener('DOMContentLoaded', function() {
+  triggerIntro();
+});
+</script>
+</body>
+</html>

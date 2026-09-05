@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html><body><div id='out'>initial</div>
+<script>
+requestAnimationFrame(function(){
+  requestAnimationFrame(function(){
+    document.getElementById('out').textContent = 'raf_fired';
+  });
+});
+setTimeout(function(){
+  document.body.style.background = 'red';
+}, 500);
+</script>
+</body></html>

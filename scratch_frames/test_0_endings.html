@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Compare 0 Endings in 4.0</title>
+  <style>
+    body { margin: 0; background: #000; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
+    h2 { font-size: 15px; letter-spacing: 0.15em; text-transform: uppercase; color: #888; margin: 25px 0 10px; }
+    .card { background: #080808; border: 1px solid #222; border-radius: 8px; padding: 20px 40px; margin-bottom: 15px; width: 800px; display: flex; justify-content: center; }
+  </style>
+</head>
+<body>
+
+  <defs>
+    <!-- Shared defs -->
+  </defs>
+
+  <h2>Option 1: Proportional Clean Dash with Rounded Cap (Matches XTASY caps, like GAME-)</h2>
+  <div class="card">
+    <svg width="600" height="180" viewBox="1000 380 600 180" fill="none">
+      <defs>
+        <linearGradient id="pNeon1" x1="0" y1="410" x2="0" y2="545" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#BA134D"/><stop offset="60%" stop-color="#A10E42"/><stop offset="100%" stop-color="#780A30"/>
+        </linearGradient>
+        <linearGradient id="mWhite1" x1="0" y1="410" x2="0" y2="545" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#FFFFFF"/><stop offset="60%" stop-color="#F1F5F9"/><stop offset="100%" stop-color="#94A3B8"/>
+        </linearGradient>
+      </defs>
+      <!-- 4 -->
+      <path d="M 1125 405 L 1045 490 L 1180 490" stroke="url(#pNeon1)" stroke-width="36" stroke-linecap="butt" stroke-linejoin="miter" fill="none"/>
+      <path d="M 1135 395 L 1135 468" stroke="url(#pNeon1)" stroke-width="36" stroke-linecap="butt"/>
+      <path d="M 1135 506 L 1135 550" stroke="url(#pNeon1)" stroke-width="36" stroke-linecap="butt"/>
+      <!-- . -->
+      <rect x="1215" y="520" width="24" height="24" fill="url(#mWhite1)"/>
+      <!-- 0 -->
+      <rect x="1270" y="405" width="95" height="140" rx="26" stroke="url(#mWhite1)" stroke-width="34" fill="none"/>
+      <!-- Clean proportional dash (80px long) with rounded cap matching XTASY -->
+      <path d="M 1365 475 L 1455 475" stroke="url(#mWhite1)" stroke-width="34" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <h2>Option 2: Proportional Architectural Flat Dash (Exact GAME- Geometry)</h2>
+  <div class="card">
+    <svg width="600" height="180" viewBox="1000 380 600 180" fill="none">
+      <!-- 4 -->
+      <path d="M 1125 405 L 1045 490 L 1180 490" stroke="url(#pNeon1)" stroke-width="36" stroke-linecap="butt" stroke-linejoin="miter" fill="none"/>
+      <path d="M 1135 395 L 1135 468" stroke="url(#pNeon1)" stroke-width="36" stroke-linecap="butt"/>
+      <path d="M 1135 506 L 1135 550" stroke="url(#pNeon1)" stroke-width="36" stroke-linecap="butt"/>
+      <!-- . -->
+      <rect x="1215" y="520" width="24" height="24" fill="url(#mWhite1)"/>
+      <!-- 0 -->
+      <rect x="1270" y="405" width="95" height="140" rx="26" stroke="url(#mWhite1)" stroke-width="34" fill="none"/>
+      <!-- Architectural flat dash (80px long) -->
+      <path d="M 1365 475 L 1455 475" stroke="url(#mWhite1)" stroke-width="34" stroke-linecap="butt"/>
+    </svg>
+  </div>
+
+  <h2>Option 3: Smooth Infinite Gradient Dissolve (Zero Arrowhead, Fades to 0% Opacity)</h2>
+  <div class="card">
+    <svg width="600" height="180" viewBox="1000 380 600 180" fill="none">
+      <defs>
+        <linearGradient id="fadeBeam" x1="1365" y1="475" x2="1600" y2="475" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#FFFFFF"/>
+          <stop offset="50%" stop-color="rgba(255,255,255,0.5)"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </linearGradient>
+      </defs>
+      <!-- 4 -->
+      <path d="M 1125 405 L 1045 490 L 1180 490" stroke="url(#pNeon1)" stroke-width="36" stroke-linecap="butt" stroke-linejoin="miter" fill="none"/>
+      <path d="M 1135 395 L 1135 468" stroke="url(#pNeon1)" stroke-width="36" stroke-linecap="butt"/>
+      <path d="M 1135 506 L 1135 550" stroke="url(#pNeon1)" stroke-width="36" stroke-linecap="butt"/>
+      <!-- . -->
+      <rect x="1215" y="520" width="24" height="24" fill="url(#mWhite1)"/>
+      <!-- 0 -->
+      <rect x="1270" y="405" width="95" height="140" rx="26" stroke="url(#mWhite1)" stroke-width="34" fill="none"/>
+      <!-- Seamless fade-out beam with rounded soft end into darkness -->
+      <path d="M 1365 475 L 1580 475" stroke="url(#fadeBeam)" stroke-width="34" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <h2>Option 4: Pure Minimalist 4.0 (No Trailing Line at all)</h2>
+  <div class="card">
+    <svg width="600" height="180" viewBox="1000 380 600 180" fill="none">
+      <!-- 4 -->
+      <path d="M 1125 405 L 1045 490 L 1180 490" stroke="url(#pNeon1)" stroke-width="36" stroke-linecap="butt" stroke-linejoin="miter" fill="none"/>
+      <path d="M 1135 395 L 1135 468" stroke="url(#pNeon1)" stroke-width="36" stroke-linecap="butt"/>
+      <path d="M 1135 506 L 1135 550" stroke="url(#pNeon1)" stroke-width="36" stroke-linecap="butt"/>
+      <!-- . -->
+      <rect x="1215" y="520" width="24" height="24" fill="url(#mWhite1)"/>
+      <!-- 0 -->
+      <rect x="1270" y="405" width="95" height="140" rx="26" stroke="url(#mWhite1)" stroke-width="34" fill="none"/>
+    </svg>
+  </div>
+
+</body>
+</html>
