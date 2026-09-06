@@ -372,6 +372,8 @@
     .mobile-nav-overlay.active .mobile-nav-content, .mobile-nav-overlay.open .mobile-nav-content { transform: translateY(0); }
     .mobile-nav-content .nav-a { font-size: 20px; font-weight: 700; letter-spacing: 0.08em; }
 
+    .mobile-dept-tag { display: none; }
+
     /* Touch Devices */
     @media (hover: none) or (pointer: coarse) {
       .cdot, .cring { display: none !important; }
@@ -389,58 +391,155 @@
 
       .dept-watermark { display: none !important; }
 
-      /* Hero stage mobile: fill portrait screen without blank abyss */
-      #hero { height: 100vh; min-height: -webkit-fill-available; padding-top: 0; }
-      .hero-canvas { align-items: center; justify-content: center; height: 100%; width: 100%; }
-      .hero-stage {
+      /* Hero stage mobile: 1:1 scale locked architecture with balanced vertical rhythm */
+      #hero { height: 100vh; min-height: -webkit-fill-available; padding-top: 0; position: relative; overflow: hidden; }
+      .hero-canvas {
         width: 100%;
         height: 100%;
-        max-height: 100vh;
-        aspect-ratio: auto;
+        position: relative;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
+        justify-content: flex-start;
+        padding-top: clamp(86px, 14.5vh, 128px);
+        background: #000;
+        overflow: hidden;
+      }
+      .hero-stage {
+        position: relative;
+        width: clamp(380px, 126vw, 500px);
+        aspect-ratio: 1600 / 976;
+        max-width: none;
+        max-height: none;
+        background: transparent;
+        overflow: visible;
+        display: block;
+        flex-shrink: 0;
+        margin: 0 auto;
+      }
+      .guard-cutout-layer {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 30;
       }
       .guard-cutout-layer img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
-        object-position: center 25%;
+        object-fit: contain;
+        object-position: center bottom;
       }
       .text-stage {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 20;
+        display: block;
       }
       .text-stage svg {
         width: 100%;
-        height: auto;
-        max-height: 80vh;
-        transform: scale(1.08);
+        height: 100%;
+        display: block;
+        transform: none;
+        max-height: none;
       }
-      .crowd-layer {
-        height: clamp(120px, 18vh, 180px);
+      .ambient-bloom {
+        top: 10%;
+        left: 15%;
+        width: 70%;
+        height: 70%;
+        opacity: 0.85 !important;
+        transform: scale(1) !important;
       }
       .btn-replay {
-        top: 76px;
+        position: absolute;
+        top: 74px;
         right: 16px;
-        font-size: 11px;
-        padding: 6px 14px;
+        z-index: 100;
+        font-size: 10px;
+        padding: 5px 14px;
       }
       #countdown {
-        position: absolute;
-        bottom: 20px;
-        left: 16px;
-        font-size: 13px;
-        gap: 8px;
+        position: relative;
+        bottom: auto;
+        left: auto;
+        margin-top: clamp(10px, 2vh, 18px);
+        z-index: 45;
+        font-size: 14px;
+        gap: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 1 !important;
+        transform: none !important;
+        padding: 6px 16px;
+        background: rgba(8, 8, 8, 0.84);
+        border: 1px solid rgba(255, 0, 127, 0.45);
+        border-radius: 6px;
+        box-shadow: 0 0 18px rgba(255, 0, 127, 0.25);
+        backdrop-filter: blur(12px);
+      }
+      .cd-lbl {
+        font-size: 10px;
+        color: var(--t70);
+        letter-spacing: 0.22em;
       }
       .cd-clock {
-        padding: 4px 10px;
-        font-size: 13px;
+        background: transparent;
+        border: none;
+        padding: 0;
+        font-size: 15px;
+        color: var(--pink);
+        text-shadow: 0 0 10px rgba(255, 0, 127, 0.7);
+        border-radius: 0;
+        backdrop-filter: none;
+      }
+      .mobile-dept-tag {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        margin-top: 8px;
+        z-index: 40;
+        pointer-events: none;
+      }
+      .mdt-text {
+        font-family: 'Space Mono', monospace;
+        font-size: 8.5px;
+        letter-spacing: 0.32em;
+        color: rgba(255, 255, 255, 0.42);
+        text-transform: uppercase;
+      }
+      .mdt-syms {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 12px;
+        letter-spacing: 0.45em;
+        color: var(--pink);
+        text-shadow: 0 0 8px rgba(255, 0, 127, 0.6);
+      }
+      .crowd-layer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: clamp(190px, 26vh, 250px);
+        z-index: 35;
+        pointer-events: none;
+        opacity: 1 !important;
+        transform: none !important;
       }
       .scroll-cue {
-        bottom: 20px;
-        right: 20px;
+        position: absolute;
+        bottom: 16px;
+        right: 18px;
+        z-index: 60;
+        opacity: 0.82 !important;
+        transform: none !important;
       }
 
       /* Welcome Section mobile */
@@ -749,6 +848,10 @@
         </div>
         
         <div id="countdown"><span class="cd-lbl">T-MINUS</span><span class="cd-clock">04:59:59</span></div>
+        <div class="mobile-dept-tag">
+          <div class="mdt-text">DEPARTMENT OF INDUSTRIAL IOT</div>
+          <div class="mdt-syms">&#9675; &nbsp; &#9651; &nbsp; &#9633;</div>
+        </div>
 
         <!-- Layer 4: Full-Screen Screen-Fitting Crowd (Spans 100% viewport width edge-to-edge, in front of guard) -->
         <div class="crowd-layer">
