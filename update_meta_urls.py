@@ -6,12 +6,8 @@ def update_meta_urls():
             content = f.read()
             
         changed = False
-        if 'https://xtasy-zeta.vercel.app/assets/IMG_9183.png' in content:
-            content = content.replace('https://xtasy-zeta.vercel.app/assets/IMG_9183.png', 'https://xtasy-4-0.vercel.app/assets/IMG_9183.png')
-            changed = True
-        
-        if 'https://xtasy-zeta.vercel.app/' in content:
-            content = content.replace('https://xtasy-zeta.vercel.app/', 'https://xtasy-4-0.vercel.app/')
+        if 'IMG_9183.png' in content and 'og:image' in content:
+            content = content.replace('IMG_9183.png', 'xtasy_logo.jpg')
             changed = True
             
         if changed:
@@ -19,4 +15,5 @@ def update_meta_urls():
                 f.write(content)
             print(f"Updated {filename}")
 
-update_meta_urls()
+if __name__ == '__main__':
+    update_meta_urls()
