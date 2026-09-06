@@ -60,6 +60,17 @@
     .btn-cta{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;color:#fff;background:var(--pink);padding:8px 24px;border:none;border-radius:9999px;cursor:pointer;box-shadow:0 0 24px rgba(255,0,127,.65);transition:all .3s var(--ease-s)}
     .btn-cta:hover{background:#ff1a8c;transform:translateY(-2px) scale(1.04);box-shadow:0 0 42px rgba(255,0,127,.95)}
 
+    /* Audio Equalizer Toggle */
+    .snd-toggle { display: flex; align-items: flex-end; gap: 3px; height: 18px; cursor: pointer; padding: 0 10px; opacity: 0.8; transition: opacity 0.3s; margin-left: 20px;}
+    .snd-toggle:hover { opacity: 1; }
+    .snd-toggle .bar { width: 4px; background: var(--pink); border-radius: 2px; transition: height 0.2s; box-shadow: 0 0 8px rgba(255,0,127,0.4); }
+    .snd-toggle.playing .bar { animation: eqPlay 0.8s infinite ease-in-out alternate; }
+    .snd-toggle.playing .bar:nth-child(1) { height: 8px; animation-delay: 0.1s; }
+    .snd-toggle.playing .bar:nth-child(2) { height: 16px; animation-delay: 0.3s; }
+    .snd-toggle.playing .bar:nth-child(3) { height: 12px; animation-delay: 0.0s; }
+    .snd-toggle:not(.playing) .bar { height: 4px; background: var(--t70); box-shadow: none; }
+    @keyframes eqPlay { 0% { height: 6px; } 100% { height: 18px; } }
+
     /* Main */
     main{width:100%;position:relative;background:#000}
     .sec{width:100%;min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden;background:#000}
@@ -356,6 +367,9 @@
       <span class="nav-a on" onclick="goTo('hero')">About the Game</span>
       <span class="nav-a" onclick="goTo('rules')">Pricing</span>
       <span class="nav-a" onclick="goTo('ready')">Contact</span>
+      <div id="sound-btn" class="snd-toggle" onclick="toggleSound()">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      </div>
     </nav>
     <button class="btn-cta" data-cursor="triangle" onclick="goTo('ready')">Play Game</button>
   </header>
@@ -619,6 +633,21 @@
   <script>
     var timers=[],audioCtx=null,mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
     var dot=document.getElementById('cdot'),ring=document.getElementById('cring');
+
+    function toggleSound() {
+      var snd = document.getElementById('snd');
+      var btn = document.getElementById('sound-btn');
+      if(!snd) return;
+      if (snd.paused) {
+        snd.volume = 0.5; // Smooth volume
+        snd.play().then(function() {
+          btn.classList.add('playing');
+        }).catch(function(e) { console.log(e); });
+      } else {
+        snd.pause();
+        btn.classList.remove('playing');
+      }
+    }
 
     /* ── 1. HERO INTRO: Gliding cinematic transition matching video ── */
     function playIntro(){
