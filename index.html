@@ -391,8 +391,13 @@
 
       .dept-watermark { display: none !important; }
 
+      .sec {
+        min-height: auto !important;
+        justify-content: flex-start;
+      }
+
       /* Hero stage mobile: 1:1 scale locked architecture with balanced vertical rhythm */
-      #hero { height: 100vh; min-height: -webkit-fill-available; padding-top: 0; position: relative; overflow: hidden; width: 100%; max-width: 100vw; }
+      #hero { height: 100vh; min-height: -webkit-fill-available; min-height: 100vh !important; padding-top: 0; position: relative; overflow: hidden; width: 100%; max-width: 100vw; }
       .hero-canvas {
         width: 100%;
         height: 100%;
@@ -542,10 +547,10 @@
       }
 
       /* Welcome Section mobile */
-      #welcome { padding: 60px 16px; }
-      .wb { padding: 10px 0; margin-bottom: 28px; }
+      #welcome { padding: 44px 16px; }
+      .wb { padding: 10px 0; margin-bottom: 24px; }
       .wb-txt { font-size: clamp(14px, 4vw, 22px); letter-spacing: 0.22em; }
-      .wg { grid-template-columns: 1fr; gap: 28px; padding: 0; }
+      .wg { grid-template-columns: 1fr; gap: 24px; padding: 0; }
       .wleft { align-items: center; text-align: center; width: 100%; }
       .w-hold { font-size: clamp(46px, 14vw, 76px); text-align: center; }
       .w-card { font-size: clamp(22px, 6.5vw, 36px); justify-content: center; }
@@ -558,9 +563,9 @@
       .card-m:active { transform: scale(0.96) rotate(10deg); filter: drop-shadow(0 0 35px rgba(255,0,127,0.9)); }
 
       /* Rules Section mobile */
-      #rules { padding: 60px 16px; }
+      #rules { padding: 44px 16px; }
       .rules-wrap { padding: 0; }
-      .rules-hdr { justify-content: center; text-align: center; margin-bottom: 24px; }
+      .rules-hdr { justify-content: center; text-align: center; margin-bottom: 20px; }
       .rh-p, .rh-w { text-align: center; }
       .rh-p { font-size: clamp(32px, 8.5vw, 48px); }
       .rh-w { font-size: clamp(17px, 4.8vw, 26px); }
@@ -594,7 +599,7 @@
       .rc .r-desc { font-size: 12.5px; line-height: 1.4; }
 
       /* Inside Collage mobile */
-      #inside { padding: 60px 16px; }
+      #inside { padding: 44px 16px; }
       .inside-wrap { padding: 0; }
       .collage {
         width: 100%;
@@ -611,8 +616,8 @@
       .it-w { font-size: 13px; letter-spacing: 0.12em; }
 
       /* Ready Section mobile */
-      #ready { padding: 60px 16px 20px; }
-      .ready-row { flex-direction: column; gap: 14px; align-items: center; text-align: center; margin-bottom: 40px; }
+      #ready { padding: 44px 16px 20px; }
+      .ready-row { flex-direction: column; gap: 14px; align-items: center; text-align: center; margin-bottom: 32px; }
       .rr-re { font-size: clamp(52px, 14vw, 76px) !important; text-align: center; }
       .rr-mask { width: clamp(200px, 60vw, 280px); max-height: 38vh; margin: 6px 0; }
       .rr-dy { align-items: center; text-align: center; width: 100%; }
@@ -1107,7 +1112,7 @@
           aboutLinks.forEach(function(a){if(a.innerText.trim()==='About the Game')a.classList.remove('on');});
         }
       });
-    },{threshold:.22,rootMargin:'0px 0px -10% 0px'});
+    },{threshold:.15,rootMargin:'0px 0px -5% 0px'});
     document.querySelectorAll('.sec').forEach(function(s){obs.observe(s)});
 
     function goTo(id){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'})}
