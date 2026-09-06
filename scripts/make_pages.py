@@ -246,11 +246,29 @@ ext_vision = """
   <p>The goal is to evaluate their understanding of the topic, creativity in presentation, and communication skills. It's not just about what you know, but how effectively you can communicate it to the world.</p>
 </div>
 <div class="ext-block">
-  <h3>EXPECTATIONS</h3>
+  <h3>OFFICIAL THEMES (CHOOSE ONE)</h3>
   <ul>
-    <li><strong>VISUALIZE</strong> Present a clear, visually striking poster communicating an industrial or technical concept.</li>
-    <li><strong>INNOVATE</strong> Showcase novel ideas in lean manufacturing, IoT, or industrial automation.</li>
-    <li><strong>EXCEL</strong> Defend your ideas and answer technical queries from industry experts and judges.</li>
+    <li><strong>1. 5S</strong> Workplace organization and efficiency (Sort, Set in Order, Shine, Standardize, Sustain).</li>
+    <li><strong>2. POKA-YOKE</strong> Mistake-proofing in industrial processes.</li>
+    <li><strong>3. 7 WASTES</strong> Identifying and eliminating major forms of waste in manufacturing.</li>
+    <li><strong>4. TPM (Total Productive Maintenance)</strong> Proactive and preventive maintenance practices.</li>
+    <li><strong>5. 7 QC TOOLS</strong> Fundamental quality-control tools for problem-solving.</li>
+    <li><strong>6. VISUAL MANAGEMENT</strong> Communicating info clearly through visual systems.</li>
+    <li><strong>7. OHNO CIRCLE</strong> Observing an actual workplace directly to identify problems.</li>
+    <li><strong>8. CLIRT</strong> Practical application of CLIRT in industrial operations.</li>
+    <li><strong>9. ECRS</strong> Process improvement (Eliminate, Combine, Rearrange, Simplify).</li>
+    <li><strong>10. 7 ABNORMALITIES</strong> Recognizing abnormalities before they lead to problems.</li>
+    <li><strong>11. MOTION ECONOMY</strong> Reducing unnecessary human movement in operations.</li>
+    <li><strong>12. RFT (Right First Time)</strong> Producing correct output at the first attempt.</li>
+    <li><strong>13. BASIC SAFETY</strong> Fundamental workplace safety practices and hazard prevention.</li>
+    <li><strong>14. KAIZEN</strong> Continuous improvement through small, incremental changes.</li>
+  </ul>
+</div>
+<div class="ext-block">
+  <h3>EXPECTED SOLUTION & EXPECTATIONS</h3>
+  <ul>
+    <li><strong>VISUALIZE</strong> Present a clear, visually striking poster (A3/Chart paper) communicating your industrial concept. AI generated content is discouraged.</li>
+    <li><strong>EXPLAIN</strong> Be prepared to answer questions: What is the concept? Why is it important? How is it applied? Can you provide a real-world example?</li>
   </ul>
 </div>
 """
@@ -277,12 +295,22 @@ ext_triguna = """
   <p>The event focuses on the intersection of agriculture, technology, sustainability, frugal engineering, and innovation. Participants are expected to move beyond theoretical ideas and develop solutions that can realistically address problems encountered in agricultural and rural environments.</p>
 </div>
 <div class="ext-block">
-  <h3>THE CORE PHILOSOPHY</h3>
+  <h3>PROBLEM TRACKS (CHOOSE ONE)</h3>
   <ul>
-    <li><strong>IDENTIFY</strong> Find a real problem and understand its root cause in the agricultural sector.</li>
-    <li><strong>DEVELOP</strong> Build an innovative, frugal, and affordable solution.</li>
-    <li><strong>DEMONSTRATE</strong> Prove its technical feasibility and suitability for real-world agricultural conditions.</li>
-    <li><strong>PITCH</strong> Present the economic value and impact to the jury.</li>
+    <li><strong>PS-1: THE ₹3,000 SMART FIELD (Precision Irrigation & Pest Alert)</strong> Affordable agricultural automation. <em>Expected Tech: IoT nodes, active/passive mechanisms under ₹3,000.</em></li>
+    <li><strong>PS-2: THE 6-HOUR SHIELD (Allied Dairy & Fisheries)</strong> Off-grid technological solutions. <em>Expected Tech: Solar/Peltier cooling, automated aeration, DO/pH monitoring.</em></li>
+    <li><strong>PS-3: SHREE ANNA: GRAIN TO GAIN (Traditional Millets)</strong> Improving processing & handling. <em>Expected Tech: Motorized/manual dehulling, low-breakage mechanisms, better packaging.</em></li>
+    <li><strong>PS-4: ZERO-CHEMICAL, ZERO-LOSS (Natural & Regenerative Farming)</strong> Supporting natural practices. <em>Expected Tech: Low-cost soil/spectral monitoring, organic pest control systems.</em></li>
+    <li><strong>PS-5: MANDI BYPASS: FAIR BID (Digital Marketplaces)</strong> Improving market transparency. <em>Expected Tech: Web/mobile apps, IoT moisture meters, digital auction platforms.</em></li>
+    <li><strong>PS-6: OPEN INNOVATION IN AGRICULTURE (Grassroots)</strong> Any other genuine, meaningful agricultural problem. <em>Expected Solution: A working mechanism, prototype, or app (pure abstract ideas not allowed).</em></li>
+  </ul>
+</div>
+<div class="ext-block">
+  <h3>EXPECTED DELIVERABLES & EVALUATION</h3>
+  <ul>
+    <li><strong>WORKING DEMONSTRATION</strong> Physical prototype, hardware circuit, mechanical mechanism, verified simulation, or functional app.</li>
+    <li><strong>FARMER ECONOMICS</strong> You must calculate exact Bill of Materials (BOM), expected savings, and payback period.</li>
+    <li><strong>PITCH</strong> A 6-minute pitch (6-8 slides) defending the technical feasibility, cost, and practical implementation to the jury.</li>
   </ul>
 </div>
 """
