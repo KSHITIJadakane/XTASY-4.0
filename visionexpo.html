@@ -387,10 +387,6 @@
 
       .dept-watermark { display: none !important; }
     }
-      .btn-cta { display: none; }
-      .snd-toggle { display: none; }
-      .mobile-menu-btn { display: flex; }
-    }
   </style>
 
   <meta property="og:title" content="XTASY 4.0 — Quest Room | Official Experience" />
@@ -591,29 +587,6 @@
       
       .event-detail-sec { z-index: 10; position: relative; padding-top: 100px; padding-bottom: 120px; align-items: flex-start; min-height: 100vh; }
       .ed-wrap { width: 100%; max-width: 1200px; margin: 0 auto; display: flex; gap: 60px; padding: 20px; align-items: center; opacity: 0; animation: pageFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; }
-      @media(max-width: 900px) {
-        .event-detail-sec { padding-top: 80px; padding-bottom: 50px; }
-        .ed-wrap { flex-direction: column; text-align: center; gap: 28px; padding: 16px; }
-        .ed-right { align-items: center; width: 100%; }
-        .ed-image-wrap { max-width: 280px; width: 100%; aspect-ratio: 1/1; }
-        .ed-title { font-size: clamp(32px, 8vw, 52px); }
-        .ed-tagline { font-size: 15px; margin-bottom: 20px; }
-        .ed-desc { font-size: 14.5px; margin-bottom: 24px; }
-        .ed-challenge-box { text-align: left; padding: 16px; margin-top: 16px; }
-        .ed-specs { justify-content: center; gap: 16px; margin-bottom: 28px; }
-        .ed-spec { flex: 1; max-width: 140px; padding: 10px 16px; text-align: center; }
-        .ed-spec .val { font-size: 16px; }
-        .ed-cta { width: 100%; max-width: 320px; padding: 15px 24px; font-size: 16px; border-radius: 8px; margin-bottom: 18px; }
-        #xtasy-toolbar { top: 75px; left: 50%; transform: translateX(-50%) translateY(-15px); width: calc(100% - 32px); max-width: 320px; }
-        #xtasy-toolbar.active { transform: translateX(-50%) translateY(0); }
-        .event-extended-sec { padding: 50px 16px; }
-        .ext-wrap { gap: 32px; }
-        .ext-block h3 { font-size: 20px; margin-bottom: 14px; }
-        .ext-block p { font-size: 14.5px; line-height: 1.6; margin-bottom: 14px; }
-        .ext-block li { padding: 14px 16px; font-size: 13.5px; line-height: 1.5; }
-      }
-      
-      }
       
       .ed-left { flex: 1; display: flex; justify-content: center; }
       .ed-image-wrap { width: 100%; max-width: 500px; aspect-ratio: 1/1; border: 1px solid rgba(255,0,127,0.3); border-radius: 12px; overflow: hidden; box-shadow: 0 0 50px rgba(0,0,0,0.9), 0 0 30px rgba(255,0,127,0.15); }
@@ -621,8 +594,6 @@
       .ed-image-wrap:hover img { transform: scale(1.05); }
       
       .ed-right { flex: 1.2; display: flex; flex-direction: column; align-items: flex-start; }
-      }
-      
       .ed-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(42px, 5vw, 72px); font-weight: 800; color: var(--pink); line-height: 1; letter-spacing: 0.02em; text-shadow: 0 0 30px rgba(255,0,127,0.6); margin-bottom: 10px; text-transform: uppercase; }
       .ed-tagline { font-family: 'Space Grotesk', sans-serif; font-size: clamp(16px, 2vw, 22px); font-weight: 600; color: var(--cyan); letter-spacing: 0.15em; margin-bottom: 30px; text-transform: uppercase; text-shadow: 0 0 10px rgba(0,240,255,0.4); }
       
@@ -631,7 +602,6 @@
       .ed-challenge-box h3 { font-family: 'Space Grotesk', sans-serif; color: #fff; font-size: 14px; letter-spacing: 0.1em; margin-bottom: 8px; }
       
       .ed-specs { display: flex; gap: 30px; margin-bottom: 40px; width: 100%; }
-      }
       .ed-spec { display: flex; flex-direction: column; background: rgba(255,255,255,0.03); padding: 15px 25px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); }
       .ed-spec .lbl { font-family: 'Space Grotesk', sans-serif; font-size: 11px; color: var(--t70); letter-spacing: 0.2em; margin-bottom: 4px; }
       .ed-spec .val { font-family: 'Space Mono', monospace; font-size: 18px; color: #fff; font-weight: 700; }
@@ -665,6 +635,29 @@
       .ext-block li { font-family: 'Inter', sans-serif; color: #aaa; font-size: 16px; line-height: 1.6; background: rgba(255,255,255,0.02); padding: 20px 25px; border-left: 3px solid var(--pink); border-radius: 0 8px 8px 0; transition: background 0.3s; }
       .ext-block li:hover { background: rgba(255,255,255,0.05); }
       .ext-block li strong { color: #fff; font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.05em; display: block; margin-bottom: 5px; color: var(--pink); }
+
+      /* Mobile Overrides (max-width: 900px) */
+      @media (max-width: 900px) {
+        .event-detail-sec { padding-top: 80px; padding-bottom: 50px; }
+        .ed-wrap { flex-direction: column; text-align: center; gap: 28px; padding: 16px; }
+        .ed-right { align-items: center; width: 100%; }
+        .ed-image-wrap { max-width: 280px; width: 100%; aspect-ratio: 1/1; }
+        .ed-title { font-size: clamp(32px, 8vw, 52px); }
+        .ed-tagline { font-size: 15px; margin-bottom: 20px; }
+        .ed-desc { font-size: 14.5px; margin-bottom: 24px; }
+        .ed-challenge-box { text-align: left; padding: 16px; margin-top: 16px; }
+        .ed-specs { justify-content: center; gap: 16px; margin-bottom: 28px; }
+        .ed-spec { flex: 1; max-width: 140px; padding: 10px 16px; text-align: center; }
+        .ed-spec .val { font-size: 16px; }
+        .ed-cta { width: 100%; max-width: 320px; padding: 15px 24px; font-size: 16px; border-radius: 8px; margin-bottom: 18px; }
+        #xtasy-toolbar { top: 75px; left: 50%; transform: translateX(-50%) translateY(-15px); width: calc(100% - 32px); max-width: 320px; }
+        #xtasy-toolbar.active { transform: translateX(-50%) translateY(0); }
+        .event-extended-sec { padding: 50px 16px; }
+        .ext-wrap { gap: 32px; }
+        .ext-block h3 { font-size: 20px; margin-bottom: 14px; }
+        .ext-block p { font-size: 14.5px; line-height: 1.6; margin-bottom: 14px; }
+        .ext-block li { padding: 14px 16px; font-size: 13.5px; line-height: 1.5; }
+      }
     </style>
     <footer class="footer" style="position:relative; z-index:20; background:#050505;">
       <div class="logo" onclick="window.location.href='index.html'">
