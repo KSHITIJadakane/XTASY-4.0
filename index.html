@@ -122,7 +122,7 @@
     body.settled .glide-left,body.settled .glide-right,body.settled .glide-center{opacity:1!important;transform:none!important}
 
     /* Replay & scroll cue */
-    .btn-replay{position:absolute;top:18px;right:26px;z-index:100;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.75);background:rgba(8,8,8,.72);border:1px solid rgba(255,0,127,.38);border-radius:20px;padding:5px 14px;cursor:pointer;backdrop-filter:blur(12px);box-shadow:0 0 14px rgba(255,0,127,.18);transition:all .3s var(--ease-s)}
+    .btn-replay{position:absolute;top:clamp(80px,10vh,94px);right:clamp(24px,4vw,56px);z-index:100;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.75);background:rgba(8,8,8,.72);border:1px solid rgba(255,0,127,.38);border-radius:20px;padding:5px 14px;cursor:pointer;backdrop-filter:blur(12px);box-shadow:0 0 14px rgba(255,0,127,.18);transition:all .3s var(--ease-s)}
     .btn-replay:hover{color:#fff;background:rgba(255,0,127,.18);border-color:var(--pink);box-shadow:0 0 26px rgba(255,0,127,.65)}
     .scroll-cue{position:absolute;bottom:clamp(16px,3vh,32px);right:clamp(24px,4vw,56px);z-index:100;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .8s var(--ease) 1.2s,transform .8s var(--ease) 1.2s}
     body.settled .scroll-cue{opacity:.82;transform:translateY(0)}
@@ -392,7 +392,7 @@
       .dept-watermark { display: none !important; }
 
       /* Hero stage mobile: 1:1 scale locked architecture with balanced vertical rhythm */
-      #hero { height: 100vh; min-height: -webkit-fill-available; padding-top: 0; position: relative; overflow: hidden; }
+      #hero { height: 100vh; min-height: -webkit-fill-available; padding-top: 0; position: relative; overflow: hidden; width: 100%; max-width: 100vw; }
       .hero-canvas {
         width: 100%;
         height: 100%;
@@ -401,16 +401,15 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        padding-top: clamp(86px, 14.5vh, 128px);
+        padding-top: clamp(84px, 13.5vh, 120px);
         background: #000;
         overflow: hidden;
       }
       .hero-stage {
         position: relative;
-        width: clamp(380px, 126vw, 500px);
+        width: 100%;
+        max-width: 100%;
         aspect-ratio: 1600 / 976;
-        max-width: none;
-        max-height: none;
         background: transparent;
         overflow: visible;
         display: block;
@@ -467,7 +466,7 @@
         position: relative;
         bottom: auto;
         left: auto;
-        margin-top: clamp(10px, 2vh, 18px);
+        margin: clamp(10px, 2vh, 16px) auto 0;
         z-index: 45;
         font-size: 14px;
         gap: 10px;
@@ -503,7 +502,7 @@
         flex-direction: column;
         align-items: center;
         gap: 4px;
-        margin-top: 8px;
+        margin: 8px auto 0;
         z-index: 40;
         pointer-events: none;
       }
@@ -535,11 +534,16 @@
       }
       .scroll-cue {
         position: absolute;
-        bottom: 16px;
-        right: 18px;
+        bottom: 14px;
+        left: 50%;
+        transform: translateX(-50%) !important;
+        right: auto;
         z-index: 60;
         opacity: 0.82 !important;
-        transform: none !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
       }
 
       /* Welcome Section mobile */
@@ -718,6 +722,8 @@
     <!-- SECTION 1: HERO -->
     <section class="sec" id="hero">
       <div class="hero-canvas">
+        <button class="btn-replay" data-cursor="triangle" onclick="replayIntro()">&#8635; REPLAY</button>
+
         <div class="hero-stage">
           <!-- Layer 1: Ambient Pink Bloom (NO GHOST GUARD BEHIND TEXT) -->
           <div class="ambient-bloom"></div>
@@ -839,12 +845,6 @@
           <div class="guard-cutout-layer">
             <img src="assets/guard_clean_cutout.png" alt="XTASY Guard Cutout"/>
           </div>
-
-          <button class="btn-replay" data-cursor="triangle" onclick="replayIntro()">&#8635; REPLAY</button>
-          <div class="scroll-cue" onclick="goTo('welcome')">
-            <span class="sc-lbl">SCROLL</span>
-            <div class="sc-mouse"><div class="sc-dot"></div></div>
-          </div>
         </div>
         
         <div id="countdown"><span class="cd-lbl">T-MINUS</span><span class="cd-clock">04:59:59</span></div>
@@ -856,6 +856,11 @@
         <!-- Layer 4: Full-Screen Screen-Fitting Crowd (Spans 100% viewport width edge-to-edge, in front of guard) -->
         <div class="crowd-layer">
           <img src="assets/hero_players_foreground.png" alt="Players Foreground"/>
+        </div>
+
+        <div class="scroll-cue" onclick="goTo('welcome')">
+          <span class="sc-lbl">SCROLL</span>
+          <div class="sc-mouse"><div class="sc-dot"></div></div>
         </div>
       </div>
     </section>
