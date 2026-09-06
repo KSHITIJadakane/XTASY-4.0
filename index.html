@@ -27,7 +27,7 @@
 
     
     /* Countdown Timer */
-    #countdown{position:fixed;bottom:26px;left:26px;z-index:100;font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:var(--pink);text-shadow:0 0 12px rgba(255,0,127,.6);letter-spacing:.15em;display:flex;align-items:center;gap:12px;opacity:0;transform:translateY(10px);transition:all .8s var(--ease) 1.5s}
+    #countdown{position:absolute;bottom:26px;left:26px;z-index:100;font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:var(--pink);text-shadow:0 0 12px rgba(255,0,127,.6);letter-spacing:.15em;display:flex;align-items:center;gap:12px;opacity:0;transform:translateY(10px);transition:all .8s var(--ease) 1.5s}
     body.settled #countdown{opacity:1;transform:translateY(0)}
     .cd-lbl{font-size:9px;color:var(--t70);letter-spacing:.25em}
     .cd-clock{background:rgba(8,8,8,.72);border:1px solid rgba(255,0,127,.2);padding:6px 12px;border-radius:4px;backdrop-filter:blur(12px)}
@@ -268,22 +268,7 @@
     .c-name { font-family: 'Space Grotesk', sans-serif; font-size: 15px; color: #000; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 4px; }
     .c-num { font-family: 'Space Mono', monospace; font-size: 13px; color: #444; }
 
-    @media(max-width:820px){
-      .nav{display:none}
-      .t-xtasy{font-size:clamp(52px,18vw,200px)}
-      .t-40{font-size:clamp(28px,10vw,120px)}
-      .wg{grid-template-columns:1fr;gap:28px}
-      .glove{max-height:38vh}
-      .rules-grid{grid-template-columns:repeat(2,1fr);min-height:auto}
-      .rc{border-bottom:1px solid rgba(255,255,255,.1)}
-      .ready-row{flex-direction:column;gap:16px}
-      .rr-re,.rr-dy-t{font-size:64px!important}
-      .rr-dy{align-items:center;text-align:center}
-      .rr-dy-extras{position:static;margin-top:16px;align-items:center}
-      .collage{height:420px}
-      .rules-hdr{justify-content:flex-start}
-      .rh-p,.rh-w{text-align:left}
-    }
+
   
     /* ── FRONTMAN CCTV GLITCH ── */
     .cctv-glitch-container {
@@ -372,24 +357,187 @@
       95% { transform: translate(-1px, 3px) scale(1.02); filter: contrast(1.3) brightness(1.4) grayscale(0); }
       96% { transform: translate(0,0) scale(1); filter: contrast(1.1) brightness(0.9) grayscale(0.2); }
     }
-    /* Mobile Menu Styles */
+    /* Mobile Menu & Touch Tuning */
     .hdr-right { display: flex; align-items: center; gap: 16px; }
-    .mobile-menu-btn { display: none; background: transparent; border: none; cursor: pointer; flex-direction: column; gap: 4px; z-index: 1001; padding: 4px; }
+    .mobile-menu-btn { display: none; background: transparent; border: none; cursor: pointer; flex-direction: column; gap: 4px; z-index: 1001; padding: 8px; min-width: 44px; min-height: 44px; justify-content: center; align-items: center; }
     .mobile-menu-btn .bar { width: 24px; height: 2px; background: #fff; transition: 0.3s; display: block; }
     .mobile-menu-btn.active .bar:nth-child(1), .mobile-menu-btn.open .bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
     .mobile-menu-btn.active .bar:nth-child(2), .mobile-menu-btn.open .bar:nth-child(2) { opacity: 0; }
     .mobile-menu-btn.active .bar:nth-child(3), .mobile-menu-btn.open .bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
     
-    .mobile-nav-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease); }
+    .mobile-nav-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease); }
     .mobile-nav-overlay.active, .mobile-nav-overlay.open { opacity: 1; pointer-events: auto; }
-    .mobile-nav-content { display: flex; flex-direction: column; align-items: center; gap: 32px; transform: translateY(20px); transition: transform 0.4s var(--ease); }
+    .mobile-nav-content { display: flex; flex-direction: column; align-items: center; gap: 28px; transform: translateY(20px); transition: transform 0.4s var(--ease); width: 100%; max-width: 320px; padding: 20px; }
     .mobile-nav-overlay.active .mobile-nav-content, .mobile-nav-overlay.open .mobile-nav-content { transform: translateY(0); }
-    
+    .mobile-nav-content .nav-a { font-size: 20px; font-weight: 700; letter-spacing: 0.08em; }
+
+    /* Touch Devices */
+    @media (hover: none) or (pointer: coarse) {
+      .cdot, .cring { display: none !important; }
+      body { cursor: auto !important; }
+      a, button, [onclick] { cursor: pointer !important; }
+    }
+
+    /* Mobile Responsive Tuning */
     @media (max-width: 820px) {
       .nav { display: none !important; }
-      .btn-cta { display: none; }
-      .snd-toggle { display: none; }
+      #hdr .btn-cta, .hdr-right .btn-cta { display: none !important; }
+      #hdr .snd-toggle, .hdr-right .snd-toggle { display: none !important; }
       .mobile-menu-btn { display: flex; }
+      #hdr { height: 62px; padding: 0 16px; }
+
+      .dept-watermark { display: none !important; }
+
+      /* Hero stage mobile: fill portrait screen without blank abyss */
+      #hero { height: 100vh; min-height: -webkit-fill-available; padding-top: 0; }
+      .hero-canvas { align-items: center; justify-content: center; height: 100%; width: 100%; }
+      .hero-stage {
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        aspect-ratio: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .guard-cutout-layer img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 25%;
+      }
+      .text-stage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .text-stage svg {
+        width: 100%;
+        height: auto;
+        max-height: 80vh;
+        transform: scale(1.08);
+      }
+      .crowd-layer {
+        height: clamp(120px, 18vh, 180px);
+      }
+      .btn-replay {
+        top: 76px;
+        right: 16px;
+        font-size: 11px;
+        padding: 6px 14px;
+      }
+      #countdown {
+        position: absolute;
+        bottom: 20px;
+        left: 16px;
+        font-size: 13px;
+        gap: 8px;
+      }
+      .cd-clock {
+        padding: 4px 10px;
+        font-size: 13px;
+      }
+      .scroll-cue {
+        bottom: 20px;
+        right: 20px;
+      }
+
+      /* Welcome Section mobile */
+      #welcome { padding: 60px 16px; }
+      .wb { padding: 10px 0; margin-bottom: 28px; }
+      .wb-txt { font-size: clamp(14px, 4vw, 22px); letter-spacing: 0.22em; }
+      .wg { grid-template-columns: 1fr; gap: 28px; padding: 0; }
+      .wleft { align-items: center; text-align: center; width: 100%; }
+      .w-hold { font-size: clamp(46px, 14vw, 76px); text-align: center; }
+      .w-card { font-size: clamp(22px, 6.5vw, 36px); justify-content: center; }
+      .w-cyan { font-size: 17px; }
+      .w-body { font-size: 14px; text-align: center; max-width: 330px; }
+      .btn-accept { font-size: 14px; padding: 12px 36px; }
+      .wright { min-height: 280px; max-height: 40vh; width: 100%; }
+      .glove { max-height: 36vh; width: 90%; }
+      .card-m { width: clamp(140px, 40vw, 200px); right: 18%; top: 28%; }
+      .card-m:active { transform: scale(0.96) rotate(10deg); filter: drop-shadow(0 0 35px rgba(255,0,127,0.9)); }
+
+      /* Rules Section mobile */
+      #rules { padding: 60px 16px; }
+      .rules-wrap { padding: 0; }
+      .rules-hdr { justify-content: center; text-align: center; margin-bottom: 24px; }
+      .rh-p, .rh-w { text-align: center; }
+      .rh-p { font-size: clamp(32px, 8.5vw, 48px); }
+      .rh-w { font-size: clamp(17px, 4.8vw, 26px); }
+      .rules-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-height: auto;
+        border: none;
+      }
+      .rc {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 18px;
+        padding: 18px 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        border-left: 3px solid var(--pink);
+        min-height: auto;
+        text-align: left;
+        border-bottom: none;
+      }
+      .rc:nth-child(1) .r-num, .rc:nth-child(2) .r-num, .rc:nth-child(3) .r-num, .rc:nth-child(4) .r-num {
+        margin: 0;
+      }
+      .rc .r-num { font-size: 34px; line-height: 1; flex-shrink: 0; margin: 0; }
+      .rc-info { display: flex; flex-direction: column; gap: 2px; text-align: left; }
+      .rc .r-title { font-size: 15px; margin-bottom: 2px; }
+      .rc .r-desc { font-size: 12.5px; line-height: 1.4; }
+
+      /* Inside Collage mobile */
+      #inside { padding: 60px 16px; }
+      .inside-wrap { padding: 0; }
+      .collage {
+        width: 100%;
+        max-width: 350px;
+        height: 320px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .ci-1 { width: 130px; height: 130px; top: 0; left: 0; }
+      .ci-2 { width: 140px; height: 140px; bottom: 15px; left: 45px; z-index: 10; }
+      .ci-3 { width: 175px; height: 110px; top: 15px; right: 0; }
+      .in-title { bottom: 0; right: 0; }
+      .it-p { font-size: 32px; line-height: 0.9; }
+      .it-w { font-size: 13px; letter-spacing: 0.12em; }
+
+      /* Ready Section mobile */
+      #ready { padding: 60px 16px 20px; }
+      .ready-row { flex-direction: column; gap: 14px; align-items: center; text-align: center; margin-bottom: 40px; }
+      .rr-re { font-size: clamp(52px, 14vw, 76px) !important; text-align: center; }
+      .rr-mask { width: clamp(200px, 60vw, 280px); max-height: 38vh; margin: 6px 0; }
+      .rr-dy { align-items: center; text-align: center; width: 100%; }
+      .rr-dy-extras { position: static; margin-top: 12px; align-items: center; width: 100%; }
+      .rr-toplay { font-size: clamp(18px, 5vw, 24px); }
+      #ready .btn-cta {
+        display: inline-block !important;
+        font-size: 15px;
+        padding: 14px 44px;
+        box-shadow: 0 0 35px rgba(255,0,127,.8);
+      }
+      
+      /* Footer mobile */
+      .footer {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        text-align: center;
+        padding: 30px 16px 24px;
+      }
+      .contact-box {
+        width: min(92vw, 420px);
+        padding: 24px 18px;
+      }
     }
   </style>
 
@@ -442,6 +590,7 @@
     <div class="mobile-nav-content">
       <span class="nav-a on" onclick="goTo('hero'); toggleMobileMenu()">About the Game</span>
       <span class="nav-a" onclick="openContactModal(); toggleMobileMenu()">Contact</span>
+      <button class="btn-cta" style="padding:12px 36px;font-size:14px;box-shadow:0 0 25px rgba(255,0,127,.8);margin:6px 0;" onclick="window.location.href='events.html'; toggleMobileMenu()">Play Game</button>
       <div id="sound-btn-mobile" class="snd-toggle" onclick="toggleSound()">
         <span class="snd-toggle-txt">SOUND OFF</span>
         <div class="bars">
@@ -627,10 +776,10 @@
         <svg class="wf wf-2" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85"/></svg>
         <div class="rules-hdr"><div><div class="rh-p">RULES</div><div class="rh-w">OF SURVIVAL</div></div></div>
         <div class="rules-grid">
-          <div class="rc" data-cursor="square"><div class="r-num">○</div><div class="r-title">6 games.</div><div class="r-desc">Each harder. Each deadlier.</div></div>
-          <div class="rc" data-cursor="square"><div class="r-num">△</div><div class="r-title">No second chances</div><div class="r-desc">One move. One shot.</div></div>
-          <div class="rc" data-cursor="square"><div class="r-num">□</div><div class="r-title">Trust no one</div><div class="r-desc">Allies can betray you</div></div>
-          <div class="rc" data-cursor="square"><div class="r-num">○</div><div class="r-title">Time is running.</div><div class="r-desc">Decide fast — or die.</div></div>
+          <div class="rc" data-cursor="square"><div class="r-num">○</div><div class="rc-info"><div class="r-title">6 games.</div><div class="r-desc">Each harder. Each deadlier.</div></div></div>
+          <div class="rc" data-cursor="square"><div class="r-num">△</div><div class="rc-info"><div class="r-title">No second chances</div><div class="r-desc">One move. One shot.</div></div></div>
+          <div class="rc" data-cursor="square"><div class="r-num">□</div><div class="rc-info"><div class="r-title">Trust no one</div><div class="r-desc">Allies can betray you</div></div></div>
+          <div class="rc" data-cursor="square"><div class="r-num">○</div><div class="rc-info"><div class="r-title">Time is running.</div><div class="r-desc">Decide fast — or die.</div></div></div>
         </div>
       </div>
     </section>
