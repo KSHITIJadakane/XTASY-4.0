@@ -296,7 +296,7 @@ ext_auto = """
 
 update_page(
     'automystica.html', 
-    'IMG_9183.png', 
+    'IMG_9207.jpg', 
     'AUTOMYSTICA', 
     'Build. Adapt. Survive.', 
     'Master the elements of IoT, optimize your nodes, and build a system that outlasts the rest. The frontline of the Industrial IoT revolution starts here.',
@@ -329,7 +329,7 @@ ext_hack = """
 
 update_page(
     'hackthehardware.html', 
-    'IMG_9207.jpg', 
+    'IMG_9183.png', 
     'HACK THE HARDWARE', 
     'Build It. Control It. Conquer the Arena.', 
     'Assemble your bot, refine your circuits, and navigate the treacherous paths. Only the most robust hardware and the sharpest controllers will survive the gauntlet.',
@@ -378,7 +378,7 @@ ext_vision = """
 
 update_page(
     'visionexpo.html', 
-    'IMG_9219.png', 
+    'logo_visionexpo.png', 
     'VISION EXPO', 
     'Visualize. Innovate. Excel.', 
     'The blueprint is just the beginning. Present your master plan for lean manufacturing and industrial excellence. In this arena, your ideas are your weapons.',
@@ -420,7 +420,7 @@ ext_triguna = """
 
 update_page(
     'triguna.html', 
-    'logo_automystica.jpg', 
+    'logo_triguna.png', 
     'TRIGUNA', 
     'Find the Problem. Build the Idea. Pitch the Impact.', 
     'Tackle real-world agricultural problems with practical, technically feasible, and economically viable solutions.',
