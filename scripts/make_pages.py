@@ -167,7 +167,7 @@ def update_page(filename, bg_image, title, tagline, description, challenge, team
       .ext-block li strong {{ color: #fff; font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.05em; display: block; margin-bottom: 5px; color: var(--pink); }}
     </style>
     <footer class="footer" style="position:relative; z-index:20; background:#050505;">
-      <div class="logo" onclick="goTo('hero')">
+      <div class="logo" onclick="window.location.href='index.html'">
         <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" style="width:22px;height:22px;color:var(--pink);filter:drop-shadow(0 0 8px rgba(255,0,127,.9))"><circle cx="50" cy="45" r="32" stroke-width="12"/><path d="M68 62 L88 88" stroke-width="14" stroke-linecap="round"/></svg>
         <div class="logo-lbl"><span class="logo-name" style="font-size:14px">XTASY</span><span class="logo-ver" style="font-size:7.5px">4.0</span></div>
       </div>
@@ -183,6 +183,64 @@ def update_page(filename, bg_image, title, tagline, description, challenge, team
       </div>
       <div class="copy">© 2026 XTASY 4.0 Quest Room — All Rights Reserved</div>
     </footer>
+    
+    <div id="contact-modal" onclick="if(event.target===this)closeContactModal()">
+      <div class="mbox" data-cursor="default">
+        <div class="m-top">
+          <div class="m-syms">&#9675; &#9651; &#9633;</div>
+          <div class="m-h">CONTACT COMMAND</div>
+        </div>
+        <p class="m-p">For inquiries, contact the Front Man's operators. Long press or click a number to copy.</p>
+        
+        <div class="c-list">
+          <div class="c-item" onclick="copyNum('8010994064', this)">
+            <div class="c-role">COORDINATOR</div>
+            <div class="c-name">VIDHI UKEY</div>
+            <div class="c-num">+91 80109 94064</div>
+          </div>
+          <div class="c-item" onclick="copyNum('8767951251', this)">
+            <div class="c-role">CO-COORDINATOR</div>
+            <div class="c-name">ROOPAM ZADE</div>
+            <div class="c-num">+91 87679 51251</div>
+          </div>
+          <div class="c-item" onclick="copyNum('9405476977', this)">
+            <div class="c-role">DEV</div>
+            <div class="c-name">KSHITIJ ADAKANE</div>
+            <div class="c-num">+91 94054 76977</div>
+          </div>
+        </div>
+        
+        <div class="m-actions">
+          <button class="btn-walk" data-cursor="triangle" onclick="closeContactModal()">DISMISS</button>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      function openContactModal() {{
+        document.getElementById('contact-modal').classList.add('open');
+      }}
+      function closeContactModal() {{
+        document.getElementById('contact-modal').classList.remove('open');
+      }}
+      function copyNum(num, el) {{
+        if(navigator.clipboard && navigator.clipboard.writeText) {{
+          navigator.clipboard.writeText(num).then(function() {{
+            el.classList.add('copied');
+            setTimeout(function(){{ el.classList.remove('copied'); }}, 1500);
+          }});
+        }} else {{
+          var tempInput = document.createElement('input');
+          tempInput.value = num;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          document.execCommand('copy');
+          document.body.removeChild(tempInput);
+          el.classList.add('copied');
+          setTimeout(function(){{ el.classList.remove('copied'); }}, 1500);
+        }}
+      }}
+    </script>
   </main>'''
 
     content = re.sub(r'<main>.*?</main>', new_main, content, flags=re.DOTALL)
@@ -193,14 +251,14 @@ def update_page(filename, bg_image, title, tagline, description, challenge, team
 
 ext_auto = """
 <div class="ext-block">
-  <h3>WHAT IS AUTOMYSTICA?</h3>
-  <p>Imagine that you are an automation engineer. You are given a situation such as: A greenhouse is experiencing excessive temperature while soil moisture is simultaneously decreasing. An automated system is required to monitor the environment and control the necessary equipment.</p>
-  <p>You build it. You program it. You test it. You connect it to a dashboard. You think you're done.</p>
-  <p>Then comes <strong>the twist</strong>. The coordinators introduce a new limitation: "The system can no longer operate both actuators simultaneously." Now your original solution may no longer be sufficient. You have to rethink your automation logic, modify your code and make it work.</p>
+  <h3>PROBLEM STATEMENT</h3>
+  <p>A greenhouse is experiencing excessive temperature while soil moisture is simultaneously decreasing. An automated system is required to monitor the environment and control the necessary equipment.</p>
+  <p>You build it. You program it. You test it. You connect it to a dashboard. You think you're done. Then comes <strong>the twist</strong>. The coordinators introduce a new limitation: "The system can no longer operate both actuators simultaneously." Now your original solution may no longer be sufficient. You have to rethink your automation logic, modify your code and make it work.</p>
 </div>
 <div class="ext-block">
-  <h3>THE STAGES</h3>
+  <h3>EXPECTED SOLUTION & THE STAGES</h3>
   <ul>
+    <li><strong>EXPECTED SOLUTION:</strong> An automated IoT solution built using Wokwi (sensors, ESP32, actuators) connected to a web dashboard. The solution must successfully adapt to "The Twist" mid-competition.</li>
     <li><strong>STAGE 1 (UNDERSTAND)</strong> Teams receive their assigned scenario and must understand the problem and required outputs.</li>
     <li><strong>STAGE 2 (BUILD)</strong> Teams create their solution using Wokwi. Connect sensors, ESP32, and actuators.</li>
     <li><strong>STAGE 3 (DASHBOARD)</strong> Integrate the system with a web dashboard representing actual simulated data.</li>
@@ -226,13 +284,14 @@ update_page(
 
 ext_hack = """
 <div class="ext-block">
-  <h3>CONQUER THE ARENA</h3>
-  <p>Hack the Hardware is a hands-on robotics and hardware challenge where participants put their engineering skills to the test. After learning the fundamentals of building and controlling a Bluetooth-controlled bot through a preparatory workshop, teams must assemble and program their bot during the competition and then take it into a physical maze arena.</p>
+  <h3>PROBLEM STATEMENT</h3>
+  <p>Participants must assemble and program a Bluetooth-controlled bot during the competition and navigate it through a physical maze arena.</p>
   <p>With time, control and wall collisions influencing their performance, teams must navigate the arena with precision and efficiency. The team that demonstrates the strongest overall performance takes the win.</p>
 </div>
 <div class="ext-block">
-  <h3>THE STAGES</h3>
+  <h3>EXPECTED SOLUTION & THE STAGES</h3>
   <ul>
+    <li><strong>EXPECTED SOLUTION:</strong> A robust, assembled and programmed hardware bot that accurately responds to Bluetooth controls and successfully navigates the maze with minimal wall collisions in the fastest time.</li>
     <li><strong>GREEN LIGHT - BUILD</strong> Assemble and program your bot using provided components.</li>
     <li><strong>RED LIGHT - TEST</strong> Test your bot and ensure that it responds correctly.</li>
     <li><strong>GREEN LIGHT - ARENA</strong> Enter the maze. Navigate the treacherous paths with your Bluetooth controller.</li>

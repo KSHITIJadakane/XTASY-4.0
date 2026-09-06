@@ -1,0 +1,9 @@
+.agents/
+__pycache__/
+.vercel
+tests_and_scratch/
+scratch_frames/
+scripts/
+docs/
+EVENTS/
+*.py

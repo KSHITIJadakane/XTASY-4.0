@@ -21,7 +21,7 @@
     .fx-vig{position:fixed;inset:0;pointer-events:none;z-index:12;background:radial-gradient(ellipse at center,transparent 58%,rgba(0,0,0,.75) 100%)}
     .fx-scroll{position:fixed;inset:0;pointer-events:none;z-index:11;background:radial-gradient(ellipse at center,transparent 58%,rgba(3,122,75,0.04) 100%);transition:background 0.5s}
     .fx-scroll.danger{background:radial-gradient(ellipse at center,transparent 50%,rgba(186,19,77,0.2) 100%)}
-    .dept-watermark{position:fixed;right:20px;bottom:40px;writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.3em;color:rgba(255,255,255,0.15);z-index:100;pointer-events:none;text-transform:uppercase}
+    .dept-watermark{position:fixed;right:20px;top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:right center;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.4em;color:rgba(255,255,255,0.07);z-index:50;pointer-events:none;text-transform:uppercase;mix-blend-mode:overlay;white-space:nowrap}
     body.glitch main{animation:glitch-scroll 0.3s cubic-bezier(.25,.46,.45,.94) both 2}
     @keyframes glitch-scroll{0%{transform:translate(0)}20%{transform:translate(-3px,1px)}40%{transform:translate(-1px,-3px)}60%{transform:translate(3px,1px)}80%{transform:translate(1px,-1px)}100%{transform:translate(0)}}
 
@@ -73,6 +73,17 @@
     .snd-toggle.playing .bar:nth-child(3) { height: 12px; animation-delay: 0.0s; }
     .snd-toggle:not(.playing) .bar { height: 4px; background: var(--t70); box-shadow: none; }
     @keyframes eqPlay { 0% { height: 6px; } 100% { height: 18px; } }
+
+    
+    .contact-box { width: 90%; max-width: 450px; background: #080808; border: 1px solid var(--b12); padding: 32px; position: relative; }
+    .c-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
+    .c-item { display: flex; flex-direction: column; align-items: center; text-align: center; background: rgba(255,255,255,0.03); padding: 16px; border-radius: 8px; border: 1px solid var(--b12); cursor: pointer; position: relative; user-select: none; -webkit-user-select: none; transition: background 0.3s, border-color 0.3s; }
+    .c-item:active { background: rgba(255,0,127,0.1); border-color: var(--pink); }
+    .c-name { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 0.05em; }
+    .c-role { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--t70); margin-bottom: 8px; }
+    .c-phone { font-family: 'Space Mono', monospace; font-size: 16px; color: var(--pink); font-weight: 700; }
+    .c-tooltip { position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: var(--pink); color: #fff; font-size: 10px; padding: 4px 8px; border-radius: 4px; opacity: 0; pointer-events: none; transition: opacity 0.3s; white-space: nowrap; font-family: 'Inter', sans-serif; z-index: 10; }
+    .c-tooltip.show-tooltip { opacity: 1; pointer-events: auto; }
 
     /* Main */
     main{width:100%;position:relative;background:#000}
@@ -363,6 +374,18 @@
     }
 
   </style>
+
+  <meta property="og:title" content="XTASY 4.0 — Quest Room | Official Experience" />
+  <meta property="og:description" content="Step inside the ultimate XTASY 4.0 escape room. Test your limits, follow the rules of survival, and hold the card. The game begins now." />
+  <meta property="og:image" content="https://xtasy-4-0.vercel.app/assets/IMG_9183.png" />
+  <meta property="og:url" content="https://xtasy-4-0.vercel.app/" />
+  <meta property="og:type" content="website" />
+  
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="XTASY 4.0 — Quest Room | Official Experience" />
+  <meta name="twitter:description" content="Step inside the ultimate XTASY 4.0 escape room. Test your limits, follow the rules of survival, and hold the card. The game begins now." />
+  <meta name="twitter:image" content="https://xtasy-4-0.vercel.app/assets/IMG_9183.png" />
+
 </head>
 <body>
   <div class="fx-grain"></div>
@@ -388,9 +411,29 @@
           <div class="bar"></div><div class="bar"></div><div class="bar"></div>
         </div>
       </div>
+    
     </nav>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </button>
     <button class="btn-cta" data-cursor="triangle" onclick="goTo('ready')">Play Game</button>
   </header>
+  
+  <!-- Mobile Navigation Overlay -->
+  <div class="mobile-nav-overlay" id="mobileNav">
+    <div class="mobile-nav-content">
+      <span class="nav-a on" onclick="goTo('hero'); toggleMobileMenu()">About the Game</span>
+      <span class="nav-a" onclick="goTo('rules'); toggleMobileMenu()">Pricing</span>
+      <span class="nav-a" onclick="openContactModal(); toggleMobileMenu()">Contact</span>
+      <div id="sound-btn-mobile" class="snd-toggle" onclick="toggleSound()">
+        <span class="snd-toggle-txt">SOUND OFF</span>
+        <div class="bars">
+          <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <main>
 
@@ -591,7 +634,7 @@
     <section class="sec" id="ready">
       <div class="ready-wrap">
         <div class="ready-row">
-          <div class="rr-re">REA</div>
+          <div class="rr-re">READY</div>
           <div class="rr-mask">
   <div class="cctv-glitch-container">
     <img src="assets/frontman_mask_hd.jpg" alt="Frontman Mask" class="frontman-feed"/>
@@ -603,7 +646,7 @@
   </div>
 </div>
           <div class="rr-dy">
-            <div class="rr-dy-t">DY</div>
+            <div class="rr-dy-t" style="display:none">DY</div>
             <div class="rr-dy-extras">
               <div class="rr-toplay">TO PLAY?</div>
               <button class="btn-cta" data-cursor="triangle" style="margin-top:6px" onclick="window.location.href='events.html'">Play Game</button>
@@ -616,7 +659,7 @@
             <div class="logo-lbl"><span class="logo-name" style="font-size:14px">XTASY</span><span class="logo-ver" style="font-size:7.5px">4.0</span></div>
           </div>
           <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap; justify-content:center;">
-            <a onclick="openContactModal()" class="soc" title="Contact Us" style="background:linear-gradient(#050505,#050505) padding-box,radial-gradient(circle at 30% 107%,var(--cyan) 0%,var(--cyan) 100%) border-box;">
+            <a onclick="openContactModal()" class="soc" title="Contact Us" >
               <span class="follow-text">Contact Us</span>
               <div class="soc-a" style="background:var(--cyan);box-shadow:0 0 10px rgba(0,240,255,.45);color:#000;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg></div>
             </a>
@@ -714,23 +757,32 @@
       }
     }
 
-    function toggleSound() {
+        function toggleSound() {
       var snd = document.getElementById('snd');
-      var btn = document.getElementById('sound-btn');
+      var btns = [document.getElementById('sound-btn'), document.getElementById('sound-btn-mobile')];
       if(!snd) return;
       if (snd.paused) {
         snd.volume = 0.5; // Smooth volume
         snd.play().then(function() {
-          btn.classList.add('playing');
-          var txt = btn.querySelector('.snd-toggle-txt');
-          if (txt) txt.innerText = 'SOUND ON';
+          btns.forEach(btn => {
+            if (btn) {
+              btn.classList.add('playing');
+              var txt = btn.querySelector('.snd-toggle-txt');
+              if (txt) txt.innerText = 'SOUND ON';
+            }
+          });
         }).catch(function(e) { console.log(e); });
       } else {
         snd.pause();
-        btn.classList.remove('playing');
-        var txt = btn.querySelector('.snd-toggle-txt');
-        if (txt) txt.innerText = 'SOUND OFF';
+        btns.forEach(btn => {
+          if (btn) {
+            btn.classList.remove('playing');
+            var txt = btn.querySelector('.snd-toggle-txt');
+            if (txt) txt.innerText = 'SOUND OFF';
+          }
+        });
       }
+    }
     }
 
     /* ── 1. HERO INTRO: Gliding cinematic transition matching video ── */
@@ -848,6 +900,16 @@
     function cardSnd(){beep(880,.2);setTimeout(function(){beep(1174,.2)},60)}
 
     /* ── 5. INTERACTIONS ── */
+
+    /* Mobile Menu Toggle */
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileNav');
+      const btn = document.querySelector('.mobile-menu-btn');
+      menu.classList.toggle('open');
+      btn.classList.toggle('open');
+      beep(880, 0.1);
+    }
+
     function acceptInvite(){goTo('ready');beep(523,.25);setTimeout(function(){var b=document.querySelector('#ready .btn-cta');if(b){b.style.transition='transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s ease';b.style.transform='scale(1.16)';b.style.boxShadow='0 0 52px #FF007F,0 0 84px rgba(255,0,127,.82)';setTimeout(function(){b.style.transform='';b.style.boxShadow=''},1600)}},780)}
     function openModal(){beep(523,.25);document.getElementById('modal').classList.add('open')}
     function closeModal(){document.getElementById('modal').classList.remove('open')}
