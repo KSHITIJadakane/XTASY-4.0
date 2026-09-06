@@ -4,33 +4,33 @@ import re
 files_info = {
     'index.html': {
         'url': 'https://xtasy-4-0.vercel.app/',
-        'title': 'XTASY 4.0 — Quest Room | Official Experience',
-        'desc': 'Step inside the ultimate XTASY 4.0 escape room. Test your limits, follow the rules of survival, and hold the card. The game begins now.'
+        'title': 'XTASY 4.0 — Quest Room | Department of Industrial IoT',
+        'desc': 'XTASY 4.0 — The ultimate high-stakes tech arena & quest room experience, presented by the Department of Industrial IoT (IIoT). Test your limits, outsmart the challenge, and hold the card. The game begins now!'
     },
     'events.html': {
         'url': 'https://xtasy-4-0.vercel.app/events.html',
-        'title': 'XTASY 4.0 — All Events & Arena Games',
-        'desc': 'Explore all XTASY 4.0 events: Automystica, Hack The Hardware, Triguna, and Vision Expo. Compete, adapt, and claim victory.'
+        'title': 'XTASY 4.0 — All Events & Arena Games | Dept. of IIoT',
+        'desc': 'XTASY 4.0 — Explore all high-stakes arena events, presented by the Department of Industrial IoT (IIoT): Automystica, Hack The Hardware, Triguna, and Vision Expo. Adapt and conquer!'
     },
     'automystica.html': {
         'url': 'https://xtasy-4-0.vercel.app/automystica.html',
-        'title': 'AUTOMYSTICA — XTASY 4.0 | Build. Adapt. Survive.',
-        'desc': 'Master the elements of IoT, optimize your nodes, and build a system that outlasts the rest. The frontline of the Industrial IoT revolution starts here.'
+        'title': 'AUTOMYSTICA — XTASY 4.0 | Dept. of Industrial IoT',
+        'desc': 'XTASY 4.0 presents AUTOMYSTICA by the Department of Industrial IoT (IIoT). Master IoT circuits, adapt to unexpected twists, and engineer an automated system that survives.'
     },
     'hackthehardware.html': {
         'url': 'https://xtasy-4-0.vercel.app/hackthehardware.html',
-        'title': 'HACK THE HARDWARE — XTASY 4.0 | Circuit Combat',
-        'desc': 'Debug faulty circuits, crack encrypted breadboards, and rewire logic under extreme pressure in XTASY 4.0.'
+        'title': 'HACK THE HARDWARE — XTASY 4.0 | Dept. of Industrial IoT',
+        'desc': 'XTASY 4.0 presents HACK THE HARDWARE by the Department of Industrial IoT (IIoT). Debug faulty circuits, crack encrypted breadboards, and rewire logic under extreme pressure.'
     },
     'triguna.html': {
         'url': 'https://xtasy-4-0.vercel.app/triguna.html',
-        'title': 'TRIGUNA — XTASY 4.0 | The Triple Domain Trial',
-        'desc': 'Three rounds of coding, logic, and rapid problem-solving. Only the sharpest minds survive all three tiers of Triguna.'
+        'title': 'TRIGUNA — XTASY 4.0 | Dept. of Industrial IoT',
+        'desc': 'XTASY 4.0 presents TRIGUNA by the Department of Industrial IoT (IIoT). Three intense rounds of coding, logic, and rapid problem-solving. Only the sharpest minds survive.'
     },
     'visionexpo.html': {
         'url': 'https://xtasy-4-0.vercel.app/visionexpo.html',
-        'title': 'VISION EXPO — XTASY 4.0 | Project Exhibition',
-        'desc': 'Showcase breakthrough engineering projects, hardware prototypes, and futuristic tech innovations to industry judges.'
+        'title': 'VISION EXPO — XTASY 4.0 | Dept. of Industrial IoT',
+        'desc': 'XTASY 4.0 presents VISION EXPO by the Department of Industrial IoT (IIoT). Showcase breakthrough engineering prototypes, hardware innovations, and futuristic tech to industry judges.'
     }
 }
 
@@ -40,7 +40,11 @@ for fn, info in files_info.items():
     with open(fn, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # Meta tags block
+    # 1. Update <title> and top <meta name="description"> if present
+    content = re.sub(r'<title>.*?</title>', f"<title>{info['title']}</title>", content)
+    content = re.sub(r'<meta name="description" content=".*?"\s*/?>', f'<meta name="description" content="{info["desc"]}"/>', content)
+
+    # 2. Re-create clean meta tags block
     meta_block = f"""  <!-- Favicon & Touch Icon -->
   <link rel="icon" type="image/jpeg" href="assets/xtasy_logo.jpg" />
   <link rel="apple-touch-icon" href="assets/xtasy_logo.jpg" />
@@ -65,7 +69,7 @@ for fn, info in files_info.items():
   <meta name="twitter:description" content="{info['desc']}" />
   <meta name="twitter:image" content="{image_url}" />"""
 
-    # Remove existing OG & Twitter tags
+    # Remove existing OG & Twitter tags & link icons right before </head>
     content = re.sub(r'<!--\s*(?:Favicon|Open Graph|Twitter)[^>]*-->', '', content, flags=re.IGNORECASE)
     content = re.sub(r'\s*<link rel="(?:icon|apple-touch-icon)"[^>]+>', '', content)
     content = re.sub(r'\s*<meta property="og:[^"]+"[^>]+>', '', content)
@@ -76,6 +80,6 @@ for fn, info in files_info.items():
 
     with open(fn, 'w', encoding='utf-8') as f:
         f.write(content)
-    print(f"Updated {fn} with new OG image: {image_url}")
+    print(f"Updated {fn}: title & catchy description applied.")
 
 print("All files updated successfully.")
