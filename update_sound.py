@@ -1,4 +1,5 @@
 import glob
+import re
 
 new_toggle_sound = """    function toggleSound() {
       var snd = document.getElementById('snd');
@@ -32,17 +33,13 @@ def update_sound_toggle():
         with open(filename, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # Find the function toggleSound()
-        start = content.find('function toggleSound() {')
-        if start != -1:
-            # Find the closing brace of toggleSound
-            end = content.find('    }\n', start)
-            if end != -1:
-                end += 6
-                old_func = content[start:end]
-                content = content.replace(old_func, new_toggle_sound + '\n')
-                with open(filename, 'w', encoding='utf-8') as f:
-                    f.write(content)
-                print(f"Updated sound toggle in {filename}")
+        # Safely replace toggleSound using balanced brace regex
+        pattern = r'[ \t]*function toggleSound\(\)\s*\{[\s\S]*?\n[ \t]*\}'
+        if re.search(pattern, content):
+            content = re.sub(pattern, new_toggle_sound, content)
+            with open(filename, 'w', encoding='utf-8') as f:
+                f.write(content)
+            print(f"Updated sound toggle in {filename}")
 
-update_sound_toggle()
+if __name__ == '__main__':
+    update_sound_toggle()

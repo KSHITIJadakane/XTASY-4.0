@@ -376,14 +376,14 @@
     .hdr-right { display: flex; align-items: center; gap: 16px; }
     .mobile-menu-btn { display: none; background: transparent; border: none; cursor: pointer; flex-direction: column; gap: 4px; z-index: 1001; padding: 4px; }
     .mobile-menu-btn .bar { width: 24px; height: 2px; background: #fff; transition: 0.3s; display: block; }
-    .mobile-menu-btn.active .bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    .mobile-menu-btn.active .bar:nth-child(2) { opacity: 0; }
-    .mobile-menu-btn.active .bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .mobile-menu-btn.active .bar:nth-child(1), .mobile-menu-btn.open .bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .mobile-menu-btn.active .bar:nth-child(2), .mobile-menu-btn.open .bar:nth-child(2) { opacity: 0; }
+    .mobile-menu-btn.active .bar:nth-child(3), .mobile-menu-btn.open .bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
     
     .mobile-nav-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease); }
-    .mobile-nav-overlay.active { opacity: 1; pointer-events: auto; }
+    .mobile-nav-overlay.active, .mobile-nav-overlay.open { opacity: 1; pointer-events: auto; }
     .mobile-nav-content { display: flex; flex-direction: column; align-items: center; gap: 32px; transform: translateY(20px); transition: transform 0.4s var(--ease); }
-    .mobile-nav-overlay.active .mobile-nav-content { transform: translateY(0); }
+    .mobile-nav-overlay.active .mobile-nav-content, .mobile-nav-overlay.open .mobile-nav-content { transform: translateY(0); }
     
     @media (max-width: 820px) {
       .nav { display: none !important; }
@@ -421,7 +421,6 @@
     </div>
     <nav class="nav">
       <span class="nav-a on" onclick="goTo('hero')">About the Game</span>
-      <span class="nav-a" onclick="goTo('rules')">Pricing</span>
       <span class="nav-a" onclick="openContactModal()">Contact</span>
     </nav>
     <div class="hdr-right">
@@ -442,7 +441,6 @@
   <div class="mobile-nav-overlay" id="mobileNav">
     <div class="mobile-nav-content">
       <span class="nav-a on" onclick="goTo('hero'); toggleMobileMenu()">About the Game</span>
-      <span class="nav-a" onclick="goTo('rules'); toggleMobileMenu()">Pricing</span>
       <span class="nav-a" onclick="openContactModal(); toggleMobileMenu()">Contact</span>
       <div id="sound-btn-mobile" class="snd-toggle" onclick="toggleSound()">
         <span class="snd-toggle-txt">SOUND OFF</span>
@@ -802,7 +800,6 @@
         });
       }
     }
-    }
 
     /* ── 1. HERO INTRO: Gliding cinematic transition matching video ── */
     function playIntro(){
@@ -837,11 +834,13 @@
       entries.forEach(function(en){
         if(!en.isIntersecting)return;
         en.target.classList.add('iv');
-        var id=en.target.id,nls=document.querySelectorAll('.nav-a');
-        nls.forEach(function(a){a.classList.remove('on')});
-        if(id==='hero')nls[0]&&nls[0].classList.add('on');
-        else if(id==='welcome'||id==='rules')nls[1]&&nls[1].classList.add('on');
-        else if(id==='inside'||id==='ready')nls[2]&&nls[2].classList.add('on');
+        var id=en.target.id;
+        var aboutLinks=document.querySelectorAll('.nav .nav-a, .mobile-nav-content .nav-a');
+        if(id==='hero'){
+          aboutLinks.forEach(function(a){if(a.innerText.trim()==='About the Game')a.classList.add('on');});
+        }else{
+          aboutLinks.forEach(function(a){if(a.innerText.trim()==='About the Game')a.classList.remove('on');});
+        }
       });
     },{threshold:.22,rootMargin:'0px 0px -10% 0px'});
     document.querySelectorAll('.sec').forEach(function(s){obs.observe(s)});
@@ -924,9 +923,15 @@
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileNav');
       const btn = document.querySelector('.mobile-menu-btn');
-      menu.classList.toggle('open');
-      btn.classList.toggle('open');
-      beep(880, 0.1);
+      if (menu) {
+        menu.classList.toggle('active');
+        menu.classList.toggle('open');
+      }
+      if (btn) {
+        btn.classList.toggle('active');
+        btn.classList.toggle('open');
+      }
+      if (typeof beep === 'function') beep(880, 0.1);
     }
 
     function acceptInvite(){goTo('ready');beep(523,.25);setTimeout(function(){var b=document.querySelector('#ready .btn-cta');if(b){b.style.transition='transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s ease';b.style.transform='scale(1.16)';b.style.boxShadow='0 0 52px #FF007F,0 0 84px rgba(255,0,127,.82)';setTimeout(function(){b.style.transform='';b.style.boxShadow=''},1600)}},780)}

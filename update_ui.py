@@ -22,7 +22,6 @@ def update_all_html():
   <div class="mobile-nav-overlay" id="mobileNav">
     <div class="mobile-nav-content">
       <span class="nav-a on" onclick="goTo('hero'); toggleMobileMenu()">About the Game</span>
-      <span class="nav-a" onclick="goTo('rules'); toggleMobileMenu()">Pricing</span>
       <span class="nav-a" onclick="openContactModal(); toggleMobileMenu()">Contact</span>
       <div id="sound-btn-mobile" class="snd-toggle" onclick="toggleSound()">
         <span class="snd-toggle-txt">SOUND OFF</span>
