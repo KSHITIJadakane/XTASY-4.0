@@ -64,7 +64,7 @@ clean_event_style = """    <style>
 
       /* Mobile Overrides (max-width: 900px) */
       @media (max-width: 900px) {
-        .event-detail-sec { padding-top: 80px; padding-bottom: 50px; }
+        .event-detail-sec { padding-top: 80px; padding-bottom: 110px; }
         .ed-wrap { flex-direction: column; text-align: center; gap: 28px; padding: 16px; }
         .ed-right { align-items: center; width: 100%; }
         .ed-image-wrap { max-width: 280px; width: 100%; aspect-ratio: 1/1; }
@@ -76,6 +76,10 @@ clean_event_style = """    <style>
         .ed-spec { flex: 1; max-width: 140px; padding: 10px 16px; text-align: center; }
         .ed-spec .val { font-size: 16px; }
         .ed-cta { width: 100%; max-width: 320px; padding: 15px 24px; font-size: 16px; border-radius: 8px; margin-bottom: 18px; }
+        .ed-back { display: inline-block; padding: 8px 16px; margin-bottom: 8px; }
+        .scroll-indicator { bottom: 20px; }
+        .scroll-indicator span { font-size: 9px; letter-spacing: 0.25em; }
+        .scroll-indicator .arrow { font-size: 16px; }
         #xtasy-toolbar { top: 75px; left: 50%; transform: translateX(-50%) translateY(-15px); width: calc(100% - 32px); max-width: 320px; }
         #xtasy-toolbar.active { transform: translateX(-50%) translateY(0); }
         .event-extended-sec { padding: 50px 16px; }

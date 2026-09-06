@@ -50,7 +50,7 @@ def update_page(filename, bg_image, title, tagline, description, challenge, team
 
       </div>
       
-      <div class="scroll-indicator" onclick="window.scrollTo({{top: window.innerHeight, behavior: 'smooth'}})" data-cursor="pointer">
+      <div class="scroll-indicator" onclick="document.querySelector('.event-extended-sec')?.scrollIntoView({{behavior: 'smooth'}})" data-cursor="pointer">
         <span>SCROLL FOR DETAILS</span>
         <div class="arrow">↓</div>
       </div>
@@ -165,6 +165,33 @@ def update_page(filename, bg_image, title, tagline, description, challenge, team
       .ext-block li {{ font-family: 'Inter', sans-serif; color: #aaa; font-size: 16px; line-height: 1.6; background: rgba(255,255,255,0.02); padding: 20px 25px; border-left: 3px solid var(--pink); border-radius: 0 8px 8px 0; transition: background 0.3s; }}
       .ext-block li:hover {{ background: rgba(255,255,255,0.05); }}
       .ext-block li strong {{ color: #fff; font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.05em; display: block; margin-bottom: 5px; color: var(--pink); }}
+      
+      /* Mobile Overrides (max-width: 900px) */
+      @media (max-width: 900px) {{
+        .event-detail-sec {{ padding-top: 80px; padding-bottom: 110px; }}
+        .ed-wrap {{ flex-direction: column; text-align: center; gap: 28px; padding: 16px; }}
+        .ed-right {{ align-items: center; width: 100%; }}
+        .ed-image-wrap {{ max-width: 280px; width: 100%; aspect-ratio: 1/1; }}
+        .ed-title {{ font-size: clamp(32px, 8vw, 52px); }}
+        .ed-tagline {{ font-size: 15px; margin-bottom: 20px; }}
+        .ed-desc {{ font-size: 14.5px; margin-bottom: 24px; }}
+        .ed-challenge-box {{ text-align: left; padding: 16px; margin-top: 16px; }}
+        .ed-specs {{ justify-content: center; gap: 16px; margin-bottom: 28px; }}
+        .ed-spec {{ flex: 1; max-width: 140px; padding: 10px 16px; text-align: center; }}
+        .ed-spec .val {{ font-size: 16px; }}
+        .ed-cta {{ width: 100%; max-width: 320px; padding: 15px 24px; font-size: 16px; border-radius: 8px; margin-bottom: 18px; }}
+        .ed-back {{ display: inline-block; padding: 8px 16px; margin-bottom: 8px; }}
+        .scroll-indicator {{ bottom: 20px; }}
+        .scroll-indicator span {{ font-size: 9px; letter-spacing: 0.25em; }}
+        .scroll-indicator .arrow {{ font-size: 16px; }}
+        #xtasy-toolbar {{ top: 75px; left: 50%; transform: translateX(-50%) translateY(-15px); width: calc(100% - 32px); max-width: 320px; }}
+        #xtasy-toolbar.active {{ transform: translateX(-50%) translateY(0); }}
+        .event-extended-sec {{ padding: 50px 16px; }}
+        .ext-wrap {{ gap: 32px; }}
+        .ext-block h3 {{ font-size: 20px; margin-bottom: 14px; }}
+        .ext-block p {{ font-size: 14.5px; line-height: 1.6; margin-bottom: 14px; }}
+        .ext-block li {{ padding: 14px 16px; font-size: 13.5px; line-height: 1.5; }}
+      }}
     </style>
     <footer class="footer" style="position:relative; z-index:20; background:#050505;">
       <div class="logo" onclick="window.location.href='index.html'">
