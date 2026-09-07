@@ -384,7 +384,7 @@ update_page(
     'The blueprint is just the beginning. Present your master plan for lean manufacturing and industrial excellence. In this arena, your ideas are your weapons.',
     'Convert technical concepts into creative, informative posters. Pitch your vision to industry experts and prove your dominance.',
     'INDIVIDUAL', 
-    '₹30', 
+    '₹50', 
     'SUBMIT YOUR VISION',
     ext_vision,
     'https://forms.gle/Ebnnth5RKrSLTuk57'
