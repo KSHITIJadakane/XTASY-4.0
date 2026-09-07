@@ -302,7 +302,7 @@ update_page(
     'Master the elements of IoT, optimize your nodes, and build a system that outlasts the rest. The frontline of the Industrial IoT revolution starts here.',
     'Design an automated solution using Wokwi. Then, survive "The Twist"-an unexpected limitation thrown at you mid-competition. Adapt or perish.',
     'DUO', 
-    '₹90', 
+    '₹100', 
     'ENTER AUTOMYSTICA',
     ext_auto,
     'https://forms.gle/aXkLRDHScdoD7C8b6'
