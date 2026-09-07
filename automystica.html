@@ -420,7 +420,7 @@
   <div class="dept-watermark">DEPARTMENT OF INDUSTRIAL IOT</div>
   <div class="cdot" id="cdot"></div>
   <div class="cring" id="cring"></div>
-  <audio id="snd" loop preload="auto"><source src="assets/squid_theme.mp3" type="audio/mp3"/></audio>
+  <audio id="snd" src="assets/squid_theme.mp3" autoplay loop preload="auto" playsinline><source src="assets/squid_theme.mp3" type="audio/mpeg"/></audio>
 
   <header id="hdr">
     <div class="logo" onclick="toggleToolbar(event)" style="cursor:pointer; z-index:1001; position:relative;">
@@ -432,8 +432,8 @@
       <span class="nav-a" onclick="openContactModal()">Contact</span>
     </nav>
     <div class="hdr-right">
-      <div id="sound-btn" class="snd-toggle" onclick="toggleSound()">
-        <span class="snd-toggle-txt">SOUND OFF</span>
+      <div id="sound-btn" class="snd-toggle playing" onclick="toggleSound()">
+        <span class="snd-toggle-txt">SOUND ON</span>
         <div class="bars">
           <div class="bar"></div><div class="bar"></div><div class="bar"></div>
         </div>
@@ -451,8 +451,8 @@
       <span class="nav-a" onclick="window.location.href='index.html'; toggleMobileMenu()">About the Game</span>
       <span class="nav-a" onclick="openContactModal(); toggleMobileMenu()">Contact</span>
       <button class="btn-cta" style="padding:12px 36px;font-size:14px;box-shadow:0 0 25px rgba(255,0,127,.8);margin:6px 0;" onclick="window.location.href='events.html'; toggleMobileMenu()">All Events</button>
-      <div id="sound-btn-mobile" class="snd-toggle" onclick="toggleSound()">
-        <span class="snd-toggle-txt">SOUND OFF</span>
+      <div id="sound-btn-mobile" class="snd-toggle playing" onclick="toggleSound()">
+        <span class="snd-toggle-txt">SOUND ON</span>
         <div class="bars">
           <div class="bar"></div><div class="bar"></div><div class="bar"></div>
         </div>
@@ -494,11 +494,11 @@
             </div>
             <div class="ed-spec">
               <span class="lbl">FEE</span>
-              <span class="val">₹190</span>
+              <span class="val">₹90</span>
             </div>
           </div>
 
-          <button class="ed-cta" data-cursor="triangle" onclick="window.open('https://forms.gle/Hm2fGyhegrfCjUqJ9', '_blank')">ENTER AUTOMYSTICA</button>
+          <button class="ed-cta" data-cursor="triangle" onclick="window.open('https://forms.gle/aXkLRDHScdoD7C8b6', '_blank')">ENTER AUTOMYSTICA</button>
           
           <a href="events.html" class="ed-back" data-cursor="circle">← BACK TO EVENTS</a>
         </div>
@@ -761,31 +761,101 @@
       }
     }
 
-        function toggleSound() {
-      var snd = document.getElementById('snd');
+    var userMuted = false;
+
+    function updateSoundUI(playing) {
       var btns = [document.getElementById('sound-btn'), document.getElementById('sound-btn-mobile')];
-      if(!snd) return;
-      if (snd.paused) {
-        snd.volume = 0.5; // Smooth volume
-        snd.play().then(function() {
-          btns.forEach(btn => {
-            if (btn) {
-              btn.classList.add('playing');
-              var txt = btn.querySelector('.snd-toggle-txt');
-              if (txt) txt.innerText = 'SOUND ON';
-            }
-          });
-        }).catch(function(e) { console.log(e); });
-      } else {
-        snd.pause();
-        btns.forEach(btn => {
-          if (btn) {
-            btn.classList.remove('playing');
-            var txt = btn.querySelector('.snd-toggle-txt');
-            if (txt) txt.innerText = 'SOUND OFF';
-          }
+      btns.forEach(function(btn) {
+        if (!btn) return;
+        if (playing) {
+          btn.classList.add('playing');
+          var txt = btn.querySelector('.snd-toggle-txt');
+          if (txt) txt.innerText = 'SOUND ON';
+        } else {
+          btn.classList.remove('playing');
+          var txt = btn.querySelector('.snd-toggle-txt');
+          if (txt) txt.innerText = 'SOUND OFF';
+        }
+      });
+    }
+
+    function playAudio() {
+      var snd = document.getElementById('snd');
+      if (!snd || userMuted) return Promise.reject();
+      snd.volume = 0.5;
+      return snd.play();
+    }
+
+    var gestureEvents = ['pointerdown', 'touchstart', 'touchend', 'mousedown', 'click', 'keydown'];
+
+    function onUserGesture() {
+      if (userMuted) return;
+      var snd = document.getElementById('snd');
+      if (snd && snd.paused) {
+        playAudio().then(function() {
+          updateSoundUI(true);
+          removeGestureListeners();
+        }).catch(function() {
+          // If still blocked, keep listeners attached
+        });
+      } else if (snd && !snd.paused) {
+        updateSoundUI(true);
+        removeGestureListeners();
+      }
+    }
+
+    function attachGestureListeners() {
+      gestureEvents.forEach(function(evt) {
+        document.addEventListener(evt, onUserGesture, { capture: true, passive: true });
+        window.addEventListener(evt, onUserGesture, { capture: true, passive: true });
+      });
+    }
+
+    function removeGestureListeners() {
+      gestureEvents.forEach(function(evt) {
+        document.removeEventListener(evt, onUserGesture, true);
+        window.removeEventListener(evt, onUserGesture, true);
+      });
+    }
+
+    function tryAutoPlay() {
+      if (userMuted) return;
+      attachGestureListeners();
+      var p = playAudio();
+      if (p !== undefined) {
+        p.then(function() {
+          updateSoundUI(true);
+          removeGestureListeners();
+        }).catch(function() {
+          // Autoplay blocked by browser policy without prior user interaction.
+          // Gesture listeners remain active and will trigger audio on the very first touch/click anywhere.
         });
       }
+    }
+
+    function toggleSound() {
+      var snd = document.getElementById('snd');
+      if (!snd) return;
+      if (!snd.paused) {
+        // Music is currently playing -> user clicked to STOP ongoing music
+        userMuted = true;
+        snd.pause();
+        updateSoundUI(false);
+        removeGestureListeners();
+      } else {
+        // Music is stopped -> user clicked to turn music ON
+        userMuted = false;
+        playAudio().then(function() {
+          updateSoundUI(true);
+          removeGestureListeners();
+        }).catch(function(e) { console.log(e); });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', tryAutoPlay);
+    } else {
+      tryAutoPlay();
     }
 
     /* ── 1. HERO INTRO: Gliding cinematic transition matching video ── */

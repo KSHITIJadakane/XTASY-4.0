@@ -643,7 +643,434 @@
         padding: 24px 18px;
       }
     }
-  </style>
+  
+                    /* ── CINEMATIC SQUID GAME & XTASY LOADER (KnightVault & Squid Game Aesthetic) ── */
+    .xtasy-loader, .xtasy-loader * {
+      box-sizing: border-box;
+    }
+    body.loader-active {
+      overflow: hidden !important;
+    }
+    body.loader-active #hero {
+      transform: scale(0.97);
+      filter: brightness(0.75);
+      transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), filter 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    body:not(.loader-active) #hero {
+      transform: scale(1);
+      filter: brightness(1);
+      transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), filter 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .xtasy-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(20px, 4.5vw, 52px);
+      background: #05070a;
+      color: #fff;
+      user-select: none;
+      -webkit-user-select: none;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 1.35s cubic-bezier(0.76, 0, 0.24, 1), opacity 1.35s cubic-bezier(0.76, 0, 0.24, 1);
+      will-change: transform, opacity;
+    }
+    .xtasy-loader.loaded {
+      transform: translate3d(0, -100%, 0);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .xtasy-loader.dismissing .xl-top-bar {
+      transform: translate3d(0, -28px, 0);
+      opacity: 0;
+      transition: transform 0.45s ease, opacity 0.35s ease;
+    }
+    .xtasy-loader.dismissing .xl-center {
+      transform: translate3d(0, -32px, 0) scale(0.96);
+      opacity: 0;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    }
+    .xtasy-loader.dismissing .xl-bottom {
+      transform: translate3d(0, 28px, 0);
+      opacity: 0;
+      transition: transform 0.45s ease, opacity 0.35s ease;
+    }
+
+    /* Ambient Pulsing Glow */
+    .xl-ambient-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0) scale(0.95);
+      width: min(90vw, 720px);
+      height: min(90vw, 720px);
+      border-radius: 50%;
+      filter: blur(140px);
+      background: radial-gradient(circle, #ff007f 0%, #ba134d 45%, transparent 75%);
+      opacity: 0.22;
+      pointer-events: none;
+      transition: background 1.2s ease, opacity 1.2s ease, transform 1.2s ease;
+      animation: xlAmbientPulse 4s infinite ease-in-out;
+    }
+    @keyframes xlAmbientPulse {
+      0%, 100% { transform: translate3d(-50%, -50%, 0) scale(0.95); opacity: 0.2; }
+      50% { transform: translate3d(-50%, -50%, 0) scale(1.1); opacity: 0.32; }
+    }
+    .xl-ambient-glow.primed {
+      opacity: 0.38;
+      transform: translate3d(-50%, -50%, 0) scale(1.25);
+    }
+    .xl-grid-overlay {
+      position: absolute;
+      inset: 0;
+      opacity: 0.05;
+      background-image: radial-gradient(rgba(255, 0, 127, 0.8) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    /* Top Status Bar */
+    .xl-top-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.6);
+      position: relative;
+      z-index: 10;
+      transition: transform 0.4s ease, opacity 0.3s ease;
+    }
+    .xl-os-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .xl-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #00ff9d;
+      box-shadow: 0 0 12px #00ff9d, 0 0 24px rgba(0, 255, 157, 0.6);
+      animation: xlGreenDotPulse 1.6s infinite ease-in-out;
+    }
+    @keyframes xlGreenDotPulse {
+      0%, 100% { opacity: 0.5; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.25); box-shadow: 0 0 16px #00ff9d; }
+    }
+    .xl-os-title {
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .xl-top-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: 0.18em;
+    }
+    .xl-top-right .pink-txt {
+      color: var(--pink);
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
+    }
+
+    /* Center Stage */
+    .xl-center {
+      position: relative;
+      z-index: 10;
+      margin: auto 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: clamp(14px, 2.6vh, 22px);
+      width: 100%;
+      max-width: 100%;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    }
+
+    /* Squid Game Cyber Badge */
+    .xl-badge {
+      position: relative;
+      width: clamp(96px, 13vw, 120px);
+      height: clamp(96px, 13vw, 120px);
+      border-radius: 24px;
+      background: rgba(18, 14, 24, 0.65);
+      border: 1.5px solid rgba(255, 0, 127, 0.3);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 45px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 0, 127, 0.2);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .xl-badge:hover, .xl-badge.primed {
+      border-color: rgba(255, 0, 127, 0.7);
+      box-shadow: 0 0 65px rgba(255, 0, 127, 0.45), inset 0 0 20px rgba(255, 0, 127, 0.25);
+      transform: scale(1.04);
+    }
+    .xl-bracket {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-color: var(--pink);
+      transition: all 0.4s ease;
+    }
+    .xl-bracket.tl { top: -2px; left: -2px; border-top: 2.5px solid var(--pink); border-left: 2.5px solid var(--pink); border-top-left-radius: 6px; }
+    .xl-bracket.tr { top: -2px; right: -2px; border-top: 2.5px solid var(--pink); border-right: 2.5px solid var(--pink); border-top-right-radius: 6px; }
+    .xl-bracket.bl { bottom: -2px; left: -2px; border-bottom: 2.5px solid var(--pink); border-left: 2.5px solid var(--pink); border-bottom-left-radius: 6px; }
+    .xl-bracket.br { bottom: -2px; right: -2px; border-bottom: 2.5px solid var(--pink); border-right: 2.5px solid var(--pink); border-bottom-right-radius: 6px; }
+
+    /* SVG Geometric Glyphs: ○ △ □ */
+    .xl-glyphs {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .xl-svg-glyph {
+      width: clamp(22px, 3.2vw, 28px);
+      height: clamp(22px, 3.2vw, 28px);
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+    .xl-svg-glyph.circle {
+      color: #ffffff;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+      animation: xlGlyphPulse 2.4s infinite ease-in-out 0s;
+    }
+    .xl-svg-glyph.triangle {
+      color: var(--pink);
+      filter: drop-shadow(0 0 12px rgba(255, 0, 127, 0.9));
+      animation: xlGlyphPulse 2.4s infinite ease-in-out 0.8s;
+    }
+    .xl-svg-glyph.square {
+      color: #ffffff;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+      animation: xlGlyphPulse 2.4s infinite ease-in-out 1.6s;
+    }
+    @keyframes xlGlyphPulse {
+      0%, 100% { transform: scale(1); opacity: 0.85; }
+      50% { transform: scale(1.15); opacity: 1; }
+    }
+
+    /* Tag badge above headline */
+    .xl-edition-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: -4px;
+    }
+    .xl-tag-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--pink);
+      box-shadow: 0 0 8px var(--pink);
+    }
+
+    /* Animated Status Headline (Crisp, High-Contrast & Glowing) */
+    .xl-headline-box {
+      height: clamp(42px, 6vh, 54px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      width: 100%;
+      max-width: 100%;
+    }
+    .xl-headline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(17px, 4.4vw, 36px);
+      font-weight: 800;
+      letter-spacing: clamp(0.04em, 1.2vw, 0.12em);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.14s ease, transform 0.14s ease;
+      white-space: nowrap;
+      max-width: 100%;
+    }
+    @keyframes xlFlipIn {
+      0% { opacity: 0.2; transform: translateY(5px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .xl-headline.flip-in {
+      animation: xlFlipIn 0.2s ease forwards;
+    }
+    .xl-hl-white {
+      color: #ffffff;
+      text-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+    }
+    .xl-hl-pink {
+      color: var(--pink);
+      text-shadow: 0 0 25px rgba(255, 0, 127, 0.85), 0 0 45px rgba(255, 0, 127, 0.5);
+    }
+
+    /* Subtitle */
+    .xl-subcaption {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(9px, 1.8vw, 11.5px);
+      color: rgba(255, 255, 255, 0.55);
+      letter-spacing: clamp(0.1em, 1.2vw, 0.22em);
+      text-transform: uppercase;
+      max-width: min(90vw, 560px);
+      line-height: 1.6;
+      width: 100%;
+      text-align: center;
+      word-wrap: break-word;
+    }
+
+    /* Interactive CTA Pill */
+    .xl-enter-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+      padding: 9px 24px;
+      background: rgba(255, 0, 127, 0.12);
+      border: 1.5px solid rgba(255, 0, 127, 0.5);
+      border-radius: 9999px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: #fff;
+      text-shadow: 0 0 12px rgba(255, 0, 127, 0.8);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: xlPillBreathe 2.4s infinite ease-in-out;
+    }
+    @keyframes xlPillBreathe {
+      0%, 100% { box-shadow: 0 0 16px rgba(255, 0, 127, 0.35); border-color: rgba(255, 0, 127, 0.5); transform: scale(1); }
+      50% { box-shadow: 0 0 32px rgba(255, 0, 127, 0.7); border-color: rgba(255, 0, 127, 0.95); transform: scale(1.03); }
+    }
+    .xl-enter-pill:hover {
+      background: rgba(255, 0, 127, 0.32);
+      border-color: var(--pink);
+      transform: scale(1.06);
+      box-shadow: 0 0 36px rgba(255, 0, 127, 0.85);
+    }
+    .xl-sound-glyph {
+      font-size: 13px;
+      animation: xlSoundBounce 1.2s infinite ease-in-out;
+    }
+    @keyframes xlSoundBounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.25); }
+    }
+
+    /* Bottom Telemetry & Progress */
+    .xl-bottom {
+      width: 100%;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: transform 0.4s ease, opacity 0.3s ease;
+    }
+    .xl-progress-bar-wrap {
+      width: 100%;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.08);
+      position: relative;
+      overflow: visible;
+      border-radius: 2px;
+    }
+    .xl-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ba134d 0%, var(--pink) 75%, #ffffff 100%);
+      box-shadow: 0 0 18px var(--pink), 0 0 36px var(--pink);
+      transition: width 0.05s linear;
+      position: relative;
+      border-radius: 2px;
+    }
+    .xl-progress-fill::after {
+      content: '';
+      position: absolute;
+      right: -2px;
+      top: -3px;
+      bottom: -3px;
+      width: 8px;
+      background: #ffffff;
+      box-shadow: 0 0 12px #ffffff, 0 0 24px var(--pink);
+      border-radius: 2px;
+    }
+    .xl-telemetry-row {
+      width: 100%;
+      max-width: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      min-width: 0;
+      font-family: 'Space Mono', monospace;
+    }
+    .xl-telemetry-left {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      overflow: hidden;
+    }
+    .xl-calib-lbl {
+      font-size: 9.5px;
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    .xl-calib-val {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 100%;
+      display: block;
+    }
+    .xl-counter {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(22px, 4.2vw, 42px);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #fff;
+      text-shadow: 0 0 25px rgba(255, 0, 127, 0.65);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      flex: 0 0 auto;
+      text-align: right;
+    }
+
+    @media (max-width: 640px) {
+      .xl-top-right { display: none; }
+      .xl-subcaption { font-size: 8.5px; letter-spacing: 0.12em; }
+      .xl-calib-val { font-size: 9.5px; }
+      .xl-counter { font-size: 24px; }
+      .xl-enter-pill { padding: 8px 18px; font-size: 10.5px; }
+      .xl-headline { font-size: 18px; gap: 6px; }
+    }
+</style>
 
   <!-- Favicon & Touch Icon -->
   <link rel="icon" type="image/jpeg" href="assets/xtasy_logo.jpg" />
@@ -670,13 +1097,89 @@
   <meta name="twitter:image" content="https://xtasy-4-0.vercel.app/assets/xtasy_logo.jpg" />
 </head>
 <body>
+        <!-- SQUID GAME & XTASY 4.0 OPENING LOADER (KnightVault & Squid Game Inspired) -->
+  <div id="xtasy-loader" class="xtasy-loader" onclick="dismissLoader()">
+    <div class="xl-ambient-glow" id="xlGlow"></div>
+    <div class="xl-grid-overlay"></div>
+
+    <!-- Top Status Bar -->
+    <div class="xl-top-bar">
+      <div class="xl-os-badge">
+        <span class="xl-dot"></span>
+        <span class="xl-os-title">XTASY 4.0 // ARENA OS</span>
+      </div>
+      <div class="xl-top-right">
+        <span class="pink-txt">CIRCUIT V4.0</span>
+        <span>•</span>
+        <span>DEPT. OF INDUSTRIAL IOT</span>
+      </div>
+    </div>
+
+    <!-- Centerpiece -->
+    <div class="xl-center">
+      <div class="xl-badge" id="xlBadge">
+        <div class="xl-bracket tl"></div>
+        <div class="xl-bracket tr"></div>
+        <div class="xl-bracket bl"></div>
+        <div class="xl-bracket br"></div>
+        <div class="xl-glyphs">
+          <!-- Circle (Worker / Stage 1) -->
+          <svg class="xl-svg-glyph circle" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="2.5"/>
+          </svg>
+          <!-- Triangle (Soldier / Enforcer - Squid Game Pink) -->
+          <svg class="xl-svg-glyph triangle" viewBox="0 0 24 24" fill="none">
+            <polygon points="12,2.5 21.5,20.5 2.5,20.5" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+          </svg>
+          <!-- Square (Manager / Control) -->
+          <svg class="xl-svg-glyph square" viewBox="0 0 24 24" fill="none">
+            <rect x="3.5" y="3.5" width="17" height="17" rx="2" stroke="currentColor" stroke-width="2.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="xl-edition-tag">
+        <span class="xl-tag-dot"></span>
+        <span>4TH EDITION TECHNICAL ARENA</span>
+      </div>
+
+      <div class="xl-headline-box">
+        <h2 class="xl-headline" id="xlHeadline">
+          <span class="xl-hl-white">INITIALIZING</span>
+          <span class="xl-hl-pink">PROTOCOL</span>
+        </h2>
+      </div>
+
+      <p class="xl-subcaption">SURVIVAL OF THE SHARPEST • HIGH-STAKES TECHNICAL SYMPOSIUM • DEPT. OF INDUSTRIAL IOT</p>
+
+      <div class="xl-enter-pill">
+        <span>CLICK OR TAP TO ENTER</span>
+        <span class="xl-sound-glyph">🔊</span>
+      </div>
+    </div>
+
+    <!-- Bottom Telemetry & Progress -->
+    <div class="xl-bottom">
+      <div class="xl-progress-bar-wrap">
+        <div class="xl-progress-fill" id="xlProgressFill"></div>
+      </div>
+      <div class="xl-telemetry-row">
+        <div class="xl-telemetry-left">
+          <div class="xl-calib-lbl">ARENA CALIBRATION</div>
+          <div class="xl-calib-val" id="xlCalibVal">CALIBRATING ESP32 & WOKWI NODES • PORT :4040</div>
+        </div>
+        <div class="xl-counter" id="xlCounter">0%</div>
+      </div>
+    </div>
+  </div>
+
   <div class="fx-grain"></div>
   <div class="fx-vig"></div>
   <div class="fx-scroll" id="fx-scroll"></div>
   <div class="dept-watermark">DEPARTMENT OF INDUSTRIAL IOT</div>
   <div class="cdot" id="cdot"></div>
   <div class="cring" id="cring"></div>
-  <audio id="snd" loop preload="auto"><source src="assets/squid_theme.mp3" type="audio/mp3"/></audio>
+  <audio id="snd" src="assets/squid_theme.mp3" autoplay loop preload="auto" playsinline><source src="assets/squid_theme.mp3" type="audio/mpeg"/></audio>
 
   <header id="hdr">
     <div class="logo" onclick="goTo('hero')">
@@ -688,8 +1191,8 @@
       <span class="nav-a" onclick="openContactModal()">Contact</span>
     </nav>
     <div class="hdr-right">
-      <div id="sound-btn" class="snd-toggle" onclick="toggleSound()">
-        <span class="snd-toggle-txt">SOUND OFF</span>
+      <div id="sound-btn" class="snd-toggle playing" onclick="toggleSound()">
+        <span class="snd-toggle-txt">SOUND ON</span>
         <div class="bars">
           <div class="bar"></div><div class="bar"></div><div class="bar"></div>
         </div>
@@ -707,8 +1210,8 @@
       <span class="nav-a on" onclick="goTo('hero'); toggleMobileMenu()">About the Game</span>
       <span class="nav-a" onclick="openContactModal(); toggleMobileMenu()">Contact</span>
       <button class="btn-cta" style="padding:12px 36px;font-size:14px;box-shadow:0 0 25px rgba(255,0,127,.8);margin:6px 0;" onclick="window.location.href='events.html'; toggleMobileMenu()">Play Game</button>
-      <div id="sound-btn-mobile" class="snd-toggle" onclick="toggleSound()">
-        <span class="snd-toggle-txt">SOUND OFF</span>
+      <div id="sound-btn-mobile" class="snd-toggle playing" onclick="toggleSound()">
+        <span class="snd-toggle-txt">SOUND ON</span>
         <div class="bars">
           <div class="bar"></div><div class="bar"></div><div class="bar"></div>
         </div>
@@ -1044,31 +1547,236 @@
       }
     }
 
-        function toggleSound() {
-      var snd = document.getElementById('snd');
+    var userMuted = false;
+
+    function updateSoundUI(playing) {
       var btns = [document.getElementById('sound-btn'), document.getElementById('sound-btn-mobile')];
-      if(!snd) return;
-      if (snd.paused) {
-        snd.volume = 0.5; // Smooth volume
-        snd.play().then(function() {
-          btns.forEach(btn => {
-            if (btn) {
-              btn.classList.add('playing');
-              var txt = btn.querySelector('.snd-toggle-txt');
-              if (txt) txt.innerText = 'SOUND ON';
-            }
-          });
-        }).catch(function(e) { console.log(e); });
-      } else {
-        snd.pause();
-        btns.forEach(btn => {
-          if (btn) {
-            btn.classList.remove('playing');
-            var txt = btn.querySelector('.snd-toggle-txt');
-            if (txt) txt.innerText = 'SOUND OFF';
-          }
+      btns.forEach(function(btn) {
+        if (!btn) return;
+        if (playing) {
+          btn.classList.add('playing');
+          var txt = btn.querySelector('.snd-toggle-txt');
+          if (txt) txt.innerText = 'SOUND ON';
+        } else {
+          btn.classList.remove('playing');
+          var txt = btn.querySelector('.snd-toggle-txt');
+          if (txt) txt.innerText = 'SOUND OFF';
+        }
+      });
+    }
+
+    function playAudio() {
+      var snd = document.getElementById('snd');
+      if (!snd || userMuted) return Promise.reject();
+      snd.volume = 0.5;
+      return snd.play();
+    }
+
+    var gestureEvents = ['pointerdown', 'touchstart', 'touchend', 'mousedown', 'click', 'keydown'];
+
+    function onUserGesture() {
+      if (userMuted) return;
+      var snd = document.getElementById('snd');
+      if (snd && snd.paused) {
+        playAudio().then(function() {
+          updateSoundUI(true);
+          removeGestureListeners();
+        }).catch(function() {
+          // If still blocked, keep listeners attached
+        });
+      } else if (snd && !snd.paused) {
+        updateSoundUI(true);
+        removeGestureListeners();
+      }
+    }
+
+    function attachGestureListeners() {
+      gestureEvents.forEach(function(evt) {
+        document.addEventListener(evt, onUserGesture, { capture: true, passive: true });
+        window.addEventListener(evt, onUserGesture, { capture: true, passive: true });
+      });
+    }
+
+    function removeGestureListeners() {
+      gestureEvents.forEach(function(evt) {
+        document.removeEventListener(evt, onUserGesture, true);
+        window.removeEventListener(evt, onUserGesture, true);
+      });
+    }
+
+    function tryAutoPlay() {
+      if (userMuted) return;
+      attachGestureListeners();
+      var p = playAudio();
+      if (p !== undefined) {
+        p.then(function() {
+          updateSoundUI(true);
+          removeGestureListeners();
+        }).catch(function() {
+          // Autoplay blocked by browser policy without prior user interaction.
+          // Gesture listeners remain active and will trigger audio on the very first touch/click anywhere.
         });
       }
+    }
+
+    function toggleSound() {
+      var snd = document.getElementById('snd');
+      if (!snd) return;
+      if (!snd.paused) {
+        // Music is currently playing -> user clicked to STOP ongoing music
+        userMuted = true;
+        snd.pause();
+        updateSoundUI(false);
+        removeGestureListeners();
+      } else {
+        // Music is stopped -> user clicked to turn music ON
+        userMuted = false;
+        playAudio().then(function() {
+          updateSoundUI(true);
+          removeGestureListeners();
+        }).catch(function(e) { console.log(e); });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', tryAutoPlay);
+    } else {
+      tryAutoPlay();
+    }
+
+                        /* ── CINEMATIC SQUID GAME & XTASY LOADER CONTROLLER ── */
+    var loaderDismissed = false;
+    var headlineData = [
+      { text: "INITIALIZING", highlight: "PROTOCOL" },
+      { text: "CALIBRATING IOT", highlight: "NODES" },
+      { text: "ENCRYPTING ARENA", highlight: "SENSORS" },
+      { text: "AUTOMYSTICA //", highlight: "HACK HARDWARE" },
+      { text: "TRIGUNA //", highlight: "VISION EXPO" },
+      { text: "SYNCHRONIZING SQUID", highlight: "AUDIO" },
+      { text: "XTASY 4.0", highlight: "READY" }
+    ];
+
+    var telemetryStages = [
+      "CALIBRATING ESP32 & WOKWI NODES • PORT :4040",
+      "ESTABLISHING ENCRYPTED IOT TELEMETRY • LATENCY 8ms",
+      "AUTOMYSTICA & SQUID SURVIVAL PROTOCOL ARMED",
+      "TRIGUNA & VISION EXPO HARDWARE READY",
+      "AUDIO ENGINE SYNCHRONIZED • ACCESS GRANTED"
+    ];
+
+    function runLoader() {
+      var loader = document.getElementById('xtasy-loader');
+      if (!loader) return;
+
+      var sp = new URLSearchParams(location.search);
+      if (sp.get('snap') === '1' || sp.get('goto')) {
+        loader.style.display = 'none';
+        document.body.classList.remove('loader-active');
+        return;
+      }
+
+      document.body.classList.add('loader-active');
+
+      var fill = document.getElementById('xlProgressFill');
+      var counter = document.getElementById('xlCounter');
+      var headline = document.getElementById('xlHeadline');
+      var calibVal = document.getElementById('xlCalibVal');
+      var glow = document.getElementById('xlGlow');
+      var badge = document.getElementById('xlBadge');
+
+      var startTime = performance.now();
+      var duration = 2200; // 2.2s smooth ramp
+      var headlineInterval = 340;
+      var lastHeadlineIdx = -1;
+
+      function frame(now) {
+        if (loaderDismissed) return;
+        var elapsed = now - startTime;
+        var progress = Math.min(1, elapsed / duration);
+
+        // Cubic ease-out
+        var eased = 1 - Math.pow(1 - progress, 2.5);
+        var percent = Math.floor(eased * 100);
+
+        if (counter) counter.innerText = percent + '%';
+        if (fill) fill.style.width = (eased * 100) + '%';
+
+        // Telemetry stage update
+        var tIdx = Math.min(telemetryStages.length - 1, Math.floor(progress * telemetryStages.length));
+        if (calibVal && calibVal.innerText !== telemetryStages[tIdx]) {
+          calibVal.innerText = telemetryStages[tIdx];
+        }
+
+        if (progress > 0.55) {
+          if (glow) glow.classList.add('primed');
+          if (badge) badge.classList.add('primed');
+        }
+
+        var hIdx = Math.min(headlineData.length - 1, Math.floor(elapsed / headlineInterval));
+        if (hIdx !== lastHeadlineIdx && headline) {
+          lastHeadlineIdx = hIdx;
+          var item = headlineData[hIdx];
+          headline.innerHTML = '<span class="xl-hl-white">' + item.text + '</span> <span class="xl-hl-pink">' + item.highlight + '</span>';
+          headline.classList.remove('flip-in');
+          void headline.offsetWidth;
+          headline.classList.add('flip-in');
+        }
+
+        if (progress < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          setTimeout(dismissLoader, 160);
+        }
+      }
+
+      requestAnimationFrame(frame);
+    }
+
+    function dismissLoader() {
+      if (loaderDismissed) return;
+      loaderDismissed = true;
+
+      var loader = document.getElementById('xtasy-loader');
+      var counter = document.getElementById('xlCounter');
+      var fill = document.getElementById('xlProgressFill');
+      var headline = document.getElementById('xlHeadline');
+      var calibVal = document.getElementById('xlCalibVal');
+
+      if (counter) counter.innerText = '100%';
+      if (fill) fill.style.width = '100%';
+      if (headline) headline.innerHTML = '<span class="xl-hl-white">XTASY 4.0</span> <span class="xl-hl-pink">READY</span>';
+      if (calibVal) calibVal.innerText = 'ARENA DEPLOYED • ENTERING SQUID GAME ARENA';
+
+      // Start music on dismiss (captures user tap or end of loader)
+      var snd = document.getElementById('snd');
+      if (snd && !userMuted) {
+        snd.volume = 0.5;
+        snd.play().then(function() {
+          updateSoundUI(true);
+        }).catch(function() {});
+      }
+
+      if (loader) {
+        loader.classList.add('dismissing');
+        setTimeout(function() {
+          loader.classList.add('loaded');
+          document.body.classList.remove('loader-active');
+        }, 50);
+        setTimeout(function() {
+          loader.style.display = 'none';
+        }, 1450);
+      }
+
+      // Start hero intro in sync with curtain lift
+      if (typeof playIntro === 'function') {
+        playIntro();
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', runLoader);
+    } else {
+      runLoader();
     }
 
     /* ── 1. HERO INTRO: Gliding cinematic transition matching video ── */
@@ -1087,9 +1795,49 @@
 
     function initIntro(){
       var sp=new URLSearchParams(location.search);
-      if(sp.get('s')==='end'||location.hash==='#end')document.body.classList.add('intro-active','lit','settled');
+      var gotoTarget = sp.get('goto');
+      if(sp.get('snap')==='1'){
+        document.documentElement.style.scrollBehavior = 'auto';
+        document.body.style.scrollBehavior = 'auto';
+        document.body.classList.add('intro-active','lit','settled');
+        document.querySelectorAll('.sec').forEach(function(s){ s.classList.add('iv'); });
+        var st = document.createElement('style');
+        st.textContent = `
+          *, *::before, *::after {
+            transition-duration: 0s !important;
+            transition-delay: 0s !important;
+            animation-duration: 0s !important;
+            animation-delay: 0s !important;
+          }
+          .sec, .sec.iv, .rc, .ci, .in-title, .rr-mask, .rr-re, .rr-dy, .wright, .wb, .rules-hdr, .scroll-cue, #countdown {
+            opacity: 1 !important;
+            transform: none !important;
+            visibility: visible !important;
+          }
+          .rr-dy-t { display: none !important; }
+        `;
+        document.head.appendChild(st);
+        if(gotoTarget){
+          var targetEl = document.getElementById(gotoTarget);
+          if(targetEl){
+            window.scrollTo(0, targetEl.offsetTop);
+          }
+        }
+        return;
+      }
+      if(gotoTarget){
+        document.documentElement.style.scrollBehavior = 'auto';
+        document.body.style.scrollBehavior = 'auto';
+        document.body.classList.add('intro-active','lit','settled');
+        document.querySelectorAll('.sec').forEach(function(s){ s.classList.add('iv'); });
+        var targetEl = document.getElementById(gotoTarget);
+        if(targetEl){
+          window.scrollTo(0, targetEl.offsetTop);
+        }
+      }
+      else if(sp.get('s')==='end'||location.hash==='#end')document.body.classList.add('intro-active','lit','settled');
       else if(sp.get('s')==='start'||location.hash==='#start')document.body.classList.remove('intro-active','lit','settled');
-      else playIntro();
+      else { /* playIntro will run on loader dismiss */ }
       var h=document.getElementById('hero');
       if(h)h.addEventListener('click',function(e){if(!e.target.closest('button,a'))replayIntro()});
     }

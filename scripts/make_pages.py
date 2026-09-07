@@ -302,10 +302,10 @@ update_page(
     'Master the elements of IoT, optimize your nodes, and build a system that outlasts the rest. The frontline of the Industrial IoT revolution starts here.',
     'Design an automated solution using Wokwi. Then, survive "The Twist"-an unexpected limitation thrown at you mid-competition. Adapt or perish.',
     'DUO', 
-    '₹190', 
+    '₹90', 
     'ENTER AUTOMYSTICA',
     ext_auto,
-    'https://forms.gle/Hm2fGyhegrfCjUqJ9'
+    'https://forms.gle/aXkLRDHScdoD7C8b6'
 )
 
 
@@ -338,7 +338,7 @@ update_page(
     '₹70 / ₹100', 
     'ENTER THE ARENA',
     ext_hack,
-    'https://forms.gle/87zmURhA2zu9cxM56'
+    'https://forms.gle/byxD2ngm3LL2UdmX9'
 )
 
 
@@ -387,7 +387,7 @@ update_page(
     '₹30', 
     'SUBMIT YOUR VISION',
     ext_vision,
-    'https://forms.gle/9ZyMedYs6afaeYCPA'
+    'https://forms.gle/nvEyPuP7AFB7FUwD7'
 )
 
 
@@ -429,6 +429,6 @@ update_page(
     '₹70 / ₹100', 
     'PITCH YOUR IMPACT',
     ext_triguna,
-    'https://forms.gle/iWmCTv5cBrDh4aNT8'
+    'https://forms.gle/ZzzBnMskAxdAwCdc7'
 )
 

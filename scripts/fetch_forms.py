@@ -1,11 +1,11 @@
-﻿import urllib.request
+import urllib.request
 import re
 
 urls = {
-    'TRIGUNA': 'https://forms.gle/iWmCTv5cBrDh4aNT8',
-    'AUTOMYSTICA': 'https://forms.gle/Hm2fGyhegrfCjUqJ9',
-    'HACK_THE_HARDWARE': 'https://forms.gle/87zmURhA2zu9cxM56',
-    'VISIONEXPO': 'https://forms.gle/9ZyMedYs6afaeYCPA'
+    'TRIGUNA': 'https://forms.gle/ZzzBnMskAxdAwCdc7',
+    'AUTOMYSTICA': 'https://forms.gle/aXkLRDHScdoD7C8b6',
+    'HACK_THE_HARDWARE': 'https://forms.gle/byxD2ngm3LL2UdmX9',
+    'VISIONEXPO': 'https://forms.gle/nvEyPuP7AFB7FUwD7'
 }
 
 for name, url in urls.items():
