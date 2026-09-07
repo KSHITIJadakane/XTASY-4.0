@@ -494,15 +494,26 @@
   <meta name="twitter:title" content="XTASY 4.0 — All Events & Arena Games | Dept. of IIoT" />
   <meta name="twitter:description" content="XTASY 4.0 — Explore all high-stakes arena events, presented by the Department of Industrial IoT (IIoT): Automystica, Hack The Hardware, Triguna, and Vision Expo. Adapt and conquer!" />
   <meta name="twitter:image" content="https://xtasy-4-0.vercel.app/assets/xtasy_logo.jpg" />
+  <link rel="preload" href="assets/squid_theme.mp3" as="audio" type="audio/mpeg"/>
 </head>
 <body>
+  <audio id="snd" src="assets/squid_theme.mp3" autoplay loop preload="auto" playsinline><source src="assets/squid_theme.mp3" type="audio/mpeg"/></audio>
+  <script>
+    (function(){
+      var s = document.getElementById('snd');
+      if (s) {
+        s.volume = 0.5;
+        var p = s.play();
+        if (p !== undefined) p.catch(function(){});
+      }
+    })();
+  </script>
   <div class="fx-grain"></div>
   <div class="fx-vig"></div>
   <div class="fx-scroll" id="fx-scroll"></div>
   <div class="dept-watermark">DEPARTMENT OF INDUSTRIAL IOT</div>
   <div class="cdot" id="cdot"></div>
   <div class="cring" id="cring"></div>
-  <audio id="snd" src="assets/squid_theme.mp3" autoplay loop preload="auto" playsinline><source src="assets/squid_theme.mp3" type="audio/mpeg"/></audio>
 
   <header id="hdr">
     <div class="logo" onclick="window.location.href='index.html'">
@@ -780,10 +791,9 @@
       }
     }
 
+    tryAutoPlay();
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', tryAutoPlay);
-    } else {
-      tryAutoPlay();
     }
 
     /* ── 1. HERO INTRO: Gliding cinematic transition matching video ── */

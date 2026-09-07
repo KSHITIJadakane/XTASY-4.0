@@ -1096,8 +1096,20 @@
   <meta name="twitter:title" content="XTASY 4.0 — Quest Room | Department of Industrial IoT" />
   <meta name="twitter:description" content="XTASY 4.0 — The ultimate high-stakes tech arena & quest room experience, presented by the Department of Industrial IoT (IIoT). Test your limits, outsmart the challenge, and hold the card. The game begins now!" />
   <meta name="twitter:image" content="https://xtasy-4-0.vercel.app/assets/xtasy_logo.jpg" />
+  <link rel="preload" href="assets/squid_theme.mp3" as="audio" type="audio/mpeg"/>
 </head>
 <body>
+  <audio id="snd" src="assets/squid_theme.mp3" autoplay loop preload="auto" playsinline><source src="assets/squid_theme.mp3" type="audio/mpeg"/></audio>
+  <script>
+    (function(){
+      var s = document.getElementById('snd');
+      if (s) {
+        s.volume = 0.5;
+        var p = s.play();
+        if (p !== undefined) p.catch(function(){});
+      }
+    })();
+  </script>
         <!-- SQUID GAME & XTASY 4.0 OPENING LOADER (KnightVault & Squid Game Inspired) -->
   <div id="xtasy-loader" class="xtasy-loader" onclick="dismissLoader()">
     <div class="xl-ambient-glow" id="xlGlow"></div>
@@ -1180,7 +1192,6 @@
   <div class="dept-watermark">DEPARTMENT OF INDUSTRIAL IOT</div>
   <div class="cdot" id="cdot"></div>
   <div class="cring" id="cring"></div>
-  <audio id="snd" src="assets/squid_theme.mp3" autoplay loop preload="auto" playsinline><source src="assets/squid_theme.mp3" type="audio/mpeg"/></audio>
 
   <header id="hdr">
     <div class="logo" onclick="goTo('hero')">
@@ -1640,10 +1651,9 @@
       }
     }
 
+    tryAutoPlay();
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', tryAutoPlay);
-    } else {
-      tryAutoPlay();
     }
 
                         /* ── CINEMATIC SQUID GAME & XTASY LOADER CONTROLLER ── */
@@ -1669,6 +1679,9 @@
     function runLoader() {
       var loader = document.getElementById('xtasy-loader');
       if (!loader) return;
+
+      // Start music immediately at loader initialization
+      tryAutoPlay();
 
       var sp = new URLSearchParams(location.search);
       if (sp.get('snap') === '1' || sp.get('goto')) {
