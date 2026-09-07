@@ -461,7 +461,9 @@
       #hdr .desktop-play-btn, .hdr-right .desktop-play-btn { display: none !important; }
       #hdr .mobile-play-btn, .hdr-right .mobile-play-btn { display: inline-flex !important; padding: 8px 16px; font-size: 12px; }
       #hdr .snd-toggle, .hdr-right .snd-toggle { display: none !important; }
-      .mobile-menu-btn { display: flex; }
+      .hdr-right { gap: 12px; }
+      .mobile-menu-btn { display: flex; order: 2; }
+      .mobile-play-btn { order: 1; }
       #hdr { height: 62px; padding: 0 16px; }
 
       .dept-watermark { display: none !important; }
@@ -1321,11 +1323,11 @@
           <div class="bar"></div><div class="bar"></div><div class="bar"></div>
         </div>
       </div>
-      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-      </button>
       <button class="btn-cta mobile-play-btn" data-cursor="triangle" style="display:none;" onclick="window.location.href='events.html'">Play Game</button>
       <button class="btn-cta desktop-play-btn" data-cursor="triangle" onclick="goTo('ready')">Play Game</button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Navigation Menu">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      </button>
     </div>
   </header>
   
