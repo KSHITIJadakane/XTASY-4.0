@@ -500,11 +500,49 @@
   <audio id="snd" src="assets/squid_theme.mp3" autoplay loop preload="auto" playsinline><source src="assets/squid_theme.mp3" type="audio/mpeg"/></audio>
   <script>
     (function(){
-      var s = document.getElementById('snd');
-      if (s) {
-        s.volume = 0.5;
-        var p = s.play();
-        if (p !== undefined) p.catch(function(){});
+      var _s = document.getElementById('snd');
+      if (!_s) return;
+      _s.volume = 0.5;
+
+      // Restore cross-page position
+      try {
+        var _t = parseFloat(sessionStorage.getItem('xtasy_audio_time'));
+        if (!isNaN(_t) && _t > 0) _s.currentTime = _t;
+      } catch(e) {}
+
+      // Respect mute preference
+      var _muted = (sessionStorage.getItem('xtasy_user_muted') === '1');
+      if (_muted) return;
+
+      // Attempt immediate autoplay
+      var _p = _s.play();
+
+      if (_p !== undefined) {
+        _p.catch(function() {
+          // Browser blocked autoplay – attach early capture listeners so the
+          // very first user gesture (even during page load) starts music instantly.
+          var _evts = ['pointerdown','touchstart','mousedown','click','keydown'];
+          function _boot() {
+            // Only run if the main toggleSound/tryAutoPlay hasn't taken over yet
+            var _s2 = document.getElementById('snd');
+            if (!_s2 || !_s2.paused) return;
+            if (sessionStorage.getItem('xtasy_user_muted') === '1') return;
+            try {
+              var _t2 = parseFloat(sessionStorage.getItem('xtasy_audio_time'));
+              if (!isNaN(_t2) && _t2 > 0) _s2.currentTime = _t2;
+            } catch(e) {}
+            _s2.volume = 0.5;
+            _s2.play().catch(function(){});
+            _evts.forEach(function(e){
+              document.removeEventListener(e, _boot, true);
+              window.removeEventListener(e, _boot, true);
+            });
+          }
+          _evts.forEach(function(e){
+            document.addEventListener(e, _boot, { capture: true, passive: true });
+            window.addEventListener(e, _boot, { capture: true, passive: true });
+          });
+        });
       }
     })();
   </script>
@@ -660,8 +698,8 @@
         </div>
         <div class="c-item" onclick="copyNum('9405476977', this)">
           <div class="c-role">DEV</div>
-          <div class="c-name">KSHITIJ ADAKANE</div>
-          <div class="c-num">+91 94054 76977</div>
+          <div class="c-name">KSHITIJ ADAKANE &nbsp;<span style="color:var(--pink);font-weight:400;">/</span>&nbsp; TUSHAR AGASHE</div>
+          <div class="c-num">+91 94054 76977 &nbsp;<span style="color:rgba(255,255,255,0.35)">|</span>&nbsp; <span onclick="event.stopPropagation();copyNum('9284243384',this.parentElement)" style="cursor:pointer">+91 92842 43384</span></div>
         </div>
       </div>
       
@@ -700,7 +738,7 @@
       }
     }
 
-    var userMuted = false;
+        var userMuted = (sessionStorage.getItem('xtasy_user_muted') === '1');
 
     function updateSoundUI(playing) {
       var btns = [document.getElementById('sound-btn'), document.getElementById('sound-btn-mobile')];
@@ -718,6 +756,40 @@
       });
     }
 
+    function saveAudioState() {
+      var snd = document.getElementById('snd');
+      if (snd) {
+        try { sessionStorage.setItem('xtasy_audio_time', snd.currentTime); } catch(e) {}
+      }
+      try { sessionStorage.setItem('xtasy_user_muted', userMuted ? '1' : '0'); } catch(e) {}
+    }
+
+    function restoreAudioTime() {
+      var snd = document.getElementById('snd');
+      if (!snd) return;
+      try {
+        var t = parseFloat(sessionStorage.getItem('xtasy_audio_time'));
+        if (!isNaN(t) && t > 0) { snd.currentTime = t; }
+      } catch(e) {}
+    }
+
+    // Save position every second while playing
+    var _audioSaveInterval = null;
+    function startAudioSaveInterval() {
+      if (_audioSaveInterval) return;
+      _audioSaveInterval = setInterval(saveAudioState, 1000);
+    }
+    function stopAudioSaveInterval() {
+      if (_audioSaveInterval) { clearInterval(_audioSaveInterval); _audioSaveInterval = null; }
+    }
+
+    // Save on any page-leave event
+    window.addEventListener('pagehide', saveAudioState);
+    window.addEventListener('beforeunload', saveAudioState);
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) saveAudioState();
+    });
+
     function playAudio() {
       var snd = document.getElementById('snd');
       if (!snd || userMuted) return Promise.reject();
@@ -733,12 +805,12 @@
       if (snd && snd.paused) {
         playAudio().then(function() {
           updateSoundUI(true);
+          startAudioSaveInterval();
           removeGestureListeners();
-        }).catch(function() {
-          // If still blocked, keep listeners attached
-        });
+        }).catch(function() {});
       } else if (snd && !snd.paused) {
         updateSoundUI(true);
+        startAudioSaveInterval();
         removeGestureListeners();
       }
     }
@@ -758,16 +830,24 @@
     }
 
     function tryAutoPlay() {
-      if (userMuted) return;
+      if (userMuted) { updateSoundUI(false); return; }
+      var snd = document.getElementById('snd');
+      // If already playing (started by autoplay attr or early inline script), just sync UI
+      if (snd && !snd.paused) {
+        updateSoundUI(true);
+        startAudioSaveInterval();
+        return;
+      }
       attachGestureListeners();
       var p = playAudio();
       if (p !== undefined) {
         p.then(function() {
           updateSoundUI(true);
+          startAudioSaveInterval();
           removeGestureListeners();
         }).catch(function() {
-          // Autoplay blocked by browser policy without prior user interaction.
-          // Gesture listeners remain active and will trigger audio on the very first touch/click anywhere.
+          // Autoplay blocked – gesture listeners will fire on first interaction.
+          updateSoundUI(false);
         });
       }
     }
@@ -776,16 +856,18 @@
       var snd = document.getElementById('snd');
       if (!snd) return;
       if (!snd.paused) {
-        // Music is currently playing -> user clicked to STOP ongoing music
         userMuted = true;
         snd.pause();
+        stopAudioSaveInterval();
+        saveAudioState();
         updateSoundUI(false);
         removeGestureListeners();
       } else {
-        // Music is stopped -> user clicked to turn music ON
         userMuted = false;
+        saveAudioState();
         playAudio().then(function() {
           updateSoundUI(true);
+          startAudioSaveInterval();
           removeGestureListeners();
         }).catch(function(e) { console.log(e); });
       }
@@ -795,7 +877,6 @@
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', tryAutoPlay);
     }
-
     /* ── 1. HERO INTRO: Gliding cinematic transition matching video ── */
     function playIntro(){
       timers.forEach(function(t){clearTimeout(t)});timers=[];

@@ -74,6 +74,80 @@
     .snd-toggle:not(.playing) .bar { height: 4px; background: var(--t70); box-shadow: none; }
     @keyframes eqPlay { 0% { height: 6px; } 100% { height: 18px; } }
 
+    /* ── FLOATING SCROLL NOTICE / HINT ── */
+    #scroll-hint {
+      position: fixed;
+      bottom: clamp(18px, 4vh, 28px);
+      left: 50%;
+      transform: translateX(-50%) translateY(14px);
+      z-index: 850;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 9px 20px 9px 22px;
+      border-radius: 999px;
+      background: rgba(10, 10, 14, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 0, 127, 0.42);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7), 0 0 16px rgba(255, 0, 127, 0.25);
+      cursor: pointer;
+      pointer-events: auto;
+      user-select: none;
+      -webkit-user-select: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
+    }
+    #scroll-hint.sh-visible {
+      opacity: 0.95;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    #scroll-hint.sh-hidden {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      transform: translateX(-50%) translateY(16px) !important;
+      pointer-events: none !important;
+    }
+    #scroll-hint:hover {
+      background: rgba(18, 18, 24, 0.88);
+      border-color: rgba(255, 0, 127, 0.75);
+      box-shadow: 0 6px 28px rgba(0, 0, 0, 0.8), 0 0 22px rgba(255, 0, 127, 0.45);
+    }
+    #scroll-hint:active {
+      transform: translateX(-50%) scale(0.96);
+      background: rgba(255, 0, 127, 0.22);
+    }
+    .sh-txt {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      color: rgba(255, 255, 255, 0.92);
+      text-transform: uppercase;
+    }
+    .sh-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      animation: shArrowBounce 1.2s infinite ease-in-out;
+    }
+    .sh-icon svg {
+      display: block;
+      filter: drop-shadow(0 0 4px rgba(255, 0, 127, 0.85));
+    }
+    @keyframes shArrowBounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(3.5px); }
+    }
+    .scroll-cue {
+      display: none !important;
+    }
+
     
     .contact-box { width: 90%; max-width: 450px; background: #080808; border: 1px solid var(--b12); padding: 32px; position: relative; }
     .c-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
@@ -1102,11 +1176,49 @@
   <audio id="snd" src="assets/squid_theme.mp3" autoplay loop preload="auto" playsinline><source src="assets/squid_theme.mp3" type="audio/mpeg"/></audio>
   <script>
     (function(){
-      var s = document.getElementById('snd');
-      if (s) {
-        s.volume = 0.5;
-        var p = s.play();
-        if (p !== undefined) p.catch(function(){});
+      var _s = document.getElementById('snd');
+      if (!_s) return;
+      _s.volume = 0.5;
+
+      // Restore cross-page position
+      try {
+        var _t = parseFloat(sessionStorage.getItem('xtasy_audio_time'));
+        if (!isNaN(_t) && _t > 0) _s.currentTime = _t;
+      } catch(e) {}
+
+      // Respect mute preference
+      var _muted = (sessionStorage.getItem('xtasy_user_muted') === '1');
+      if (_muted) return;
+
+      // Attempt immediate autoplay
+      var _p = _s.play();
+
+      if (_p !== undefined) {
+        _p.catch(function() {
+          // Browser blocked autoplay – attach early capture listeners so the
+          // very first user gesture (even during page load) starts music instantly.
+          var _evts = ['pointerdown','touchstart','mousedown','click','keydown'];
+          function _boot() {
+            // Only run if the main toggleSound/tryAutoPlay hasn't taken over yet
+            var _s2 = document.getElementById('snd');
+            if (!_s2 || !_s2.paused) return;
+            if (sessionStorage.getItem('xtasy_user_muted') === '1') return;
+            try {
+              var _t2 = parseFloat(sessionStorage.getItem('xtasy_audio_time'));
+              if (!isNaN(_t2) && _t2 > 0) _s2.currentTime = _t2;
+            } catch(e) {}
+            _s2.volume = 0.5;
+            _s2.play().catch(function(){});
+            _evts.forEach(function(e){
+              document.removeEventListener(e, _boot, true);
+              window.removeEventListener(e, _boot, true);
+            });
+          }
+          _evts.forEach(function(e){
+            document.addEventListener(e, _boot, { capture: true, passive: true });
+            window.addEventListener(e, _boot, { capture: true, passive: true });
+          });
+        });
       }
     })();
   </script>
@@ -1560,7 +1672,7 @@
       }
     }
 
-    var userMuted = false;
+        var userMuted = (sessionStorage.getItem('xtasy_user_muted') === '1');
 
     function updateSoundUI(playing) {
       var btns = [document.getElementById('sound-btn'), document.getElementById('sound-btn-mobile')];
@@ -1578,6 +1690,40 @@
       });
     }
 
+    function saveAudioState() {
+      var snd = document.getElementById('snd');
+      if (snd) {
+        try { sessionStorage.setItem('xtasy_audio_time', snd.currentTime); } catch(e) {}
+      }
+      try { sessionStorage.setItem('xtasy_user_muted', userMuted ? '1' : '0'); } catch(e) {}
+    }
+
+    function restoreAudioTime() {
+      var snd = document.getElementById('snd');
+      if (!snd) return;
+      try {
+        var t = parseFloat(sessionStorage.getItem('xtasy_audio_time'));
+        if (!isNaN(t) && t > 0) { snd.currentTime = t; }
+      } catch(e) {}
+    }
+
+    // Save position every second while playing
+    var _audioSaveInterval = null;
+    function startAudioSaveInterval() {
+      if (_audioSaveInterval) return;
+      _audioSaveInterval = setInterval(saveAudioState, 1000);
+    }
+    function stopAudioSaveInterval() {
+      if (_audioSaveInterval) { clearInterval(_audioSaveInterval); _audioSaveInterval = null; }
+    }
+
+    // Save on any page-leave event
+    window.addEventListener('pagehide', saveAudioState);
+    window.addEventListener('beforeunload', saveAudioState);
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) saveAudioState();
+    });
+
     function playAudio() {
       var snd = document.getElementById('snd');
       if (!snd || userMuted) return Promise.reject();
@@ -1593,12 +1739,12 @@
       if (snd && snd.paused) {
         playAudio().then(function() {
           updateSoundUI(true);
+          startAudioSaveInterval();
           removeGestureListeners();
-        }).catch(function() {
-          // If still blocked, keep listeners attached
-        });
+        }).catch(function() {});
       } else if (snd && !snd.paused) {
         updateSoundUI(true);
+        startAudioSaveInterval();
         removeGestureListeners();
       }
     }
@@ -1618,16 +1764,24 @@
     }
 
     function tryAutoPlay() {
-      if (userMuted) return;
+      if (userMuted) { updateSoundUI(false); return; }
+      var snd = document.getElementById('snd');
+      // If already playing (started by autoplay attr or early inline script), just sync UI
+      if (snd && !snd.paused) {
+        updateSoundUI(true);
+        startAudioSaveInterval();
+        return;
+      }
       attachGestureListeners();
       var p = playAudio();
       if (p !== undefined) {
         p.then(function() {
           updateSoundUI(true);
+          startAudioSaveInterval();
           removeGestureListeners();
         }).catch(function() {
-          // Autoplay blocked by browser policy without prior user interaction.
-          // Gesture listeners remain active and will trigger audio on the very first touch/click anywhere.
+          // Autoplay blocked – gesture listeners will fire on first interaction.
+          updateSoundUI(false);
         });
       }
     }
@@ -1636,16 +1790,18 @@
       var snd = document.getElementById('snd');
       if (!snd) return;
       if (!snd.paused) {
-        // Music is currently playing -> user clicked to STOP ongoing music
         userMuted = true;
         snd.pause();
+        stopAudioSaveInterval();
+        saveAudioState();
         updateSoundUI(false);
         removeGestureListeners();
       } else {
-        // Music is stopped -> user clicked to turn music ON
         userMuted = false;
+        saveAudioState();
         playAudio().then(function() {
           updateSoundUI(true);
+          startAudioSaveInterval();
           removeGestureListeners();
         }).catch(function(e) { console.log(e); });
       }
@@ -1655,25 +1811,34 @@
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', tryAutoPlay);
     }
-
                         /* ── CINEMATIC SQUID GAME & XTASY LOADER CONTROLLER ── */
     var loaderDismissed = false;
     var headlineData = [
-      { text: "INITIALIZING", highlight: "PROTOCOL" },
-      { text: "CALIBRATING IOT", highlight: "NODES" },
-      { text: "ENCRYPTING ARENA", highlight: "SENSORS" },
-      { text: "AUTOMYSTICA //", highlight: "HACK HARDWARE" },
-      { text: "TRIGUNA //", highlight: "VISION EXPO" },
-      { text: "SYNCHRONIZING SQUID", highlight: "AUDIO" },
-      { text: "XTASY 4.0", highlight: "READY" }
+      { text: "BOOTING",           highlight: "ARENA OS v4.0"       },
+      { text: "DEPT OF",           highlight: "INDUSTRIAL IOT"       },
+      { text: "SCANNING",          highlight: "ESP32 NODES"          },
+      { text: "456 PLAYERS",       highlight: "CONNECTED"            },
+      { text: "ENCRYPTING",        highlight: "SQUID PROTOCOL"       },
+      { text: "AUTOMYSTICA //",    highlight: "HACK THE HARDWARE"    },
+      { text: "TRIGUNA //",        highlight: "VISION EXPO"          },
+      { text: "IIoT ARENA",        highlight: "ARMED & LIVE"         },
+      { text: "SURVIVAL MODE",     highlight: "ACTIVATED"            },
+      { text: "HOLD THE CARD.",    highlight: "BEAT THE GAME."       },
+      { text: "PLAY SMART.",       highlight: "OR PLAY DEAD."        },
+      { text: "SYNCHRONIZING",     highlight: "SQUID AUDIO"          },
+      { text: "THE GAME",          highlight: "BEGINS NOW"           },
+      { text: "XTASY 4.0",         highlight: "READY"                }
     ];
 
     var telemetryStages = [
-      "CALIBRATING ESP32 & WOKWI NODES • PORT :4040",
-      "ESTABLISHING ENCRYPTED IOT TELEMETRY • LATENCY 8ms",
-      "AUTOMYSTICA & SQUID SURVIVAL PROTOCOL ARMED",
-      "TRIGUNA & VISION EXPO HARDWARE READY",
-      "AUDIO ENGINE SYNCHRONIZED • ACCESS GRANTED"
+      "ARENA OS v4.0 KERNEL BOOT • DEPT OF INDUSTRIAL IOT",
+      "SCANNING WOKWI + ESP32 MESH • 456 NODES DETECTED",
+      "ENCRYPTING IOT TELEMETRY CHANNEL • LATENCY 8ms",
+      "AUTOMYSTICA — SQUID SURVIVAL PROTOCOL ARMED",
+      "HACK THE HARDWARE — CIRCUIT ARENA STANDBY",
+      "TRIGUNA + VISION EXPO MODULES LOADED",
+      "AUDIO ENGINE LOCKED • SQUID THEME SYNCHRONIZED",
+      "ALL SYSTEMS NOMINAL • ACCESS GRANTED — ENTER THE ARENA"
     ];
 
     function runLoader() {
@@ -1692,46 +1857,64 @@
 
       document.body.classList.add('loader-active');
 
-      var fill = document.getElementById('xlProgressFill');
+      var fill    = document.getElementById('xlProgressFill');
       var counter = document.getElementById('xlCounter');
-      var headline = document.getElementById('xlHeadline');
-      var calibVal = document.getElementById('xlCalibVal');
-      var glow = document.getElementById('xlGlow');
-      var badge = document.getElementById('xlBadge');
+      var headline= document.getElementById('xlHeadline');
+      var calibVal= document.getElementById('xlCalibVal');
+      var glow    = document.getElementById('xlGlow');
+      var badge   = document.getElementById('xlBadge');
 
-      var startTime = performance.now();
-      var duration = 2200; // 2.2s smooth ramp
-      var headlineInterval = 340;
+      var startTime       = performance.now();
+      var duration        = 4800;   // 4.8s — cinematic, not a rush
+      var headlineInterval= 210;    // fast headline cycling
       var lastHeadlineIdx = -1;
+      var lastTelIdx      = -1;
+
+      /* Multi-phase easing so progress feels REAL:
+         0–30% → quick initial boot burst
+         30–65% → slows down (system checks)
+         65–85% → brief stall feeling (hardware handshake)
+         85–100% → final confident surge                         */
+      function realisticEase(t) {
+        if (t < 0.30) return t * 1.10;                          // fast boot
+        if (t < 0.65) return 0.33 + (t - 0.30) * 0.77;        // slow check
+        if (t < 0.85) return 0.60 + (t - 0.65) * 0.70;        // stall zone
+        return 0.74 + (t - 0.85) * 1.73;                       // final surge
+      }
 
       function frame(now) {
         if (loaderDismissed) return;
-        var elapsed = now - startTime;
+        var elapsed  = now - startTime;
         var progress = Math.min(1, elapsed / duration);
-
-        // Cubic ease-out
-        var eased = 1 - Math.pow(1 - progress, 2.5);
-        var percent = Math.floor(eased * 100);
+        var eased    = Math.min(1, realisticEase(progress));
+        var percent  = Math.floor(eased * 100);
 
         if (counter) counter.innerText = percent + '%';
-        if (fill) fill.style.width = (eased * 100) + '%';
+        if (fill)    fill.style.width  = (eased * 100) + '%';
 
-        // Telemetry stage update
-        var tIdx = Math.min(telemetryStages.length - 1, Math.floor(progress * telemetryStages.length));
-        if (calibVal && calibVal.innerText !== telemetryStages[tIdx]) {
+        // Telemetry stage (8 stages across full duration)
+        var tIdx = Math.min(telemetryStages.length - 1,
+                            Math.floor(progress * telemetryStages.length));
+        if (tIdx !== lastTelIdx && calibVal) {
+          lastTelIdx = tIdx;
           calibVal.innerText = telemetryStages[tIdx];
         }
 
-        if (progress > 0.55) {
-          if (glow) glow.classList.add('primed');
+        // Glow primes at 55%
+        if (eased > 0.55) {
+          if (glow)  glow.classList.add('primed');
           if (badge) badge.classList.add('primed');
         }
 
-        var hIdx = Math.min(headlineData.length - 1, Math.floor(elapsed / headlineInterval));
+        // Headlines cycle on fixed interval (fast)
+        var hIdx = Math.min(headlineData.length - 1,
+                            Math.floor(elapsed / headlineInterval));
         if (hIdx !== lastHeadlineIdx && headline) {
           lastHeadlineIdx = hIdx;
           var item = headlineData[hIdx];
-          headline.innerHTML = '<span class="xl-hl-white">' + item.text + '</span> <span class="xl-hl-pink">' + item.highlight + '</span>';
+          headline.innerHTML =
+            '<span class="xl-hl-white">' + item.text + '</span> ' +
+            '<span class="xl-hl-pink">'  + item.highlight + '</span>';
           headline.classList.remove('flip-in');
           void headline.offsetWidth;
           headline.classList.add('flip-in');
@@ -1740,7 +1923,7 @@
         if (progress < 1) {
           requestAnimationFrame(frame);
         } else {
-          setTimeout(dismissLoader, 160);
+          setTimeout(dismissLoader, 220);
         }
       }
 
@@ -1765,10 +1948,18 @@
       // Start music on dismiss (captures user tap or end of loader)
       var snd = document.getElementById('snd');
       if (snd && !userMuted) {
-        snd.volume = 0.5;
-        snd.play().then(function() {
+        if (!snd.paused) {
+          // Already playing (autoplay worked) – just sync UI
           updateSoundUI(true);
-        }).catch(function() {});
+          startAudioSaveInterval();
+        } else {
+          // Autoplay was blocked – dismissLoader click IS a user gesture, use it
+          snd.volume = 0.5;
+          snd.play().then(function() {
+            updateSoundUI(true);
+            startAudioSaveInterval();
+          }).catch(function() {});
+        }
       }
 
       if (loader) {
@@ -1786,6 +1977,13 @@
       if (typeof playIntro === 'function') {
         playIntro();
       }
+
+      // Show floating scroll notice as curtain lifts
+      setTimeout(function() {
+        if (typeof window.showScrollHint === 'function') {
+          window.showScrollHint();
+        }
+      }, 400);
     }
 
     if (document.readyState === 'loading') {
@@ -1974,5 +2172,70 @@
     document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()});
   </script>
   <script src="assets/navigator.js"></script>
+  <!-- Floating Scroll Notice / Hint Popup -->
+  <div id="scroll-hint" class="scroll-hint-popup" onclick="goTo('welcome')" role="button" aria-label="Scroll down to enter arena">
+    <span class="sh-txt">SCROLL DOWN</span>
+    <div class="sh-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none">
+        <path d="M6 9L12 15L18 9" stroke="#FF007F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <script>
+    // ── FLOATING SCROLL NOTICE / HINT LOGIC ──
+    (function() {
+      var hint = document.getElementById('scroll-hint');
+
+      function showScrollHint() {
+        if (!hint) hint = document.getElementById('scroll-hint');
+        if (!hint) return;
+        if (window.scrollY <= 45) {
+          hint.classList.add('sh-visible');
+          hint.classList.remove('sh-hidden');
+        }
+      }
+
+      function hideScrollHint() {
+        if (!hint) hint = document.getElementById('scroll-hint');
+        if (!hint) return;
+        hint.classList.add('sh-hidden');
+        hint.classList.remove('sh-visible');
+      }
+
+      function onUserScroll() {
+        if (window.scrollY > 45) {
+          hideScrollHint();
+        } else {
+          var loader = document.getElementById('xtasy-loader');
+          var isLoaderActive = loader && (loader.style.display !== 'none' && !loader.classList.contains('loaded'));
+          if (!isLoaderActive && !document.body.classList.contains('loader-active')) {
+            showScrollHint();
+          }
+        }
+      }
+
+      window.showScrollHint = showScrollHint;
+      window.hideScrollHint = hideScrollHint;
+
+      window.addEventListener('scroll', onUserScroll, { passive: true });
+      window.addEventListener('touchmove', onUserScroll, { passive: true });
+
+      // Auto-check once page is ready
+      function checkInitial() {
+        setTimeout(function() {
+          var loader = document.getElementById('xtasy-loader');
+          var isDone = !loader || loader.style.display === 'none' || loader.classList.contains('loaded');
+          if (isDone) showScrollHint();
+        }, 1000);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', checkInitial);
+      } else {
+        checkInitial();
+      }
+    })();
+  </script>
 </body>
 </html>
