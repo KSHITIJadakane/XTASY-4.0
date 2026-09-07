@@ -263,14 +263,14 @@
     .btn-walk{background:none;border:none;color:#555;font-family:'Space Mono',monospace;font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:4px;transition:color .25s}
     .btn-walk:hover{color:#ba134d}
     
-    .c-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
-    .c-item { background: rgba(0,0,0,0.05); border: 1px dashed #aaa; padding: 12px 16px; border-radius: 4px; cursor: pointer; transition: all 0.3s; position: relative; }
+    .c-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .c-item { background: rgba(0,0,0,0.05); border: 1px dashed #aaa; padding: 10px 75px 10px 14px; border-radius: 4px; cursor: pointer; transition: all 0.3s; position: relative; }
     .c-item:hover { background: rgba(186,19,77,0.05); border-color: var(--pink); }
-    .c-item::after { content: 'COPIED!'; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-family: 'Space Mono', monospace; font-size: 11px; color: var(--pink); opacity: 0; transition: opacity 0.3s; font-weight: bold; }
+    .c-item::after { content: 'COPIED!'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-family: 'Space Mono', monospace; font-size: 11px; color: var(--pink); opacity: 0; transition: opacity 0.3s; font-weight: bold; pointer-events: none; }
     .c-item.copied::after { opacity: 1; }
-    .c-role { font-family: 'Space Grotesk', sans-serif; font-size: 10px; color: #ba134d; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 2px; }
-    .c-name { font-family: 'Space Grotesk', sans-serif; font-size: 15px; color: #000; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 4px; }
-    .c-num { font-family: 'Space Mono', monospace; font-size: 13px; color: #444; }
+    .c-role { font-family: 'Space Grotesk', sans-serif; font-size: 9.5px; color: #ba134d; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 2px; }
+    .c-name { font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: #000; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 2px; }
+    .c-num { font-family: 'Space Mono', monospace; font-size: 12.5px; color: #444; }
 
 
   
@@ -1000,8 +1000,13 @@
         </div>
                 <div class="c-item" onclick="copyNum('9405476977', this)">
           <div class="c-role">DEV</div>
-          <div class="c-name">KSHITIJ ADAKANE &nbsp;<span style="color:var(--pink);font-weight:400;">/</span>&nbsp; TUSHAR AGASHE</div>
-          <div class="c-num">+91 94054 76977 &nbsp;<span style="color:rgba(255,255,255,0.35)">|</span>&nbsp; <span onclick="event.stopPropagation();copyNum('9284243384',this.parentElement)" style="cursor:pointer">+91 92842 43384</span></div>
+          <div class="c-name">KSHITIJ ADAKANE</div>
+          <div class="c-num">+91 94054 76977</div>
+        </div>
+        <div class="c-item" onclick="copyNum('9284243384', this)">
+          <div class="c-role">DEV</div>
+          <div class="c-name">TUSHAR AGASHE</div>
+          <div class="c-num">+91 92842 43384</div>
         </div>
       </div>
       
