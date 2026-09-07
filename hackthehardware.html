@@ -498,7 +498,7 @@
             </div>
           </div>
 
-          <button class="ed-cta" data-cursor="triangle" onclick="window.open('https://forms.gle/ogJAjE5PofFKNwup7', '_blank')">ENTER THE ARENA</button>
+          <button class="ed-cta" data-cursor="triangle" onclick="openRegModal('HACK THE HARDWARE // REGISTRATION', 'https://docs.google.com/forms/d/e/1FAIpQLSetSTwoYBZw0WRXJmBzVfwiX3_OCBlArhGx6hU8wAzAA5cizg/viewform?embedded=true', 'https://forms.gle/ogJAjE5PofFKNwup7')">ENTER THE ARENA</button>
           
           <a href="events.html" class="ed-back" data-cursor="circle">← BACK TO EVENTS</a>
         </div>
@@ -658,7 +658,203 @@
         .ext-block p { font-size: 14.5px; line-height: 1.6; margin-bottom: 14px; }
         .ext-block li { padding: 14px 16px; font-size: 13.5px; line-height: 1.5; }
       }
-    </style>
+    
+    /* ── ARENA REGISTRATION MODAL (IN-SITE GOOGLE FORM) ── */
+    #reg-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 10005;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 16px;
+    }
+    #reg-modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .reg-mbox {
+      width: 100%;
+      max-width: 840px;
+      height: 92vh;
+      max-height: 880px;
+      background: #080a0f;
+      border: 1.5px solid rgba(186, 19, 77, 0.6);
+      box-shadow: 0 0 40px rgba(186, 19, 77, 0.35), 0 25px 60px rgba(0,0,0,0.95);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: scale(0.95) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    #reg-modal.open .reg-mbox {
+      transform: scale(1) translateY(0);
+    }
+    .reg-m-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px;
+      background: linear-gradient(180deg, rgba(20, 22, 30, 0.98) 0%, rgba(10, 12, 18, 0.98) 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .reg-m-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow: hidden;
+    }
+    .reg-m-syms {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      color: var(--pink);
+      letter-spacing: 0.18em;
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(186, 19, 77, 0.7);
+      flex-shrink: 0;
+    }
+    .reg-m-h {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .reg-m-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .reg-btn-external {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      color: var(--t70);
+      font-family: 'Space Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .reg-btn-external:hover {
+      background: rgba(0, 240, 255, 0.1);
+      border-color: var(--cyan);
+      color: var(--cyan);
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+    }
+    .reg-btn-close {
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(186, 19, 77, 0.15);
+      border: 1px solid rgba(186, 19, 77, 0.5);
+      border-radius: 4px;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .reg-btn-close:hover {
+      background: var(--pink);
+      border-color: var(--pink);
+      box-shadow: 0 0 15px rgba(186, 19, 77, 0.8);
+      transform: scale(1.05);
+    }
+    .reg-iframe-container {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      overflow: hidden;
+    }
+    .reg-iframe-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    .reg-loader {
+      position: absolute;
+      inset: 0;
+      background: #080a0f;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 5;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .reg-loader.hidden {
+      opacity: 0;
+    }
+    .reg-spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid rgba(186, 19, 77, 0.2);
+      border-top-color: var(--pink);
+      border-right-color: var(--cyan);
+      border-radius: 50%;
+      animation: regSpin 0.9s linear infinite;
+    }
+    @keyframes regSpin {
+      to { transform: rotate(360deg); }
+    }
+    .reg-loader-text {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--pink);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(186, 19, 77, 0.5);
+    }
+    @media (max-width: 600px) {
+      #reg-modal {
+        padding: 0;
+      }
+      .reg-mbox {
+        width: 100vw;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+        border: none;
+      }
+      .reg-m-top {
+        padding: 12px 14px;
+      }
+      .reg-btn-external span {
+        display: none;
+      }
+      .reg-btn-external {
+        padding: 6px 8px;
+      }
+    }
+
+</style>
     <footer class="footer" style="position:relative; z-index:20; background:#050505;">
       <div class="logo" onclick="window.location.href='index.html'">
         <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" style="width:22px;height:22px;color:var(--pink);filter:drop-shadow(0 0 8px rgba(255,0,127,.9))"><circle cx="50" cy="45" r="32" stroke-width="12"/><path d="M68 62 L88 88" stroke-width="14" stroke-linecap="round"/></svg>
@@ -679,7 +875,36 @@
     
     </main>
 
-  <div id="modal" onclick="if(event.target===this)closeModal()">
+  
+  <!-- Arena Registration Modal (Embedded Google Form) -->
+  <div id="reg-modal" onclick="if(event.target===this)closeRegModal()">
+    <div class="reg-mbox" data-cursor="default">
+      <div class="reg-m-top">
+        <div class="reg-m-title-wrap">
+          <div class="reg-m-syms">&#9675; &#9651; &#9633;</div>
+          <div class="reg-m-h" id="reg-modal-title">ARENA REGISTRATION</div>
+        </div>
+        <div class="reg-m-actions">
+          <a id="reg-direct-link" href="#" target="_blank" rel="noopener noreferrer" class="reg-btn-external" title="Open form in new tab">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            <span>OPEN IN TAB</span>
+          </a>
+          <button type="button" class="reg-btn-close" onclick="closeRegModal()" aria-label="Close registration modal">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="reg-iframe-container">
+        <div class="reg-loader" id="reg-loader">
+          <div class="reg-spinner"></div>
+          <div class="reg-loader-text">CONNECTING TO SECURE REGISTRATION TERMINAL...</div>
+        </div>
+        <iframe id="reg-iframe" src="" frameborder="0" marginheight="0" marginwidth="0" onload="onRegIframeLoaded()">Loading…</iframe>
+      </div>
+    </div>
+  </div>
+
+<div id="modal" onclick="if(event.target===this)closeModal()">
     <div class="mbox" data-cursor="default">
       <div class="m-top">
         <div class="m-syms">&#9675; &#9651; &#9633;</div>
@@ -993,7 +1218,40 @@
     function openModal(){beep(523,.25);document.getElementById('modal').classList.add('open')}
     function closeModal(){document.getElementById('modal').classList.remove('open')}
     function confirmEntry(){chord();alert('Registration received. Watch for the red light.');closeModal()}
-    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()});
-  </script>
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeModal();closeContactModal();closeRegModal();}});
+  
+    /* Arena Registration Modal Functions */
+    function openRegModal(title, embedUrl, directUrl) {
+      var modal = document.getElementById('reg-modal');
+      var iframe = document.getElementById('reg-iframe');
+      var titleEl = document.getElementById('reg-modal-title');
+      var directEl = document.getElementById('reg-direct-link');
+      var loader = document.getElementById('reg-loader');
+      if (!modal || !iframe) return;
+      if (titleEl) titleEl.innerText = title || 'ARENA REGISTRATION';
+      if (directEl) directEl.href = directUrl || embedUrl;
+      if (loader) loader.classList.remove('hidden');
+      if (iframe.src !== embedUrl) {
+        iframe.src = embedUrl;
+      } else {
+        if (loader) loader.classList.add('hidden');
+      }
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (typeof beep === 'function') beep(523, 0.2);
+    }
+
+    function closeRegModal() {
+      var modal = document.getElementById('reg-modal');
+      if (modal) modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function onRegIframeLoaded() {
+      var loader = document.getElementById('reg-loader');
+      if (loader) loader.classList.add('hidden');
+    }
+
+</script>
 </body>
 </html>
