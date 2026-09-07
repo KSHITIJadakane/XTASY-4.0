@@ -9,26 +9,59 @@
   var snd = document.getElementById('snd');
   if (snd) {
     try {
+      // Clear any accidental mute flag from previous sessions so audio always autoplays
+      sessionStorage.removeItem('xtasy_audio_muted');
+      window.userMuted = false;
+
       var savedTime = sessionStorage.getItem('xtasy_audio_time');
-      var isMuted = sessionStorage.getItem('xtasy_audio_muted');
       if (savedTime && !isNaN(savedTime)) {
         var t = parseFloat(savedTime);
         if (t > 0 && t < 15.5) {
           snd.currentTime = t;
         }
       }
-      if (isMuted === 'true') {
-        snd.pause();
-        window.userMuted = true;
-      }
     } catch(e) {}
 
+    // Continuously persist current playback timestamp
     snd.addEventListener('timeupdate', function() {
       try {
-        sessionStorage.setItem('xtasy_audio_time', snd.currentTime);
-        sessionStorage.setItem('xtasy_audio_muted', snd.paused ? 'true' : 'false');
+        if (!snd.paused && snd.currentTime > 0) {
+          sessionStorage.setItem('xtasy_audio_time', snd.currentTime);
+        }
       } catch(e) {}
     });
+
+    // Auto-trigger audio playback immediately on load
+    snd.volume = 0.5;
+    var playPromise = snd.play();
+    if (playPromise !== undefined) {
+      playPromise.then(function() {
+        if (typeof window.updateSoundUI === 'function') {
+          window.updateSoundUI(true);
+        }
+      }).catch(function(e) {
+        // If mobile browser blocks unprompted autoplay, start on very first interaction
+        var touchEvents = ['pointerdown', 'touchstart', 'mousedown', 'click', 'scroll', 'keydown'];
+        function onFirstTouch() {
+          if (snd.paused && !window.userMuted) {
+            snd.volume = 0.5;
+            snd.play().then(function() {
+              if (typeof window.updateSoundUI === 'function') {
+                window.updateSoundUI(true);
+              }
+            }).catch(function() {});
+          }
+          touchEvents.forEach(function(evt) {
+            window.removeEventListener(evt, onFirstTouch, true);
+            document.removeEventListener(evt, onFirstTouch, true);
+          });
+        }
+        touchEvents.forEach(function(evt) {
+          window.addEventListener(evt, onFirstTouch, { capture: true, passive: true });
+          document.addEventListener(evt, onFirstTouch, { capture: true, passive: true });
+        });
+      });
+    }
   }
 
   // 2. Internal Page Detection
