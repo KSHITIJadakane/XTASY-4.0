@@ -305,7 +305,7 @@ update_page(
     '₹100', 
     'ENTER AUTOMYSTICA',
     ext_auto,
-    'https://forms.gle/aXkLRDHScdoD7C8b6'
+    'https://forms.gle/R9LFzpG6GCGGthmg7'
 )
 
 
@@ -338,7 +338,7 @@ update_page(
     '₹70 / ₹100', 
     'ENTER THE ARENA',
     ext_hack,
-    'https://forms.gle/byxD2ngm3LL2UdmX9'
+    'https://forms.gle/ogJAjE5PofFKNwup7'
 )
 
 
@@ -387,7 +387,7 @@ update_page(
     '₹30', 
     'SUBMIT YOUR VISION',
     ext_vision,
-    'https://forms.gle/nvEyPuP7AFB7FUwD7'
+    'https://forms.gle/Ebnnth5RKrSLTuk57'
 )
 
 
@@ -429,6 +429,6 @@ update_page(
     '₹70 / ₹100', 
     'PITCH YOUR IMPACT',
     ext_triguna,
-    'https://forms.gle/ZzzBnMskAxdAwCdc7'
+    'https://forms.gle/GZoGhr7K9MT3817n7'
 )
 

@@ -2,10 +2,10 @@ import urllib.request
 import re
 
 urls = {
-    'TRIGUNA': 'https://forms.gle/ZzzBnMskAxdAwCdc7',
-    'AUTOMYSTICA': 'https://forms.gle/aXkLRDHScdoD7C8b6',
-    'HACK_THE_HARDWARE': 'https://forms.gle/byxD2ngm3LL2UdmX9',
-    'VISIONEXPO': 'https://forms.gle/nvEyPuP7AFB7FUwD7'
+    'TRIGUNA': 'https://forms.gle/GZoGhr7K9MT3817n7',
+    'AUTOMYSTICA': 'https://forms.gle/R9LFzpG6GCGGthmg7',
+    'HACK_THE_HARDWARE': 'https://forms.gle/ogJAjE5PofFKNwup7',
+    'VISIONEXPO': 'https://forms.gle/Ebnnth5RKrSLTuk57'
 }
 
 for name, url in urls.items():
