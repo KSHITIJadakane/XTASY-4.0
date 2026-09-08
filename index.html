@@ -27,10 +27,10 @@
 
     
     /* Countdown Timer */
-    #countdown{position:absolute;bottom:26px;left:26px;z-index:100;font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:var(--pink);text-shadow:0 0 12px rgba(255,0,127,.6);letter-spacing:.15em;display:flex;align-items:center;gap:12px;opacity:0;transform:translateY(10px);transition:all .8s var(--ease) 1.5s}
+    #countdown{position:absolute;bottom:26px;left:26px;z-index:100;font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:var(--pink);text-shadow:0 0 12px rgba(255,0,127,.6);letter-spacing:.15em;display:flex;align-items:center;gap:12px;opacity:0;transform:translateY(10px);transition:all .8s var(--ease) 1.5s;white-space:nowrap}
     body.settled #countdown{opacity:1;transform:translateY(0)}
     .cd-lbl{font-size:9px;color:var(--t70);letter-spacing:.25em}
-    .cd-clock{background:rgba(8,8,8,.72);border:1px solid rgba(255,0,127,.2);padding:6px 12px;border-radius:4px;backdrop-filter:blur(12px)}
+    .cd-clock{background:rgba(8,8,8,.72);border:1px solid rgba(255,0,127,.2);padding:6px 12px;border-radius:4px;backdrop-filter:blur(12px);white-space:nowrap}
 
     /* Cursor */
     .cdot{position:fixed;top:0;left:0;width:8px;height:8px;background:var(--pink);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 12px var(--pink),0 0 24px var(--pink);opacity:0;transition:width .2s,height .2s,background .2s,opacity .3s,border-radius .2s,border .2s,transform .2s,filter .2s}
@@ -606,11 +606,12 @@
         background: transparent;
         border: none;
         padding: 0;
-        font-size: 15px;
+        font-size: 14px;
         color: var(--pink);
         text-shadow: 0 0 10px rgba(255, 0, 127, 0.7);
         border-radius: 0;
         backdrop-filter: none;
+        white-space: nowrap;
       }
       .mobile-dept-tag {
         display: flex;
@@ -1558,7 +1559,7 @@
           </div>
         </div>
         
-        <div id="countdown"><span class="cd-lbl">T-MINUS</span><span class="cd-clock">04:59:59</span></div>
+        <div id="countdown"><span class="cd-lbl">T-MINUS</span><span class="cd-clock">SYNCING...</span></div>
         <div class="mobile-dept-tag">
           <div class="mdt-text">DEPARTMENT OF INDUSTRIAL IOT</div>
           <div class="mdt-syms">&#9675; &nbsp; &#9651; &nbsp; &#9633;</div>
@@ -2215,17 +2216,32 @@
       }
     });
 
-    /* Countdown Timer logic */
+    /* Countdown Timer logic (Synced to 10 September 2026, 09:00:00 IST) */
     var cdClock = document.querySelector('.cd-clock');
-    var timeLeft = 4 * 3600 + 59 * 60 + 59; // 04:59:59
-    setInterval(function(){
-      timeLeft--;
-      if(timeLeft<0) timeLeft=0;
-      var h = Math.floor(timeLeft / 3600);
-      var m = Math.floor((timeLeft % 3600) / 60);
-      var s = timeLeft % 60;
-      if(cdClock) cdClock.innerText = (h<10?'0'+h:h)+':'+(m<10?'0'+m:m)+':'+(s<10?'0'+s:s);
-    }, 1000);
+    var targetDate = new Date('2026-09-10T09:00:00+05:30').getTime();
+
+    function updateCountdown() {
+      if (!cdClock) return;
+      var now = Date.now();
+      var diff = Math.floor((targetDate - now) / 1000);
+      if (diff <= 0) {
+        cdClock.innerText = 'ARENA IS LIVE';
+        var cdLbl = document.querySelector('.cd-lbl');
+        if (cdLbl) cdLbl.innerText = 'STATUS';
+        return;
+      }
+      var d = Math.floor(diff / 86400);
+      var h = Math.floor((diff % 86400) / 3600);
+      var m = Math.floor((diff % 3600) / 60);
+      var s = diff % 60;
+      var dStr = (d < 10 ? '0' + d : d) + 'D ';
+      var hStr = (h < 10 ? '0' + h : h) + 'H ';
+      var mStr = (m < 10 ? '0' + m : m) + 'M ';
+      var sStr = (s < 10 ? '0' + s : s) + 'S';
+      cdClock.innerText = (d > 0 ? dStr : '') + hStr + mStr + sStr;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
     var cs2=document.getElementById('cstage');
     if(cs2)cs2.addEventListener('mouseleave',function(){var tc=document.getElementById('tcard');if(tc)tc.style.transform=''});
 

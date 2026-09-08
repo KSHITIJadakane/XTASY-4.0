@@ -1293,17 +1293,32 @@
       }
     });
 
-    /* Countdown Timer logic */
+    /* Countdown Timer logic (Synced to 10 September 2026, 09:00:00 IST) */
     var cdClock = document.querySelector('.cd-clock');
-    var timeLeft = 4 * 3600 + 59 * 60 + 59; // 04:59:59
-    setInterval(function(){
-      timeLeft--;
-      if(timeLeft<0) timeLeft=0;
-      var h = Math.floor(timeLeft / 3600);
-      var m = Math.floor((timeLeft % 3600) / 60);
-      var s = timeLeft % 60;
-      if(cdClock) cdClock.innerText = (h<10?'0'+h:h)+':'+(m<10?'0'+m:m)+':'+(s<10?'0'+s:s);
-    }, 1000);
+    var targetDate = new Date('2026-09-10T09:00:00+05:30').getTime();
+
+    function updateCountdown() {
+      if (!cdClock) return;
+      var now = Date.now();
+      var diff = Math.floor((targetDate - now) / 1000);
+      if (diff <= 0) {
+        cdClock.innerText = 'ARENA IS LIVE';
+        var cdLbl = document.querySelector('.cd-lbl');
+        if (cdLbl) cdLbl.innerText = 'STATUS';
+        return;
+      }
+      var d = Math.floor(diff / 86400);
+      var h = Math.floor((diff % 86400) / 3600);
+      var m = Math.floor((diff % 3600) / 60);
+      var s = diff % 60;
+      var dStr = (d < 10 ? '0' + d : d) + 'D ';
+      var hStr = (h < 10 ? '0' + h : h) + 'H ';
+      var mStr = (m < 10 ? '0' + m : m) + 'M ';
+      var sStr = (s < 10 ? '0' + s : s) + 'S';
+      cdClock.innerText = (d > 0 ? dStr : '') + hStr + mStr + sStr;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
     var cs2=document.getElementById('cstage');
     if(cs2)cs2.addEventListener('mouseleave',function(){var tc=document.getElementById('tcard');if(tc)tc.style.transform=''});
 
