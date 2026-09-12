@@ -3584,7 +3584,7 @@
     })();
   </script>
         <!-- SQUID GAME & XTASY 4.0 OPENING LOADER (KnightVault & Squid Game Inspired) -->
-  <div id="xtasy-loader" class="xtasy-loader" onclick="dismissLoader()">
+  <div id="xtasy-loader" class="xtasy-loader">
     <div class="xl-ambient-glow" id="xlGlow"></div>
     <div class="xl-grid-overlay"></div>
 
@@ -3626,7 +3626,7 @@
 
       <div class="xl-edition-tag">
         <span class="xl-tag-dot"></span>
-        <span>4TH EDITION TECHNICAL ARENA</span>
+        <span>4TH EDITION · EVENT CONCLUDED · 2025</span>
       </div>
 
       <div class="xl-headline-box">
@@ -3636,11 +3636,11 @@
         </h2>
       </div>
 
-      <p class="xl-subcaption">SURVIVAL OF THE SHARPEST • HIGH-STAKES TECHNICAL SYMPOSIUM • DEPT. OF INDUSTRIAL IOT</p>
+      <p class="xl-subcaption">THANK YOU FOR THE MEMORIES · XTASY 4.0 CONCLUDED · DEPT. OF INDUSTRIAL IOT</p>
 
-      <div class="xl-enter-pill">
-        <span>CLICK OR TAP TO ENTER</span>
-        <span class="xl-sound-glyph">🔊</span>
+      <div class="xl-enter-pill" style="cursor:default; animation: none; opacity:0.7; pointer-events:none;">
+        <span id="xlEnterPillText">LOADING MEMORIES...</span>
+        <span class="xl-sound-glyph">🎞️</span>
       </div>
     </div>
 
@@ -3651,7 +3651,7 @@
       </div>
       <div class="xl-telemetry-row">
         <div class="xl-telemetry-left">
-          <div class="xl-calib-lbl">ARENA CALIBRATION</div>
+          <div class="xl-calib-lbl">LOADING SITE ASSETS</div>
           <div class="xl-calib-val" id="xlCalibVal">CALIBRATING ESP32 & WOKWI NODES • PORT :4040</div>
         </div>
         <div class="xl-counter" id="xlCounter">0%</div>
@@ -4824,31 +4824,30 @@
                         /* ── CINEMATIC SQUID GAME & XTASY LOADER CONTROLLER ── */
     var loaderDismissed = false;
     var headlineData = [
-      { text: "BOOTING",           highlight: "ARENA OS v4.0"       },
-      { text: "DEPT OF",           highlight: "INDUSTRIAL IOT"       },
-      { text: "SCANNING",          highlight: "ESP32 NODES"          },
-      { text: "456 PLAYERS",       highlight: "CONNECTED"            },
-      { text: "ENCRYPTING",        highlight: "SQUID PROTOCOL"       },
-      { text: "AUTOMYSTICA //",    highlight: "HACK THE HARDWARE"    },
-      { text: "TRIGUNA //",        highlight: "VISION EXPO"          },
-      { text: "IIoT ARENA",        highlight: "ARMED & LIVE"         },
-      { text: "SURVIVAL MODE",     highlight: "ACTIVATED"            },
-      { text: "HOLD THE CARD.",    highlight: "BEAT THE GAME."       },
-      { text: "PLAY SMART.",       highlight: "OR PLAY DEAD."        },
-      { text: "SYNCHRONIZING",     highlight: "SQUID AUDIO"          },
-      { text: "THE GAME",          highlight: "BEGINS NOW"           },
-      { text: "XTASY 4.0",         highlight: "READY"                }
+      { text: "XTASY 4.0",         highlight: "CONCLUDED"            },
+      { text: "THANK YOU",          highlight: "456 PLAYERS"          },
+      { text: "DEPT OF",            highlight: "INDUSTRIAL IOT"       },
+      { text: "AUTOMYSTICA //",     highlight: "HACK THE HARDWARE"    },
+      { text: "TRIGUNA //",         highlight: "VISION EXPO"          },
+      { text: "LOADING",            highlight: "MEMORIES..."          },
+      { text: "SCANNING",           highlight: "ARCHIVES"             },
+      { text: "RENDERING",          highlight: "HIGHLIGHTS"           },
+      { text: "BUFFERING",          highlight: "DRONE FOOTAGE"        },
+      { text: "RESTORING",          highlight: "MOMENTS"              },
+      { text: "SIGNING OFF",        highlight: "KSHITIJ ADAKANE"      },
+      { text: "THE LEGACY",         highlight: "LIVES ON"             },
+      { text: "XTASY 4.0",          highlight: "FOREVER"              }
     ];
 
     var telemetryStages = [
-      "ARENA OS v4.0 KERNEL BOOT • DEPT OF INDUSTRIAL IOT",
-      "SCANNING WOKWI + ESP32 MESH • 456 NODES DETECTED",
-      "ENCRYPTING IOT TELEMETRY CHANNEL • LATENCY 8ms",
-      "AUTOMYSTICA — SQUID SURVIVAL PROTOCOL ARMED",
-      "HACK THE HARDWARE — CIRCUIT ARENA STANDBY",
-      "TRIGUNA + VISION EXPO MODULES LOADED",
-      "AUDIO ENGINE LOCKED • SQUID THEME SYNCHRONIZED",
-      "ALL SYSTEMS NOMINAL • ACCESS GRANTED — ENTER THE ARENA"
+      "CACHING HERO GRAPHICS & SQUID MASKS",
+      "BUFFERING AMBIENT DRONE FOOTAGE & REVEAL CLIPS",
+      "LOADING EVENT LOGOS: AUTOMYSTICA • TRIGUNA • VISION EXPO",
+      "RESTORING 22+ PHOTO ARCHIVES & MEMORY HIGHLIGHTS",
+      "RENDERING MENTOR TRIBUTES & TEAM CREDITS",
+      "DECODING TYPOGRAPHY: RAJDHANI • SPACE MONO",
+      "SYNCHRONIZING SQUID GAME AUDIO ENGINE",
+      "ALL ASSETS CACHED — ENTERING XTASY 4.0 MEMORIES"
     ];
 
     function runLoader() {
@@ -4983,8 +4982,8 @@
 
       // Smooth progress tracker
       var displayedPct = 0;
-      var minDuration = 2400; // minimum cinematic intro time (ms) so it's not a sudden flash
-      var maxSafetyTimeout = 5000; // maximum time before forcing finish on slow/spotty mobile
+      var minDuration = 3000;  // minimum cinematic intro time (ms)
+      var maxSafetyTimeout = 8000; // enough time to actually load assets on slow mobile
 
       function frame(now) {
         if (loaderDismissed) return;
@@ -5021,10 +5020,17 @@
         // Telemetry stage message
         if (calibVal) {
           if (displayedPct >= 100) {
-            calibVal.innerText = "ALL 456 ASSETS CACHED • ARENA READY • ENTER NOW";
+            calibVal.innerText = "ALL ASSETS LOADED — STEPPING INTO XTASY 4.0 MEMORIES";
           } else {
             calibVal.innerText = currentPhaseMsg + " • " + completedTasks + "/" + totalTasks + " LOADED";
           }
+        }
+        // Update the pill text too
+        var pillTxt = document.getElementById('xlEnterPillText');
+        if (pillTxt) {
+          pillTxt.innerText = displayedPct < 100
+            ? (displayedPct + '% LOADING...')
+            : 'READY — ENTERING...';
         }
 
         // Glow primes at 55%
@@ -5068,8 +5074,8 @@
 
       if (counter) counter.innerText = '100%';
       if (fill) fill.style.width = '100%';
-      if (headline) headline.innerHTML = '<span class="xl-hl-white">XTASY 4.0</span> <span class="xl-hl-pink">READY</span>';
-      if (calibVal) calibVal.innerText = 'ARENA DEPLOYED • ENTERING SQUID GAME ARENA';
+      if (headline) headline.innerHTML = '<span class="xl-hl-white">XTASY 4.0</span> <span class="xl-hl-pink">FOREVER</span>';
+      if (calibVal) calibVal.innerText = 'ALL ASSETS LOADED — STEPPING INTO XTASY 4.0 MEMORIES';
 
       // Start music on dismiss (captures user tap or end of loader)
       var snd = document.getElementById('snd');
