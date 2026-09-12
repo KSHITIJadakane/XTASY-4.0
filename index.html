@@ -6,6 +6,9 @@
   <title>XTASY 4.0 — Quest Room | Department of Industrial IoT</title>
   <meta name="description" content="XTASY 4.0 — The ultimate high-stakes tech arena & quest room experience, presented by the Department of Industrial IoT (IIoT). Test your limits, outsmart the challenge, and hold the card. The game begins now!"/>
   <meta name="theme-color" content="#000000"/>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+  <meta http-equiv="Pragma" content="no-cache"/>
+  <meta http-equiv="Expires" content="0"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
@@ -1330,6 +1333,8 @@
       gap: 22px;
       width: 100%;
       margin-bottom: 28px;
+      /* Prevent hover-scale bleed between cards */
+      isolation: isolate;
     }
     @media (max-width: 980px) {
       .ty-photos-grid {
@@ -1340,7 +1345,7 @@
     @media (max-width: 640px) {
       .ty-photos-grid {
         grid-template-columns: 1fr;
-        gap: 18px;
+        gap: 16px;
       }
     }
     @keyframes tyCardLoadingPulse {
@@ -1408,11 +1413,13 @@
       opacity: 1;
       transform: perspective(900px) translate3d(0, 0, 0) scale(1);
       filter: blur(0);
+      z-index: 1;
     }
     .ty-photo-card.is-in-view:hover {
-      transform: perspective(900px) translate3d(0, -8px, 16px) scale(1.025);
+      transform: perspective(900px) translate3d(0, -6px, 10px) scale(1.018);
       border-color: var(--pink);
       box-shadow: 0 18px 45px rgba(0,0,0,.9), 0 0 32px rgba(255,0,127,.4);
+      z-index: 10;
     }
     .ty-photo-card img {
       width: 100%;
@@ -1459,7 +1466,7 @@
     .ty-photo-card img[src*="mem_16_promotion_documentation"] { object-position: center 22% !important; }
     .ty-photo-card img[src*="mem_18_vision_expo_best_poster"] { object-position: center 35% !important; }
     .ty-photo-card img[src*="mem_19_thekedar_vaibhav_kshitij"] { object-position: center 25% !important; }
-    .ty-photo-card img[src*="mem_20_planners_layout_designers"] { object-position: center 32% !important; }
+    .ty-photo-card img[src*="mem_20_planners_layout_designers"] { object-position: center 20% !important; }
     .ty-photo-card img[src*="mem_22_inauguration_assembly"] { object-position: center 48% !important; }
     .ty-photo-card img[src*="mem_24_hack_the_hardware_lab"] { object-position: center 42% !important; }
     .ty-photo-card img[src*="mem_26_media_head_tushar"] { object-position: center 30% !important; }
@@ -1477,6 +1484,9 @@
       background: #06060a;
       box-shadow: 0 16px 48px rgba(0,0,0,.8), 0 0 35px rgba(255,0,127,.22);
       border-radius: 18px;
+      /* Ensure featured card never overlaps neighbors */
+      z-index: 2;
+      isolation: isolate;
     }
     .ty-photo-card.is-featured-team:hover {
       transform: translateY(-5px) scale(1.015);
@@ -1616,9 +1626,11 @@
       }
     }
     .ty-photo-card:hover {
-      transform: translateY(-5px) scale(1.02);
+      transform: translateY(-4px) scale(1.015);
       border-color: var(--pink);
       box-shadow: 0 16px 36px rgba(0,0,0,.7), 0 0 28px rgba(186,19,77,.3);
+      z-index: 10;
+      position: relative;
     }
     .ty-photo-card:hover img {
       transform: scale(1.08);
