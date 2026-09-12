@@ -1,177 +1,142 @@
 [
   {
-    "id": "1ontSDWQja2PnMKbP88jrpnAmDXNCEyMN",
-    "tag": "\u25cb INAUGURATION",
-    "title": "Dignitaries & Faculty Assembly",
-    "caption": "Distinguished guests and department faculty presiding over the opening session",
-    "local_src": "assets/memories/mem_01_inauguration.jpg"
-  },
-  {
     "id": "1n5nQse3RC3TFynvcI0TwDVfmCCSnuZ7o",
-    "tag": "\u25cb INAUGURAL WELCOME",
+    "tag": "○ INAUGURAL WELCOME",
     "title": "Inaugural Address & Welcome Speech",
     "caption": "Khushi Neware delivering the opening address and warm welcome to HOD, department faculty, and the esteemed guest from Bajaj BMS",
     "local_src": "assets/memories/mem_02_anchoring.jpg"
   },
   {
     "id": "1IETiuh2xgeyN9MLunS4RA95Bg5IauKRq",
-    "tag": "\u25a1 FELICITATION",
+    "tag": "□ FELICITATION",
     "title": "Honouring Mentors & Guests",
     "caption": "Commemorative memento presentation on the main XTASY 4.0 stage",
     "local_src": "assets/memories/mem_03_felicitation.jpg"
   },
   {
-    "id": "1M0VLWbQQY4IkIKiNuNsjf-paUZ_aYUYD",
-    "tag": "\u25cb VISION EXPO",
-    "title": "IIoT & Lean Knowledge Display",
-    "caption": "Technical poster showcase featuring Kaizen, 5S, Poka-Yoke and smart industry systems",
-    "local_src": "assets/memories/mem_04_visionexpo.jpg"
-  },
-  {
     "id": "1K8wywgh1avErmOuioJ4NIYLWqoRXNnwf",
-    "tag": "\u25b3 ARENA ZONES",
+    "tag": "△ ARENA ZONES",
     "title": "Stage, Automystica & Squid Arena",
     "caption": "Main competition arena ready for battle with official event zones marked",
     "local_src": "assets/memories/mem_05_arena_stage.jpg"
   },
   {
     "id": "17U4xcPTbRXX1rcBVEkkNQG8P6lVj0AeS",
-    "tag": "\u25a1 ARENA GAME",
-    "title": "Flip The Card \u00b7 Ddakji Challenge",
+    "tag": "□ ARENA GAME",
+    "title": "Flip The Card · Ddakji Challenge",
     "caption": "Contestants testing their nerve and precision at the interactive Squid Game arena",
     "local_src": "assets/memories/mem_06_flip_the_card.jpg"
   },
   {
     "id": "13c2LFNpszh8OeoXFi6dYwIEGGervdOKh",
-    "tag": "\u25b3 CHAMPIONS",
+    "tag": "△ CHAMPIONS",
     "title": "Certificate of Excellence Award",
     "caption": "Winners honoured on stage with official certificates and awards",
     "local_src": "assets/memories/mem_08_champions.jpg"
   },
   {
     "id": "1wL4rTz7ECWKCgtu6skkLhxF2YRmcKejk",
-    "tag": "\u25a1 PODIUM FINISH",
+    "tag": "□ PODIUM FINISH",
     "title": "Honouring Event Achievers",
     "caption": "Celebrating victorious contestants across all competition rounds",
     "local_src": "assets/memories/mem_09_podium.jpg"
   },
   {
     "id": "1mpbsIfM1r32Y5Gsv8iAERoehPYogIPt9",
-    "tag": "\u25cb FACULTY GUIDES",
+    "tag": "○ FACULTY GUIDES",
     "title": "Sushant Sir & Shyam Sir",
     "caption": "Sushant Sir (left) and Shyam Sir (right) – our respected faculty guides who directly supported the team by providing crucial tools, technical resources, and directions at the right time",
     "local_src": "assets/memories/mem_10_faculty.jpg"
   },
   {
-    "id": "1V4gu6uWUUaksZqI9iGjbeXizAXjkqTFs",
-    "tag": "\u25a1 MERIT & HONOURS",
-    "title": "Bajaj BMS Guest Presents Certificates",
-    "caption": "Distinguished guest from Bajaj BMS presenting Certificates of Appreciation and Merit to student achievers on stage",
-    "local_src": "assets/memories/mem_13_bajaj_appreciation.jpg"
-  },
-  {
     "id": "1UTL-Yg-XSKR2BKevFBzlnMRZCZxfoGTE",
-    "tag": "\u25cb INAUGURATION",
+    "tag": "○ INAUGURATION",
     "title": "Inauguration Kickoff by Khushi Neware",
     "caption": "Khushi Neware commencing the official XTASY 4.0 inauguration ceremony from the main podium",
     "local_src": "assets/memories/mem_14_inauguration_podium.jpg"
   },
   {
-    "id": "17D1VSFK-j09uPhCZ8g3vQ8VhUUqjH4pA",
-    "tag": "\u25b3 PROMOTIONS",
-    "title": "Abhaya Deogade \u00b7 Promotion Head",
-    "caption": "Promotion Head Abhaya Deogade, who spearheaded campus-wide outreach and campaigns to drive record participation across all events",
-    "local_src": "assets/memories/mem_15_abhaya_promotion.jpg"
-  },
-  {
     "id": "1KA5_Obc8IPT-krNGKfxACOAD5Giyd1bF",
-    "tag": "\u25cb CORE LEADERSHIP",
+    "tag": "○ CORE LEADERSHIP",
     "title": "Promotion & Documentation Pillars",
     "caption": "Documentation Head Charul Sawarkar and Promotion Head Abhaya Deogade celebrating the event's massive participant turnout",
     "local_src": "assets/memories/mem_16_promotion_documentation.jpg"
   },
   {
-    "id": "13K-_ZJBFR3Gjf3I_39-NM0bgmhsLVHBh",
-    "tag": "\u25a1 DOCUMENTATION",
-    "title": "Charul Sawarkar \u00b7 Documentation Head",
-    "caption": "Documentation Head Charul Sawarkar, who meticulously managed all contestant registrations, entry databases, and participant willingness forms",
-    "local_src": "assets/memories/mem_17_charul_documentation.jpg"
-  },
-  {
     "id": "1iaK9ckR_jwJnTcCtthZ8WwLDqExJvXQY",
-    "tag": "\u25cb VISION EXPO WINNER",
-    "title": "Vision Expo \u00b7 Best Technical Poster",
+    "tag": "○ VISION EXPO WINNER",
+    "title": "Vision Expo · Best Technical Poster",
     "caption": "The winning technical poster selected at the Vision Expo competition, specially exhibited on the shelf for our guests from Bajaj BMS",
     "local_src": "assets/memories/mem_18_vision_expo_best_poster.jpg"
   },
   {
     "id": "local_mem_19",
-    "tag": "\u25a1 THEKEDAR & TECH HEAD",
+    "tag": "□ THEKEDAR & TECH HEAD",
     "title": "Vaibhav Ghode & Kshitij Adakane",
-    "caption": "Vaibhav Ghode (left, in coat) \u2013 our official 'THEKEDAR' of XTASY 4.0, nicknamed for his unmatched hardware mastery, precision cutting, measurement techniques, and physical execution of our arena designs, alongside Technical Head & Web Developer Kshitij Adakane (right).",
+    "caption": "Vaibhav Ghode (left, in coat) – our official 'THEKEDAR' of XTASY 4.0, nicknamed for his unmatched hardware mastery, precision cutting, measurement techniques, and physical execution of our arena designs, alongside Technical Head & Web Developer Kshitij Adakane (right).",
     "local_src": "assets/memories/mem_19_thekedar_vaibhav_kshitij.jpg"
   },
   {
     "id": "local_mem_20",
-    "tag": "\u25cb EVENT PLANNERS & LAYOUT DESIGN",
-    "title": "The Event Backbone \u00b7 Planning & Layout Designers",
-    "caption": "Left to right: 1. Kashish Muneshwar, 2. Chaitrali Bele, 3. Pradnya Khonde, and 4. Vidhi Ukey \u2013 the four main planners and layout designers throughout XTASY 4.0 who acted as the backbone of our event.",
+    "tag": "○ EVENT PLANNERS & LAYOUT DESIGN",
+    "title": "The Event Backbone · Planning & Layout Designers",
+    "caption": "Left to right: 1. Kashish Muneshwar, 2. Chaitrali Bele, 3. Pradnya Khonde, and 4. Vidhi Ukey – the four main planners and layout designers throughout XTASY 4.0 who acted as the backbone of our event.",
     "local_src": "assets/memories/mem_20_planners_layout_designers.jpg"
   },
   {
     "id": "1brk1HoPeYLqdezrQKbcXolGp0cx3IRuM",
-    "tag": "\u25cb THE SQUAD BEHIND XTASY",
+    "tag": "○ THE SQUAD BEHIND XTASY",
     "title": "TEAM XTASY 4.0",
     "caption": "The entire XTASY 4.0 organizing team – 40+ committee leads, coordinators, and student volunteers united on stage celebrating the landmark event.",
     "local_src": "assets/memories/mem_21_team_xtasy.jpg"
   },
   {
     "id": "1g1cRptSX-X8lT0braTu9JnTqhym78gFl",
-    "tag": "\u25b3 INAUGURATION CEREMONY",
-    "title": "Inaugural Assembly \u00b7 HoD, Staff & Guests",
+    "tag": "△ INAUGURATION CEREMONY",
+    "title": "Inaugural Assembly · HoD, Staff & Guests",
     "caption": "HoD Dr. M. Shriraghavan (in yellow shirt) alongside department faculty, staff, and distinguished guests assembled for the XTASY 4.0 inauguration ceremony.",
     "local_src": "assets/memories/mem_22_inauguration_assembly.jpg"
   },
   {
     "id": "1I8nCu96Zgna5X7no77wauL3q4WmJGrwa",
-    "tag": "\u25a1 LEADERSHIP FELICITATION",
+    "tag": "□ LEADERSHIP FELICITATION",
     "title": "Bajaj BMS Guest & HoD Dr. M. Shriraghavan",
     "caption": "Distinguished guest from Bajaj BMS (left) presenting commemorative honors to Dr. M. Shriraghavan, HoD of the IIoT Department (right, in yellow shirt).",
     "local_src": "assets/memories/mem_23_bms_guest_hod_felicitation.jpg"
   },
   {
     "id": "15inFH0dqyUyTSx3MuKRO-xq-nVYeZvP0",
-    "tag": "\u25b3 HACK THE HARDWARE",
-    "title": "Hack The Hardware \u00b7 Live Competition",
+    "tag": "△ HACK THE HARDWARE",
+    "title": "Hack The Hardware · Live Competition",
     "caption": "Contestants deeply immersed in the Hack The Hardware arena challenge, engineering solutions and coding live in the computer lab.",
     "local_src": "assets/memories/mem_24_hack_the_hardware_lab.jpg"
   },
   {
     "id": "local_mem_25_juniors",
-    "tag": "\u25cb 2ND YEAR JUNIORS",
-    "title": "2nd Year Juniors \u00b7 Pride of XTASY 4.0",
+    "tag": "○ 2ND YEAR JUNIORS",
+    "title": "2nd Year Juniors · Pride of XTASY 4.0",
     "caption": "Our incredible 2nd-year juniors who supported and powered the overall execution of XTASY 4.0 from start to finish. We are immensely proud of their hard work, commitment, and unstoppable energy!",
     "local_src": "assets/memories/mem_25_juniors_2nd_year.jpg"
   },
   {
     "id": "local_mem_26_tushar",
-    "tag": "\u25cb MEDIA HEAD & CINEMATOGRAPHY",
-    "title": "Tushar Agashe \u00b7 Solo Media Powerhouse",
-    "caption": "Every single video, teaser, camera angle, and reel for XTASY 4.0 was captured, directed, and edited by our Media Head Tushar Agashe\u2014the solo visual powerhouse behind our event's cinematic presence.",
+    "tag": "○ MEDIA HEAD & CINEMATOGRAPHY",
+    "title": "Tushar Agashe · Solo Media Powerhouse",
+    "caption": "Every single video, teaser, camera angle, and reel for XTASY 4.0 was captured, directed, and edited by our Media Head Tushar Agashe—the solo visual powerhouse behind our event's cinematic presence.",
     "local_src": "assets/memories/mem_26_media_head_tushar.jpg"
   },
   {
     "id": "local_mem_27_romit",
-    "tag": "\u25cb CRUCIAL EVENT PILLAR",
-    "title": "Romit \u00b7 Crucial XTASY Pillar",
-    "caption": "Romit \u2013 one of our crucial pillars and key helpers throughout XTASY 4.0 whose steadfast support and relentless on-ground contributions ensured smooth overall fest execution.",
+    "tag": "○ CRUCIAL EVENT PILLAR",
+    "title": "Romit · Crucial XTASY Pillar",
+    "caption": "Romit – one of our crucial pillars and key helpers throughout XTASY 4.0 whose steadfast support and relentless on-ground contributions ensured smooth overall fest execution.",
     "local_src": "assets/memories/mem_27_romit_core_pillar.jpg"
   },
   {
     "id": "local_mem_28_hemant",
-    "tag": "\u25a1 CRUCIAL EVENT PILLAR",
-    "title": "Hemant Pardhi \u00b7 Crucial XTASY Pillar",
-    "caption": "Hemant Pardhi \u2013 a crucial member and pillar of the XTASY 4.0 team who contributed tirelessly to the overall success and execution of the festival.",
+    "tag": "□ CRUCIAL EVENT PILLAR",
+    "title": "Hemant Pardhi · Crucial XTASY Pillar",
+    "caption": "Hemant Pardhi – a crucial member and pillar of the XTASY 4.0 team who contributed tirelessly to the overall success and execution of the festival.",
     "local_src": "assets/memories/mem_28_hemant_core_pillar.jpg"
   }
 ]
