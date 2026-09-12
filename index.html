@@ -1528,6 +1528,32 @@
       color: #ffffff;
       text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
     }
+    .ty-credit-card.ty-thekedar-credit {
+      border-color: rgba(255, 180, 0, 0.45);
+      background: linear-gradient(135deg, rgba(255, 180, 0, 0.08) 0%, rgba(26, 18, 6, 0.7) 100%);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 180, 0, 0.15);
+    }
+    .ty-credit-card.ty-thekedar-credit:hover {
+      border-color: #ffb400;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 35px rgba(255, 180, 0, 0.35);
+    }
+    .ty-credit-card.ty-thekedar-credit .ty-cc-symbol {
+      color: #ffb400;
+      text-shadow: 0 0 14px #ffb400;
+    }
+    .ty-credit-card.ty-thekedar-credit .ty-cc-role {
+      color: #ffb400;
+      letter-spacing: .25em;
+    }
+    .ty-credit-card.ty-thekedar-credit .ty-cc-name {
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(255, 180, 0, 0.5);
+    }
+    @media (min-width: 961px) {
+      .ty-credit-card.ty-thekedar-credit {
+        grid-column: 2;
+      }
+    }
     .ty-cc-symbol {
       font-size: 22px;
       color: rgba(186,19,77,.7);
@@ -3223,7 +3249,7 @@
           </div>
 
           <p>
-            Serving as <strong>TRIGUNA Event Coordinator</strong> while concurrently managing the technological ecosystem as <strong>Technical Head &amp; Website Developer</strong> demanded relentless hustle and precision. A heartfelt thanks to our Faculty Mentor <strong>Prof. Rajeshwari Shinde</strong> for her constant guidance and trust, our respected faculty guides <strong>Sushant Sir</strong> &amp; <strong>Shyam Sir</strong> for directly helping and backing us with essential tools, equipment, and crucial directions at just the right time, our Coordinators <strong>Vidhi Ukey</strong> &amp; <strong>Roopam Zade</strong> for leading the frontline, Promotion Head <strong>Abhaya Deogade</strong> for driving campus outreach, Registration Head <strong>Charul Sawajkar</strong> for managing registrations, Documentation Head <strong>Khushbu Navghare</strong> for meticulous record keeping, Finance Head <strong>Shreyash Paunikar</strong>, Decoration Head <strong>Rahi Ghode</strong>, Media Head <strong>Tushar Agashe</strong> for stellar video production, and every student volunteer whose grit made this benchmark event possible.
+            Serving as <strong>TRIGUNA Event Coordinator</strong> while concurrently managing the technological ecosystem as <strong>Technical Head &amp; Website Developer</strong> demanded relentless hustle and precision. A heartfelt thanks to our Faculty Mentor <strong>Prof. Rajeshwari Shinde</strong> for her constant guidance and trust, our respected faculty guides <strong>Sushant Sir</strong> &amp; <strong>Shyam Sir</strong> for directly helping and backing us with essential tools, equipment, and crucial directions at just the right time, our Coordinators <strong>Vidhi Ukey</strong> &amp; <strong>Roopam Zade</strong> for leading the frontline, Promotion Head <strong>Abhaya Deogade</strong> for driving campus outreach, Registration Head <strong>Charul Sawajkar</strong> for managing registrations, Documentation Head <strong>Khushbu Navghare</strong> for meticulous record keeping, Finance Head <strong>Shreyash Paunikar</strong>, Decoration Head <strong>Rahi Ghode</strong>, our on-ground execution pillar and official 'Thekedar' <strong>Vaibhav Ghode</strong>, Media Head <strong>Tushar Agashe</strong> for stellar video production, and every student volunteer whose grit made this benchmark event possible.
           </p>
 
           <p>
@@ -3257,7 +3283,7 @@
             <div class="ty-ss-dots" id="tySSdots"></div>
             <button class="ty-ss-btn" id="tySSNext" aria-label="Next memory">&#10095;</button>
           </div>
-          <div class="ty-ss-counter" id="tySSCounter">1 / 16</div>
+          <div class="ty-ss-counter" id="tySSCounter">1 / 17</div>
         </div>
       </div>
 
@@ -3268,7 +3294,7 @@
         <!-- View Tabs -->
         <div class="ty-gallery-tabs">
           <button class="ty-tab-btn active" id="btnTabHighlights" onclick="switchTyTab('highlights')">
-            <span>📷 PHOTO HIGHLIGHTS (15)</span>
+            <span>📷 PHOTO HIGHLIGHTS (16)</span>
           </button>
           <button class="ty-tab-btn" id="btnTabDrive" onclick="switchTyTab('drive')">
             <span>📁 GOOGLE DRIVE FOLDER</span>
@@ -3413,6 +3439,15 @@
               </div>
               <div class="ty-pc-zoom">🔍</div>
             </div>
+            <!-- 16 -->
+            <div class="ty-photo-card is-portrait" onclick="openLightbox(15)" data-cursor="circle">
+              <img src="assets/memories/mem_19_thekedar_vaibhav_kshitij.jpg" alt="Vaibhav Ghode (Thekedar) and Kshitij Adakane (Tech Head)" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">□ THEKEDAR &amp; TECH HEAD</div>
+                <div class="ty-pc-title">Vaibhav Ghode &amp; Kshitij Adakane</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
           </div>
         </div>
 
@@ -3502,6 +3537,14 @@
             <div class="ty-cc-symbol">□</div>
             <div class="ty-cc-role">DECORATION HEAD</div>
             <div class="ty-cc-name">RAHI GHODE</div>
+            <div class="ty-cc-dept">Department of Industrial IoT</div>
+          </div>
+
+          <!-- Row 4: Special Operations / Thekedar -->
+          <div class="ty-credit-card ty-lead ty-thekedar-credit">
+            <div class="ty-cc-symbol">△</div>
+            <div class="ty-cc-role">THEKEDAR</div>
+            <div class="ty-cc-name">VAIBHAV GHODE</div>
             <div class="ty-cc-dept">Department of Industrial IoT</div>
           </div>
         </div>
@@ -4424,6 +4467,12 @@
         tag: "○ VISION EXPO WINNER",
         title: "Vision Expo · Best Technical Poster",
         caption: "The winning technical poster selected at the Vision Expo competition, specially exhibited on the shelf for our guests from Bajaj BMS."
+      },
+      {
+        local_src: "assets/memories/mem_19_thekedar_vaibhav_kshitij.jpg",
+        tag: "□ THEKEDAR & TECH HEAD",
+        title: "Vaibhav Ghode & Kshitij Adakane",
+        caption: "Vaibhav Ghode (left, in coat) – our official 'THEKEDAR' of XTASY 4.0, alongside Technical Head & Web Developer Kshitij Adakane (right) at the custom Squid Game arena booth."
       }
     ];
 
@@ -4436,7 +4485,8 @@
         'assets/memories/mem_04_visionexpo.jpg',
         'assets/memories/mem_05_arena_stage.jpg',
         'assets/memories/mem_08_champions.jpg',
-        'assets/memories/mem_10_faculty.jpg'
+        'assets/memories/mem_10_faculty.jpg',
+        'assets/memories/mem_19_thekedar_vaibhav_kshitij.jpg'
       ];
       var slides = [];
       var curBg = 0;
@@ -4593,6 +4643,13 @@
           tag: '○ VISION EXPO WINNER',
           title: 'Vision Expo · Best Technical Poster',
           desc: 'The best poster selected from Vision Expo, displayed on the honor shelf for our guests from Bajaj BMS.'
+        },
+        {
+          type: 'image',
+          src: 'assets/memories/mem_19_thekedar_vaibhav_kshitij.jpg',
+          tag: '□ THEKEDAR & TECH HEAD',
+          title: 'Vaibhav Ghode & Kshitij Adakane',
+          desc: "Vaibhav Ghode (left) – 'THEKEDAR' of XTASY 4.0, with Tech Head & Developer Kshitij Adakane (right) celebrating in the arena."
         }
       ];
 
