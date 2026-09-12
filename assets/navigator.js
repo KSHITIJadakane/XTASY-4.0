@@ -106,6 +106,12 @@
     var targetFile = getCleanFileName(url);
     var currentFile = getCleanFileName(window.location.pathname);
 
+    // If target is events.html (event concluded), reroute directly to index.html#thankyou
+    if (targetFile === 'events.html') {
+      window.xtasyNavigate('index.html#thankyou', pushState);
+      return;
+    }
+
     // If navigating to the same file with a hash, smooth scroll to element
     if (targetFile === currentFile && url.indexOf('#') !== -1) {
       var hash = url.split('#')[1];

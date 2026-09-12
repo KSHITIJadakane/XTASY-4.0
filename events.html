@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
+  <meta http-equiv="refresh" content="0;url=index.html#thankyou" />
+  <script>
+    window.location.replace('index.html#thankyou');
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>XTASY 4.0 — All Events & Arena Games | Dept. of IIoT</title>
-  <meta name="description" content="XTASY 4.0 — Explore all high-stakes arena events, presented by the Department of Industrial IoT (IIoT): Automystica, Hack The Hardware, Triguna, and Vision Expo. Adapt and conquer!"/>
+  <title>XTASY 4.0 — Event Concluded | Dept. of IIoT</title>
+  <meta name="description" content="XTASY 4.0 has concluded. View memories, photo gallery, and acknowledgments."/>
   <meta name="theme-color" content="#000000"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -570,7 +574,6 @@
           <div class="bar"></div><div class="bar"></div><div class="bar"></div>
         </div>
       </div>
-      <button class="btn-cta" data-cursor="triangle" onclick="window.location.href='index.html#ready'">Play Game</button>
       <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Navigation Menu">
         <div class="bar"></div><div class="bar"></div><div class="bar"></div>
       </button>
@@ -583,7 +586,6 @@
       <span class="nav-a" onclick="window.location.href='index.html'; toggleMobileMenu()">About the Game</span>
       <span class="nav-a" onclick="window.location.href='index.html#thankyou'; toggleMobileMenu()">✦ Memories &amp; Thank You</span>
       <span class="nav-a" onclick="openContactModal(); toggleMobileMenu()">Contact</span>
-      <button class="btn-cta" style="padding:12px 36px;font-size:14px;box-shadow:0 0 25px rgba(255,0,127,.8);margin:6px 0;" onclick="window.location.href='index.html#ready'; toggleMobileMenu()">Play Game</button>
       <div id="sound-btn-mobile" class="snd-toggle playing" onclick="toggleSound()">
         <span class="snd-toggle-txt">SOUND ON</span>
         <div class="bars">
@@ -595,48 +597,15 @@
 
 
     <main>
-    <section class="sec" style="min-height: 100vh; padding: clamp(80px, 12vh, 120px) 16px 60px;">
-      <div style="width:100%; max-width:1200px; margin: 0 auto; position:relative; z-index:10;">
-        <h1 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,8vw,80px);font-weight:800;color:var(--pink);text-align:center;text-shadow:0 0 30px rgba(255,0,127,.68);margin-bottom:clamp(30px, 5vh, 60px);">XTASY 4.0 EVENTS</h1>
-        
-        <div class="events-grid">
-          
-          <!-- Automystica -->
-          <div class="event-card" onclick="window.location.href='automystica.html'" data-cursor="circle">
-            <div class="event-logo-wrap">
-              <img src="assets/IMG_9207.jpg" alt="Automystica" />
-            </div>
-            <h2 class="event-card-title">AUTOMYSTICA</h2>
-          </div>
-
-          <!-- Hack the Hardware -->
-          <div class="event-card" onclick="window.location.href='hackthehardware.html'" data-cursor="circle">
-            <div class="event-logo-wrap">
-              <img src="assets/IMG_9183.png" alt="Hack the Hardware" />
-            </div>
-            <h2 class="event-card-title">HACK THE HARDWARE</h2>
-          </div>
-
-          <!-- VisionExpo -->
-          <div class="event-card" onclick="window.location.href='visionexpo.html'" data-cursor="circle">
-            <div class="event-logo-wrap">
-              <img src="assets/logo_visionexpo.png" alt="VisionExpo" />
-            </div>
-            <h2 class="event-card-title">VISION EXPO</h2>
-          </div>
-
-          <!-- Triguna -->
-          <div class="event-card" onclick="window.location.href='triguna.html'" data-cursor="circle">
-            <div class="event-logo-wrap">
-              <img src="assets/logo_triguna.png" alt="Triguna" />
-            </div>
-            <h2 class="event-card-title">TRIGUNA</h2>
-          </div>
-
+    <section class="sec" style="min-height: 80vh; display:flex; align-items:center; justify-content:center; padding: clamp(80px, 12vh, 120px) 16px 60px;">
+      <div style="width:100%; max-width:900px; margin: 0 auto; position:relative; z-index:10; text-align:center;">
+        <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.35em; color:var(--cyan); margin-bottom:12px; text-transform:uppercase;">○ &nbsp; △ &nbsp; □ &nbsp; ARENA MISSION ACCOMPLISHED</div>
+        <h1 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,6vw,68px);font-weight:800;color:var(--pink);text-align:center;text-shadow:0 0 30px rgba(255,0,127,.68);margin-bottom:18px;">EVENT CONCLUDED</h1>
+        <p style="text-align:center;color:var(--t70);font-family:'Space Grotesk',sans-serif;font-size:clamp(15px,2vw,20px);max-width:720px;margin:0 auto 32px;line-height:1.6;">XTASY 4.0 has officially ended. All competitions and registrations are closed. Explore our memories gallery, photo highlights, and heartfelt tributes!</p>
+        <div style="text-align:center;margin-bottom:32px;">
+          <a href="index.html#thankyou" class="btn-cta" style="padding:14px 40px;font-size:15px;text-decoration:none;display:inline-block;box-shadow:0 0 25px rgba(255,0,127,.8);">✦ VIEW MEMORIES &amp; THANK YOU</a>
         </div>
       </div>
-    </section>
-
     </section>
 
     <footer class="footer" style="position:relative; z-index:20; background:#050505;">
@@ -657,27 +626,6 @@
       <div class="copy">© 2026 XTASY 4.0 Quest Room — All Rights Reserved</div>
     </footer>
   </main>
-
-  <div id="modal" onclick="if(event.target===this)closeModal()">
-    <div class="mbox" data-cursor="default">
-      <div class="m-top">
-        <div class="m-syms">&#9675; &#9651; &#9633;</div>
-        <div class="m-h">CONSENT FORM</div>
-      </div>
-      <p class="m-p">I acknowledge that the games are highly dangerous.<br/>I play of my own free will. No quitting.</p>
-      <div class="m-ins">
-        <input type="text" class="m-inp" placeholder="ENTER PLAYER ALIAS"/>
-        <input type="email" class="m-inp" placeholder="CONTACT EMAIL"/>
-      </div>
-      <div class="m-actions">
-        <button class="btn-walk" data-cursor="triangle" onclick="closeModal()">WALK AWAY</button>
-        <button class="btn-conf" data-cursor="triangle" onclick="confirmEntry()">
-          <div class="thumbprint"></div>
-          <span class="btn-conf-lbl">AGREE</span>
-        </button>
-      </div>
-    </div>
-  </div>
 
   <div id="contact-modal" onclick="if(event.target===this)closeContactModal()">
     <div class="mbox" data-cursor="default">
