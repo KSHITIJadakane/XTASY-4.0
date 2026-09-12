@@ -3534,12 +3534,11 @@
   <link rel="preload" href="assets/harry_styles_as_it_was.mp3" as="audio" type="audio/mpeg"/>
 </head>
 <body>
-  <audio id="snd" src="assets/harry_styles_as_it_was.mp3" autoplay loop preload="auto" playsinline><source src="assets/harry_styles_as_it_was.mp3" type="audio/mpeg"/></audio>
+  <audio id="snd" src="assets/harry_styles_as_it_was.mp3" autoplay loop preload="auto" playsinline muted><source src="assets/harry_styles_as_it_was.mp3" type="audio/mpeg"/></audio>
   <script>
     (function(){
       var _s = document.getElementById('snd');
       if (!_s) return;
-      _s.volume = 0.5;
 
       // Restore cross-page position
       try {
@@ -3547,40 +3546,51 @@
         if (!isNaN(_t) && _t > 0) _s.currentTime = _t;
       } catch(e) {}
 
-      // Respect mute preference
+      // Respect mute preference from previous session
       var _muted = (sessionStorage.getItem('xtasy_user_muted') === '1');
-      if (_muted) return;
+      if (_muted) { _s.muted = true; return; }
 
-      // Attempt immediate autoplay
-      var _p = _s.play();
+      // ── Muted autoplay (browsers ALWAYS allow this) ──
+      _s.muted = true;
+      _s.volume = 0.5;
+      var _startPlay = _s.play();
 
-      if (_p !== undefined) {
-        _p.catch(function() {
-          // Browser blocked autoplay – attach early capture listeners so the
-          // very first user gesture (even during page load) starts music instantly.
-          var _evts = ['pointerdown','touchstart','mousedown','click','keydown'];
-          function _boot() {
-            // Only run if the main toggleSound/tryAutoPlay hasn't taken over yet
-            var _s2 = document.getElementById('snd');
-            if (!_s2 || !_s2.paused) return;
-            if (sessionStorage.getItem('xtasy_user_muted') === '1') return;
-            try {
-              var _t2 = parseFloat(sessionStorage.getItem('xtasy_audio_time'));
-              if (!isNaN(_t2) && _t2 > 0) _s2.currentTime = _t2;
-            } catch(e) {}
-            _s2.volume = 0.5;
-            _s2.play().catch(function(){});
-            _evts.forEach(function(e){
-              document.removeEventListener(e, _boot, true);
-              window.removeEventListener(e, _boot, true);
-            });
-          }
-          _evts.forEach(function(e){
-            document.addEventListener(e, _boot, { capture: true, passive: true });
-            window.addEventListener(e, _boot, { capture: true, passive: true });
-          });
+      // ── Unmute as soon as ANY user interaction happens ──
+      var _unmuted = false;
+      function _unmute() {
+        if (_unmuted) return;
+        _unmuted = true;
+        var _s2 = document.getElementById('snd');
+        if (!_s2) return;
+        if (sessionStorage.getItem('xtasy_user_muted') === '1') return;
+        // Resume playback position if needed
+        try {
+          var _t2 = parseFloat(sessionStorage.getItem('xtasy_audio_time'));
+          if (!isNaN(_t2) && _t2 > 0) _s2.currentTime = _t2;
+        } catch(e) {}
+        _s2.muted = false;
+        _s2.volume = 0.5;
+        if (_s2.paused) _s2.play().catch(function(){});
+        // Sync UI
+        try {
+          if (typeof updateSoundUI === 'function') updateSoundUI(true);
+          if (typeof startAudioSaveInterval === 'function') startAudioSaveInterval();
+        } catch(e) {}
+        // Remove all unmute listeners
+        _evts.forEach(function(ev){
+          document.removeEventListener(ev, _unmute, true);
+          window.removeEventListener(ev, _unmute, true);
         });
       }
+
+      var _evts = ['pointerdown','touchstart','mousedown','click','keydown','scroll'];
+      _evts.forEach(function(ev){
+        document.addEventListener(ev, _unmute, { capture: true, passive: true, once: true });
+        window.addEventListener(ev, _unmute, { capture: true, passive: true, once: true });
+      });
+
+      // Also auto-unmute when loader finishes (if no prior gesture)
+      window._autoUnmuteOnLoaderDone = _unmute;
     })();
   </script>
         <!-- SQUID GAME & XTASY 4.0 OPENING LOADER (KnightVault & Squid Game Inspired) -->
@@ -5077,20 +5087,24 @@
       if (headline) headline.innerHTML = '<span class="xl-hl-white">XTASY 4.0</span> <span class="xl-hl-pink">FOREVER</span>';
       if (calibVal) calibVal.innerText = 'ALL ASSETS LOADED — STEPPING INTO XTASY 4.0 MEMORIES';
 
-      // Start music on dismiss (captures user tap or end of loader)
+      // ── Unmute audio now that loader is done (muted autoplay was running silently) ──
+      if (typeof window._autoUnmuteOnLoaderDone === 'function') {
+        window._autoUnmuteOnLoaderDone();
+      }
+
+      // Also handle case where mute preference was set
       var snd = document.getElementById('snd');
       if (snd && !userMuted) {
-        if (!snd.paused) {
-          // Already playing (autoplay worked) – just sync UI
-          updateSoundUI(true);
-          startAudioSaveInterval();
-        } else {
-          // Autoplay was blocked – dismissLoader click IS a user gesture, use it
-          snd.volume = 0.5;
+        snd.muted = false;
+        snd.volume = 0.5;
+        if (snd.paused) {
           snd.play().then(function() {
             updateSoundUI(true);
             startAudioSaveInterval();
           }).catch(function() {});
+        } else {
+          updateSoundUI(true);
+          startAudioSaveInterval();
         }
       }
 
