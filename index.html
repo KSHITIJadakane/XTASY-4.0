@@ -3283,7 +3283,7 @@
             <div class="ty-ss-dots" id="tySSdots"></div>
             <button class="ty-ss-btn" id="tySSNext" aria-label="Next memory">&#10095;</button>
           </div>
-          <div class="ty-ss-counter" id="tySSCounter">1 / 21</div>
+          <div class="ty-ss-counter" id="tySSCounter">1 / 22</div>
         </div>
       </div>
 
@@ -3294,7 +3294,7 @@
         <!-- View Tabs -->
         <div class="ty-gallery-tabs">
           <button class="ty-tab-btn active" id="btnTabHighlights" onclick="switchTyTab('highlights')">
-            <span>📷 PHOTO HIGHLIGHTS (20)</span>
+            <span>📷 PHOTO HIGHLIGHTS (21)</span>
           </button>
           <button class="ty-tab-btn" id="btnTabDrive" onclick="switchTyTab('drive')">
             <span>📁 GOOGLE DRIVE FOLDER</span>
@@ -3481,6 +3481,15 @@
               <div class="ty-pc-overlay">
                 <div class="ty-pc-tag">□ LEADERSHIP FELICITATION</div>
                 <div class="ty-pc-title">Bajaj BMS Guest &amp; HoD Dr. M. Shriraghavan</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
+            <!-- 21 -->
+            <div class="ty-photo-card is-portrait" onclick="openLightbox(20)" data-cursor="circle">
+              <img src="assets/memories/mem_24_hack_the_hardware_lab.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/15inFH0dqyUyTSx3MuKRO-xq-nVYeZvP0=w800'" alt="Hack The Hardware live competition ongoing in computer lab" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">△ HACK THE HARDWARE</div>
+                <div class="ty-pc-title">Hack The Hardware · Live Arena Battle</div>
               </div>
               <div class="ty-pc-zoom">🔍</div>
             </div>
@@ -4556,6 +4565,13 @@
         tag: "□ LEADERSHIP FELICITATION",
         title: "Bajaj BMS Guest & HoD Dr. M. Shriraghavan",
         caption: "Distinguished guest from Bajaj BMS (left) presenting commemorative honors to Dr. M. Shriraghavan, HoD of the IIoT Department (right, in yellow shirt)."
+      },
+      {
+        id: "15inFH0dqyUyTSx3MuKRO-xq-nVYeZvP0",
+        local_src: "assets/memories/mem_24_hack_the_hardware_lab.jpg",
+        tag: "△ HACK THE HARDWARE",
+        title: "Hack The Hardware · Live Arena Battle",
+        caption: "Contestants deeply immersed in the Hack The Hardware arena challenge, engineering hardware and coding live in the computer lab during XTASY 4.0."
       }
     ];
 
@@ -4572,7 +4588,8 @@
         'assets/memories/mem_19_thekedar_vaibhav_kshitij.jpg',
         'assets/memories/mem_20_planners_layout_designers.jpg',
         'assets/memories/mem_21_team_xtasy.jpg',
-        'assets/memories/mem_23_bms_guest_hod_felicitation.jpg'
+        'assets/memories/mem_23_bms_guest_hod_felicitation.jpg',
+        'assets/memories/mem_24_hack_the_hardware_lab.jpg'
       ];
       var slides = [];
       var curBg = 0;
@@ -4767,6 +4784,14 @@
           tag: '□ LEADERSHIP FELICITATION',
           title: 'Bajaj BMS Guest & HoD Dr. M. Shriraghavan',
           desc: 'Distinguished guest from Bajaj BMS presenting commemorative honors to Dr. M. Shriraghavan, HoD of IIoT Department.'
+        },
+        {
+          type: 'image',
+          src: 'assets/memories/mem_24_hack_the_hardware_lab.jpg',
+          id: '15inFH0dqyUyTSx3MuKRO-xq-nVYeZvP0',
+          tag: '△ HACK THE HARDWARE',
+          title: 'Hack The Hardware · Live Arena Battle',
+          desc: 'Contestants competing live on laptops in the computer lab during the intense Hack The Hardware challenge.'
         }
       ];
 
