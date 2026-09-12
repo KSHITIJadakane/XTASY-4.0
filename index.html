@@ -1364,10 +1364,122 @@
     }
     .ty-credits-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
       width: 100%;
     }
+    @media (max-width: 960px) {
+      .ty-credits-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+    }
+    /* ── Event Heads Grid ── */
+    .ty-event-heads-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      width: 100%;
+      margin-top: 14px;
+    }
+    @media (max-width: 1024px) {
+      .ty-event-heads-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 580px) {
+      .ty-event-heads-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .ty-event-head-card {
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      padding: 22px 20px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all .35s var(--ease-s);
+      backdrop-filter: blur(8px);
+      position: relative;
+      overflow: hidden;
+    }
+    .ty-event-head-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(0,240,255,.08) 0%, transparent 65%);
+      opacity: 0;
+      transition: opacity .35s;
+    }
+    .ty-event-head-card:hover {
+      border-color: rgba(0, 240, 255, .4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(0,0,0,.5), 0 0 20px rgba(0, 240, 255, .15);
+    }
+    .ty-event-head-card:hover::before { opacity: 1; }
+    .ty-eh-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2px;
+    }
+    .ty-eh-symbol {
+      font-size: 16px;
+      color: var(--pink);
+    }
+    .ty-eh-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 8.5px;
+      letter-spacing: .2em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      background: rgba(0,240,255,.08);
+      border: 1px solid rgba(0,240,255,.2);
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+    .ty-eh-event {
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .08em;
+    }
+    .ty-eh-desc {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: rgba(255,255,255,.45);
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+    .ty-eh-people {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding-top: 10px;
+    }
+    .ty-eh-person {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ty-eh-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+    .ty-eh-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 8.5px;
+      letter-spacing: .12em;
+      color: #ff4a8d;
+      text-transform: uppercase;
+    }
+
     .ty-credit-card {
       background: rgba(255,255,255,.025);
       border: 1px solid rgba(255,255,255,.08);
@@ -3111,7 +3223,7 @@
           </div>
 
           <p>
-            Serving as <strong>TRIGUNA Event Coordinator</strong> while concurrently managing the technological ecosystem as <strong>Technical Head &amp; Website Developer</strong> demanded relentless hustle and precision. A heartfelt thanks to our Faculty Mentor <strong>Prof. Rajeshwari Shinde</strong> for her constant guidance and trust, our Coordinators <strong>Vidhi Ukey</strong> &amp; <strong>Roopam Zade</strong> for leading the frontline, Promotion Head <strong>Abhaya Deogade</strong> for driving campus outreach, Documentation Head <strong>Charul Sawarkar</strong> for managing registrations, Finance Head <strong>Shreyash Paunikar</strong>, Decoration Head <strong>Rahi Ghode</strong>, <strong>Tushar Agashe</strong> for stellar video production, and every student volunteer whose grit made this benchmark event possible.
+            Serving as <strong>TRIGUNA Event Coordinator</strong> while concurrently managing the technological ecosystem as <strong>Technical Head &amp; Website Developer</strong> demanded relentless hustle and precision. A heartfelt thanks to our Faculty Mentor <strong>Prof. Rajeshwari Shinde</strong> for her constant guidance and trust, our Coordinators <strong>Vidhi Ukey</strong> &amp; <strong>Roopam Zade</strong> for leading the frontline, Promotion Head <strong>Abhaya Deogade</strong> for driving campus outreach, Registration Head <strong>Charul Sawajkar</strong> for managing registrations, Documentation Head <strong>Khushbu Navghare</strong> for meticulous record keeping, Finance Head <strong>Shreyash Paunikar</strong>, Decoration Head <strong>Rahi Ghode</strong>, Media Head <strong>Tushar Agashe</strong> for stellar video production, and every student volunteer whose grit made this benchmark event possible.
           </p>
 
           <p>
@@ -3306,16 +3418,16 @@
               <img src="assets/memories/mem_16_promotion_documentation.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/1KA5_Obc8IPT-krNGKfxACOAD5Giyd1bF=w800'" alt="Promotion & Documentation Pillars on Stage" loading="lazy"/>
               <div class="ty-pc-overlay">
                 <div class="ty-pc-tag">○ CORE LEADERSHIP</div>
-                <div class="ty-pc-title">Promotion &amp; Documentation Pillars</div>
+                <div class="ty-pc-title">Promotion &amp; Registration Pillars</div>
               </div>
               <div class="ty-pc-zoom">🔍</div>
             </div>
             <!-- 17 -->
             <div class="ty-photo-card is-portrait" onclick="openLightbox(16)" data-cursor="circle">
-              <img src="assets/memories/mem_17_charul_documentation.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/13K-_ZJBFR3Gjf3I_39-NM0bgmhsLVHBh=w800'" alt="Charul Sawarkar Documentation Head XTASY 4.0" loading="lazy"/>
+              <img src="assets/memories/mem_17_charul_documentation.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/13K-_ZJBFR3Gjf3I_39-NM0bgmhsLVHBh=w800'" alt="Charul Sawajkar Registration Head XTASY 4.0" loading="lazy"/>
               <div class="ty-pc-overlay">
-                <div class="ty-pc-tag">□ DOCUMENTATION</div>
-                <div class="ty-pc-title">Charul Sawarkar · Documentation Head</div>
+                <div class="ty-pc-tag">□ REGISTRATIONS</div>
+                <div class="ty-pc-title">Charul Sawajkar · Registration Head</div>
               </div>
               <div class="ty-pc-zoom">🔍</div>
             </div>
@@ -3358,8 +3470,9 @@
 
       <!-- Team Credits -->
       <div class="ty-credits-wrap">
-        <div class="ty-section-label">◈ THE TEAM BEHIND XTASY 4.0</div>
+        <div class="ty-section-label">◈ THE CORE COMMITTEE BEHIND XTASY 4.0</div>
         <div class="ty-credits-grid">
+          <!-- Row 1: Frontline Leadership & Tech -->
           <div class="ty-credit-card ty-lead">
             <div class="ty-cc-symbol">○</div>
             <div class="ty-cc-role">EVENT COORDINATOR</div>
@@ -3378,9 +3491,11 @@
             <div class="ty-cc-name">KSHITIJ ADAKANE</div>
             <div class="ty-cc-dept">TRIGUNA Coordinator · Dept. of IIoT</div>
           </div>
+
+          <!-- Row 2: Media, Promotion & Registration -->
           <div class="ty-credit-card">
             <div class="ty-cc-symbol">○</div>
-            <div class="ty-cc-role">VIDEO EDITOR</div>
+            <div class="ty-cc-role">MEDIA HEAD</div>
             <div class="ty-cc-name">TUSHAR AGASHE</div>
             <div class="ty-cc-dept">Department of Industrial IoT</div>
           </div>
@@ -3392,23 +3507,116 @@
           </div>
           <div class="ty-credit-card">
             <div class="ty-cc-symbol">□</div>
+            <div class="ty-cc-role">REGISTRATION HEAD</div>
+            <div class="ty-cc-name">CHARUL SAWAJKAR</div>
+            <div class="ty-cc-dept">Department of Industrial IoT</div>
+          </div>
+
+          <!-- Row 3: Documentation, Finance & Decoration -->
+          <div class="ty-credit-card">
+            <div class="ty-cc-symbol">○</div>
             <div class="ty-cc-role">DOCUMENTATION HEAD</div>
-            <div class="ty-cc-name">CHARUL SAWARKAR</div>
+            <div class="ty-cc-name">KHUSHBU NAVGHARE</div>
             <div class="ty-cc-dept">Department of Industrial IoT</div>
           </div>
           <div class="ty-credit-card">
-            <div class="ty-cc-symbol">○</div>
+            <div class="ty-cc-symbol">△</div>
             <div class="ty-cc-role">FINANCE HEAD</div>
             <div class="ty-cc-name">SHREYASH PAUNIKAR</div>
             <div class="ty-cc-dept">Department of Industrial IoT</div>
           </div>
           <div class="ty-credit-card">
-            <div class="ty-cc-symbol">△</div>
+            <div class="ty-cc-symbol">□</div>
             <div class="ty-cc-role">DECORATION HEAD</div>
             <div class="ty-cc-name">RAHI GHODE</div>
             <div class="ty-cc-dept">Department of Industrial IoT</div>
           </div>
         </div>
+
+        <!-- Event Heads: 4 Flagship Competitions -->
+        <div class="ty-section-label" style="margin-top:54px">◈ EVENT HEADS · 4 FLAGSHIP COMPETITIONS</div>
+        <div class="ty-event-heads-grid">
+          <!-- TRIGUNA -->
+          <div class="ty-event-head-card">
+            <div class="ty-eh-header">
+              <span class="ty-eh-symbol">□</span>
+              <span class="ty-eh-tag">AGRI-TECH PITCH</span>
+            </div>
+            <div class="ty-eh-event">TRIGUNA</div>
+            <div class="ty-eh-desc">Agriculture Innovation &amp; Hardware Challenge</div>
+            <div class="ty-eh-people">
+              <div class="ty-eh-person">
+                <span class="ty-eh-name">Kshitij Adakane</span>
+                <span class="ty-eh-badge">Event Coordinator</span>
+              </div>
+              <div class="ty-eh-person">
+                <span class="ty-eh-name">Sumedh Nirwan</span>
+                <span class="ty-eh-badge">Co-Coordinator</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- VISION EXPO -->
+          <div class="ty-event-head-card">
+            <div class="ty-eh-header">
+              <span class="ty-eh-symbol">○</span>
+              <span class="ty-eh-tag">IN ASSOC. WITH BAJAJ BMS</span>
+            </div>
+            <div class="ty-eh-event">VISION EXPO</div>
+            <div class="ty-eh-desc">Lean Manufacturing &amp; Poster Presentation</div>
+            <div class="ty-eh-people">
+              <div class="ty-eh-person">
+                <span class="ty-eh-name">Pari Chillure</span>
+                <span class="ty-eh-badge">Event Coordinator</span>
+              </div>
+              <div class="ty-eh-person">
+                <span class="ty-eh-name">Sarthak Band</span>
+                <span class="ty-eh-badge">Co-Coordinator</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- AUTOMYSTICA -->
+          <div class="ty-event-head-card">
+            <div class="ty-eh-header">
+              <span class="ty-eh-symbol">△</span>
+              <span class="ty-eh-tag">SIMULATION &amp; DASHBOARDS</span>
+            </div>
+            <div class="ty-eh-event">AUTOMYSTICA</div>
+            <div class="ty-eh-desc">IoT, Automation &amp; The Surprise Twist</div>
+            <div class="ty-eh-people">
+              <div class="ty-eh-person">
+                <span class="ty-eh-name">Khushi Barde</span>
+                <span class="ty-eh-badge">Event Coordinator</span>
+              </div>
+              <div class="ty-eh-person">
+                <span class="ty-eh-name">Anushka Dorlikar</span>
+                <span class="ty-eh-badge">Co-Coordinator</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- HACK THE HARDWARE -->
+          <div class="ty-event-head-card">
+            <div class="ty-eh-header">
+              <span class="ty-eh-symbol">□</span>
+              <span class="ty-eh-tag">ARENA BOT BATTLE</span>
+            </div>
+            <div class="ty-eh-event">HACK THE HARDWARE</div>
+            <div class="ty-eh-desc">Robotics Bot Build &amp; Arena Maze Run</div>
+            <div class="ty-eh-people">
+              <div class="ty-eh-person">
+                <span class="ty-eh-name">Arpit Kharwade</span>
+                <span class="ty-eh-badge">Event Coordinator</span>
+              </div>
+              <div class="ty-eh-person">
+                <span class="ty-eh-name">Shantanu Bhure</span>
+                <span class="ty-eh-badge">Co-Coordinator</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <!-- Broader Thank Yous -->
         <div class="ty-gratitude-wrap">
@@ -3548,7 +3756,7 @@
           <div class="c-num">+91 94054 76977</div>
         </div>
         <div class="c-item" onclick="copyNum('9284243384', this)">
-          <div class="c-role">VIDEO EDITOR</div>
+          <div class="c-role">MEDIA HEAD / VIDEO PROD.</div>
           <div class="c-name">TUSHAR AGASHE</div>
           <div class="c-num">+91 92842 43384</div>
         </div>
@@ -4248,15 +4456,15 @@
         id: "1KA5_Obc8IPT-krNGKfxACOAD5Giyd1bF",
         local_src: "assets/memories/mem_16_promotion_documentation.jpg",
         tag: "○ CORE LEADERSHIP",
-        title: "Promotion & Documentation Pillars",
-        caption: "Documentation Head Charul Sawarkar and Promotion Head Abhaya Deogade celebrating the event's massive participant turnout."
+        title: "Promotion & Registration Pillars",
+        caption: "Registration Head Charul Sawajkar and Promotion Head Abhaya Deogade celebrating the event's massive participant turnout."
       },
       {
         id: "13K-_ZJBFR3Gjf3I_39-NM0bgmhsLVHBh",
         local_src: "assets/memories/mem_17_charul_documentation.jpg",
-        tag: "□ DOCUMENTATION",
-        title: "Charul Sawarkar · Documentation Head",
-        caption: "Documentation Head Charul Sawarkar, who meticulously managed all contestant registrations, entry databases, and participant willingness forms."
+        tag: "□ REGISTRATIONS",
+        title: "Charul Sawajkar · Registration Head",
+        caption: "Registration Head Charul Sawajkar, who meticulously managed all contestant registrations, entry databases, and participant willingness forms."
       },
       {
         id: "1iaK9ckR_jwJnTcCtthZ8WwLDqExJvXQY",
@@ -4441,17 +4649,17 @@
           type: 'image',
           src: 'assets/memories/mem_17_charul_documentation.jpg',
           id: '13K-_ZJBFR3Gjf3I_39-NM0bgmhsLVHBh',
-          tag: '□ DOCUMENTATION',
-          title: 'Charul Sawarkar · Documentation Head',
-          desc: 'Documentation Head Charul Sawarkar, who meticulously orchestrated registrations, entry sheets, and willingness forms.'
+          tag: '□ REGISTRATIONS',
+          title: 'Charul Sawajkar · Registration Head',
+          desc: 'Registration Head Charul Sawajkar, who meticulously orchestrated registrations, entry sheets, and willingness forms.'
         },
         {
           type: 'image',
           src: 'assets/memories/mem_16_promotion_documentation.jpg',
           id: '1KA5_Obc8IPT-krNGKfxACOAD5Giyd1bF',
           tag: '○ CORE LEADERSHIP',
-          title: 'Promotion & Documentation Pillars',
-          desc: 'Charul Sawarkar and Abhaya Deogade on stage, united in celebrating the monumental success of XTASY 4.0.'
+          title: 'Promotion & Registration Pillars',
+          desc: 'Charul Sawajkar and Abhaya Deogade on stage, united in celebrating the monumental success of XTASY 4.0.'
         },
         {
           type: 'image',
