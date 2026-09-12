@@ -4773,51 +4773,167 @@
       var glow    = document.getElementById('xlGlow');
       var badge   = document.getElementById('xlBadge');
 
-      var startTime       = performance.now();
-      var duration        = 4800;   // 4.8s — cinematic, not a rush
-      var headlineInterval= 210;    // fast headline cycling
+      var startTime = performance.now();
+      var headlineInterval = 210;
       var lastHeadlineIdx = -1;
-      var lastTelIdx      = -1;
 
-      /* Multi-phase easing so progress feels REAL:
-         0–30% → quick initial boot burst
-         30–65% → slows down (system checks)
-         65–85% → brief stall feeling (hardware handshake)
-         85–100% → final confident surge                         */
-      function realisticEase(t) {
-        if (t < 0.30) return t * 1.10;                          // fast boot
-        if (t < 0.65) return 0.33 + (t - 0.30) * 0.77;        // slow check
-        if (t < 0.85) return 0.60 + (t - 0.65) * 0.70;        // stall zone
-        return 0.74 + (t - 0.85) * 1.73;                       // final surge
+      // ── Real Preload Queue ──
+      var criticalImages = [
+        'assets/hero-generated.jpg',
+        'assets/hero_guard_start.jpg',
+        'assets/hero_final.jpg',
+        'assets/hero_players_foreground.png',
+        'assets/card_cutout.png',
+        'assets/guard_clean_cutout.png',
+        'assets/neon_hall_hd.jpg',
+        'assets/invite_hand_hd.jpg',
+        'assets/invite_card_hd.jpg',
+        'assets/xtasy_logo.jpg',
+        'assets/logo_automystica.jpg',
+        'assets/logo_hackthehardware.jpg',
+        'assets/logo_triguna.jpg',
+        'assets/logo_visionexpo.jpg',
+        'assets/memories/mem_02_anchoring.jpg',
+        'assets/memories/mem_03_felicitation.jpg',
+        'assets/memories/mem_05_arena_stage.jpg',
+        'assets/memories/mem_06_flip_the_card.jpg',
+        'assets/memories/mem_09_podium.jpg',
+        'assets/memories/mem_31_rajeshwari_mam_mentor.jpg'
+      ];
+
+      var criticalVideos = [
+        'assets/memories/ambient_drone_xtasy.mp4',
+        'assets/memories/ambient_reveal_clip.mp4'
+      ];
+
+      var totalTasks = 2 + criticalVideos.length + criticalImages.length; // fonts + audio + videos + images
+      var completedTasks = 0;
+      var currentPhaseMsg = "BOOTING ARENA OS v4.0 • INITIALIZING ASSET CACHE";
+
+      function onTaskComplete(phaseName) {
+        completedTasks++;
+        if (phaseName) currentPhaseMsg = phaseName;
       }
+
+      // 1. Preload Fonts
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function() {
+          onTaskComplete("DECODING TYPOGRAPHY PROTOCOLS (RAJDHANI • SPACE MONO)");
+        }).catch(function() {
+          onTaskComplete();
+        });
+      } else {
+        onTaskComplete();
+      }
+
+      // 2. Preload Audio buffer
+      (function preloadAudio() {
+        var snd = document.getElementById('snd');
+        if (!snd || snd.readyState >= 2) {
+          onTaskComplete("AUDIO ENGINE LOCKED • SQUID THEME BUFFERED");
+        } else {
+          var audioDone = false;
+          function finishAudio() {
+            if (!audioDone) {
+              audioDone = true;
+              onTaskComplete("AUDIO ENGINE LOCKED • SQUID THEME BUFFERED");
+            }
+          }
+          snd.addEventListener('canplay', finishAudio, { once: true });
+          snd.addEventListener('error', finishAudio, { once: true });
+          setTimeout(finishAudio, 2200);
+          try { snd.load(); } catch(e) { finishAudio(); }
+        }
+      })();
+
+      // 3. Preload Videos (metadata & first frame decode)
+      criticalVideos.forEach(function(src) {
+        var vid = document.createElement('video');
+        vid.preload = 'auto';
+        vid.muted = true;
+        vid.playsInline = true;
+        var vidDone = false;
+        function finishVid() {
+          if (!vidDone) {
+            vidDone = true;
+            onTaskComplete("STREAMING DRONE FLYOVER & REVEAL VIDEO CLIPS");
+          }
+        }
+        vid.onloadeddata = finishVid;
+        vid.oncanplay = finishVid;
+        vid.onerror = finishVid;
+        setTimeout(finishVid, 2500);
+        vid.src = src;
+      });
+
+      // 4. Preload Images
+      criticalImages.forEach(function(src) {
+        var img = new Image();
+        function finishImg() {
+          var tag = src.indexOf('logo_') !== -1 ? "CACHING EVENT LOGOS & HARDWARE LAB ASSETS"
+                  : src.indexOf('mem_') !== -1 ? "PRE-RENDERING 22+ SHOWCASE ARCHIVES & MENTOR TRIBUTES"
+                  : "DECODING HIGH-RES ARENA GRAPHICS & SQUID MASKS";
+          onTaskComplete(tag);
+        }
+        img.onload = finishImg;
+        img.onerror = finishImg;
+        img.src = src;
+      });
+
+      // Smooth progress tracker
+      var displayedPct = 0;
+      var minDuration = 2400; // minimum cinematic intro time (ms) so it's not a sudden flash
+      var maxSafetyTimeout = 5000; // maximum time before forcing finish on slow/spotty mobile
 
       function frame(now) {
         if (loaderDismissed) return;
-        var elapsed  = now - startTime;
-        var progress = Math.min(1, elapsed / duration);
-        var eased    = Math.min(1, realisticEase(progress));
-        var percent  = Math.floor(eased * 100);
+        var elapsed = now - startTime;
 
-        if (counter) counter.innerText = percent + '%';
-        if (fill)    fill.style.width  = (eased * 100) + '%';
+        // Real asset loading ratio (0.0 to 1.0)
+        var realRatio = Math.min(1, completedTasks / totalTasks);
+        var timeRatio = Math.min(1, elapsed / minDuration);
 
-        // Telemetry stage (8 stages across full duration)
-        var tIdx = Math.min(telemetryStages.length - 1,
-                            Math.floor(progress * telemetryStages.length));
-        if (tIdx !== lastTelIdx && calibVal) {
-          lastTelIdx = tIdx;
-          calibVal.innerText = telemetryStages[tIdx];
+        var targetPct;
+        if (elapsed >= maxSafetyTimeout) {
+          // Safety timeout reached - force complete gracefully
+          targetPct = 100;
+        } else if (realRatio >= 1.0) {
+          // All assets are actually loaded! Progress to 100% pacing with minDuration
+          targetPct = timeRatio >= 1.0 ? 100 : Math.floor(timeRatio * 100);
+        } else {
+          // Assets are still loading! Progress is bound to real asset progress (capped at 92%)
+          var cappedReal = realRatio * 92;
+          var cappedTime = (elapsed / minDuration) * 92;
+          targetPct = Math.floor(Math.min(cappedReal, cappedTime));
+        }
+
+        // Smooth interpolation towards target
+        if (displayedPct < targetPct) {
+          displayedPct += Math.max(1, Math.ceil((targetPct - displayedPct) * 0.18));
+        }
+        if (displayedPct > 100) displayedPct = 100;
+
+        // Update DOM
+        if (counter) counter.innerText = displayedPct + '%';
+        if (fill) fill.style.width = displayedPct + '%';
+
+        // Telemetry stage message
+        if (calibVal) {
+          if (displayedPct >= 100) {
+            calibVal.innerText = "ALL 456 ASSETS CACHED • ARENA READY • ENTER NOW";
+          } else {
+            calibVal.innerText = currentPhaseMsg + " • " + completedTasks + "/" + totalTasks + " LOADED";
+          }
         }
 
         // Glow primes at 55%
-        if (eased > 0.55) {
-          if (glow)  glow.classList.add('primed');
+        if (displayedPct > 55) {
+          if (glow) glow.classList.add('primed');
           if (badge) badge.classList.add('primed');
         }
 
-        // Headlines cycle on fixed interval (fast)
-        var hIdx = Math.min(headlineData.length - 1,
-                            Math.floor(elapsed / headlineInterval));
+        // Headlines cycle on fixed interval
+        var hIdx = Math.min(headlineData.length - 1, Math.floor(elapsed / headlineInterval));
         if (hIdx !== lastHeadlineIdx && headline) {
           lastHeadlineIdx = hIdx;
           var item = headlineData[hIdx];
@@ -4829,10 +4945,10 @@
           headline.classList.add('flip-in');
         }
 
-        if (progress < 1) {
+        if (displayedPct < 100) {
           requestAnimationFrame(frame);
         } else {
-          setTimeout(dismissLoader, 220);
+          setTimeout(dismissLoader, 200);
         }
       }
 
