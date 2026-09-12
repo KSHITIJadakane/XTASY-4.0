@@ -16,7 +16,7 @@
       var savedTime = sessionStorage.getItem('xtasy_audio_time');
       if (savedTime && !isNaN(savedTime)) {
         var t = parseFloat(savedTime);
-        if (t > 0 && t < 15.5) {
+        if (t > 0 && (!snd.duration || t < snd.duration)) {
           snd.currentTime = t;
         }
       }
