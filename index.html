@@ -1082,28 +1082,50 @@
       box-shadow: 0 0 20px rgba(228,0,43,0.6);
     }
     .ty-ss-dots {
+      position: relative;
+      width: 72px;
+      height: 24px;
+      background: rgba(8, 8, 14, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
       display: flex;
-      gap: 7px;
       align-items: center;
-      max-width: 220px;
-      overflow-x: auto;
-      padding: 4px;
+      padding: 0;
+      flex-shrink: 0;
+    }
+    .ty-ss-dots-track {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      margin-top: -3.5px;
+      transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: transform;
     }
     .ty-ss-dot {
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.32);
+      background: rgba(255, 255, 255, 0.38);
       cursor: pointer;
-      transition: background 0.3s, transform 0.3s;
+      transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+                  background 0.3s ease,
+                  opacity 0.3s ease,
+                  box-shadow 0.3s ease;
       border: none;
       padding: 0;
       flex-shrink: 0;
+      will-change: transform, opacity;
     }
     .ty-ss-dot.active {
       background: var(--pink);
-      transform: scale(1.4);
-      box-shadow: 0 0 8px var(--pink);
+      box-shadow: 0 0 10px var(--pink);
     }
     .ty-ss-counter {
       position: absolute;
@@ -1156,7 +1178,7 @@
     }
     @media (max-width: 768px) {
       .ty-slideshow {
-        height: clamp(380px, 58vh, 500px);
+        height: clamp(420px, 64vh, 520px);
         border-radius: 16px;
       }
       .ty-ss-controls {
@@ -1196,13 +1218,11 @@
         left: 50%;
         transform: translateX(-50%);
         z-index: 15;
-        max-width: min(220px, calc(100% - 100px));
-        padding: 4px 10px;
-        background: rgba(4, 4, 8, 0.65);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 20px;
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
+        width: 72px;
+        height: 24px;
+        background: rgba(6, 6, 12, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);
       }
       .ty-ss-caption {
         bottom: 0;
@@ -1212,31 +1232,23 @@
         width: 100%;
         border-radius: 0 0 16px 16px;
         border: none;
-        border-top: 1px solid rgba(255, 0, 127, 0.22);
-        background: linear-gradient(to top, rgba(3, 3, 6, 0.95) 0%, rgba(3, 3, 6, 0.82) 55%, rgba(3, 3, 6, 0.25) 85%, transparent 100%);
-        padding: 34px 20px 48px 20px;
+        background: linear-gradient(to top, rgba(3, 3, 6, 0.9) 0%, rgba(3, 3, 6, 0.45) 50%, transparent 100%);
+        padding: 16px 16px 38px 16px;
         box-shadow: none;
         pointer-events: none;
       }
       .ty-ss-caption-tag {
-        font-size: 9.5px;
+        font-size: 9px;
         letter-spacing: 2px;
-        margin-bottom: 3px;
+        margin-bottom: 2px;
       }
       .ty-ss-caption-title {
-        font-size: 17px;
-        letter-spacing: 1.2px;
+        font-size: 15.5px;
+        letter-spacing: 1.1px;
         line-height: 1.25;
       }
       .ty-ss-caption-desc {
-        font-size: 11.5px;
-        line-height: 1.35;
-        margin-top: 2px;
-        color: rgba(255, 255, 255, 0.82);
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+        display: none !important; /* Keep mobile slide 90% visible with zero obstruction of faces & bodies */
       }
       .ty-ss-pause-btn {
         top: 14px;
@@ -1426,7 +1438,7 @@
       filter: contrast(1.06) brightness(1.06);
     }
     .ty-photo-card.is-portrait img {
-      object-position: center 8%;
+      object-position: center 22%;
     }
     .ty-photo-card.is-landscape {
       aspect-ratio: 4 / 3.2;
@@ -1434,11 +1446,33 @@
     .ty-photo-card.is-landscape img {
       object-position: center 28%;
     }
-    /* ── Flagship Featured Team Cards (Deserving Much Larger Area) ── */
+
+    /* ── Precise Focal-Point Framing for Every Memory Photo (Never Crop Heads, Faces, or Action) ── */
+    .ty-photo-card img[src*="mem_02_anchoring"] { object-position: center 28% !important; }
+    .ty-photo-card img[src*="mem_03_felicitation"] { object-position: center 32% !important; }
+    .ty-photo-card img[src*="mem_05_arena_stage"] { object-position: center 30% !important; }
+    .ty-photo-card img[src*="mem_06_flip_the_card"] { object-position: center 25% !important; }
+    .ty-photo-card img[src*="mem_08_champions"] { object-position: center 40% !important; }
+    .ty-photo-card img[src*="mem_09_podium"] { object-position: center 42% !important; }
+    .ty-photo-card img[src*="mem_10_faculty"] { object-position: center 25% !important; }
+    .ty-photo-card img[src*="mem_14_inauguration_podium"] { object-position: center 30% !important; }
+    .ty-photo-card img[src*="mem_16_promotion_documentation"] { object-position: center 22% !important; }
+    .ty-photo-card img[src*="mem_18_vision_expo_best_poster"] { object-position: center 35% !important; }
+    .ty-photo-card img[src*="mem_19_thekedar_vaibhav_kshitij"] { object-position: center 25% !important; }
+    .ty-photo-card img[src*="mem_20_planners_layout_designers"] { object-position: center 32% !important; }
+    .ty-photo-card img[src*="mem_22_inauguration_assembly"] { object-position: center 48% !important; }
+    .ty-photo-card img[src*="mem_24_hack_the_hardware_lab"] { object-position: center 42% !important; }
+    .ty-photo-card img[src*="mem_26_media_head_tushar"] { object-position: center 30% !important; }
+    .ty-photo-card img[src*="mem_27_romit_core_pillar"] { object-position: center 20% !important; }
+    .ty-photo-card img[src*="mem_28_hemant_core_pillar"] { object-position: center 18% !important; }
+    .ty-photo-card img[src*="mem_30_vidi_coordinator"] { object-position: center 36% !important; }
+    .ty-photo-card img[src*="mem_29_roopam_co_coordinator"] { object-position: center 25% !important; }
+    .ty-photo-card img[src*="mem_31_rajeshwari_mam_mentor"] { object-position: center 30% !important; }
+    /* ── Flagship Featured Team Cards (Deserving Much Larger Area & Complete Visibility) ── */
     .ty-photo-card.is-featured-team {
       grid-column: 1 / -1; /* Spans entire grid width across all columns */
       aspect-ratio: 16 / 9;
-      min-height: 440px;
+      min-height: 0;
       border: 1.5px solid rgba(255, 0, 127, 0.45);
       background: #06060a;
       box-shadow: 0 16px 48px rgba(0,0,0,.8), 0 0 35px rgba(255,0,127,.22);
@@ -1452,12 +1486,13 @@
     .ty-photo-card.is-featured-team img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center 28%;
+      object-fit: contain !important; /* CRITICAL: Ensure all 40+ people fit without cropping! */
+      object-position: center center !important;
+      background: #06060a;
       filter: contrast(1.03) brightness(1.02);
     }
     .ty-photo-card.is-featured-team.is-juniors-card {
-      aspect-ratio: 16 / 10.5;
+      aspect-ratio: 4 / 3;
       border-color: rgba(0, 240, 255, 0.45);
       box-shadow: 0 16px 48px rgba(0,0,0,.8), 0 0 35px rgba(0,240,255,.2);
     }
@@ -1466,7 +1501,9 @@
       box-shadow: 0 24px 60px rgba(0,0,0,.85), 0 0 45px rgba(0,240,255,.35);
     }
     .ty-photo-card.is-featured-team.is-juniors-card img {
-      object-position: center 42%;
+      object-fit: contain !important;
+      object-position: center center !important;
+      background: #06060a;
     }
     .ty-photo-card.is-featured-team.is-juniors-card .ty-pc-tag {
       color: var(--cyan);
@@ -1479,11 +1516,12 @@
     .ty-photo-card.is-featured-team .ty-pc-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(4,4,8,0.94) 0%, rgba(4,4,8,0.7) 20%, rgba(4,4,8,0.2) 35%, transparent 52%);
-      padding: clamp(20px, 3.2vw, 36px);
+      background: linear-gradient(to top, rgba(4,4,8,0.92) 0%, rgba(4,4,8,0.65) 18%, rgba(4,4,8,0.15) 30%, transparent 45%);
+      padding: clamp(14px, 2.5vw, 32px);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
+      pointer-events: none;
     }
     .ty-photo-card.is-featured-team .ty-pc-tag {
       font-size: 11px;
@@ -1493,7 +1531,7 @@
       text-transform: uppercase;
     }
     .ty-photo-card.is-featured-team .ty-pc-title {
-      font-size: clamp(20px, 2.5vw, 28px);
+      font-size: clamp(17px, 2.2vw, 26px);
       font-weight: 800;
       color: #ffffff;
       letter-spacing: .02em;
@@ -1521,35 +1559,60 @@
       opacity: 0.9;
       transform: scale(1);
     }
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
       .ty-photo-card.is-featured-team {
-        aspect-ratio: 16 / 11;
-        min-height: 280px;
+        aspect-ratio: 16 / 9 !important;
+        min-height: 0 !important;
+        height: auto !important;
         border-radius: 14px;
       }
       .ty-photo-card.is-featured-team.is-juniors-card {
-        aspect-ratio: 4 / 3.4;
-        min-height: 320px;
+        aspect-ratio: 4 / 3 !important;
+        min-height: 0 !important;
+        height: auto !important;
       }
       .ty-photo-card.is-featured-team img {
-        object-position: center 25%;
-      }
-      .ty-photo-card.is-featured-team.is-juniors-card img {
-        object-position: center 40%;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+        object-position: center center !important;
+        background: #06060a;
       }
       .ty-photo-card.is-featured-team .ty-pc-overlay {
-        padding: 16px 14px;
-        background: linear-gradient(to top, rgba(4,4,8,0.96) 0%, rgba(4,4,8,0.72) 28%, rgba(4,4,8,0.18) 48%, transparent 68%);
+        padding: 8px 12px 8px 12px;
+        background: linear-gradient(to top, rgba(4,4,8,0.92) 0%, rgba(4,4,8,0.6) 36%, transparent 100%);
       }
       .ty-photo-card.is-featured-team .ty-pc-title {
-        font-size: 16px;
+        font-size: 14px;
+        line-height: 1.2;
       }
       .ty-photo-card.is-featured-team .ty-pc-tag {
-        font-size: 9px;
+        font-size: 8px;
+        letter-spacing: .15em;
+        margin-bottom: 2px;
       }
       .ty-photo-card.is-featured-team .ty-pc-subtitle {
-        font-size: 10px;
-        margin-top: 4px;
+        display: none; /* Hide multi-line caption on mobile card so all faces stay completely visible */
+      }
+      .ty-photo-card.is-featured-team .ty-pc-zoom {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+        top: 10px;
+        right: 10px;
+      }
+      .ty-pc-overlay {
+        background: linear-gradient(to top, rgba(0,0,0,.88) 0%, rgba(0,0,0,.35) 28%, transparent 55%) !important;
+        padding: 10px 14px !important;
+      }
+      .ty-pc-title {
+        font-size: 13.5px !important;
+        line-height: 1.25 !important;
+      }
+      .ty-pc-tag {
+        font-size: 8.5px !important;
+        letter-spacing: .15em !important;
+        margin-bottom: 2px !important;
       }
     }
     .ty-photo-card:hover {
@@ -3953,7 +4016,7 @@
           <div class="ty-ss-overlay-right"></div>
           <div class="ty-ss-controls">
             <button class="ty-ss-btn" id="tySSPrev" aria-label="Previous memory">&#10094;</button>
-            <div class="ty-ss-dots" id="tySSdots"></div>
+            <div class="ty-ss-dots" id="tySSdots"><div class="ty-ss-dots-track" id="tySSdotsTrack"></div></div>
             <button class="ty-ss-btn" id="tySSNext" aria-label="Next memory">&#10095;</button>
           </div>
           <div class="ty-ss-counter" id="tySSCounter">1 / 22</div>
@@ -5541,6 +5604,13 @@
       if (!container) return;
 
       var dotsEl     = document.getElementById('tySSdots');
+      var dotsTrack  = document.getElementById('tySSdotsTrack');
+      if (dotsEl && !dotsTrack) {
+        dotsTrack = document.createElement('div');
+        dotsTrack.id = 'tySSdotsTrack';
+        dotsTrack.className = 'ty-ss-dots-track';
+        dotsEl.appendChild(dotsTrack);
+      }
       var counterEl  = document.getElementById('tySSCounter');
       var prevBtn    = document.getElementById('tySSPrev');
       var nextBtn    = document.getElementById('tySSNext');
@@ -5612,12 +5682,13 @@
         slides.push(slide);
 
         // Dot
-        if (dotsEl) {
+        var dotTarget = dotsTrack || dotsEl;
+        if (dotTarget) {
           var dot = document.createElement('button');
           dot.className = 'ty-ss-dot' + (i === 0 ? ' active' : '');
           dot.setAttribute('aria-label', 'Go to memory ' + (i + 1));
           dot.addEventListener('click', function() { goToSlide(i); resetTimer(); });
-          dotsEl.appendChild(dot);
+          dotTarget.appendChild(dot);
           dots.push(dot);
         }
       });
@@ -5641,7 +5712,39 @@
             }
           });
         });
-        dots.forEach(function(d, i) { d.classList.toggle('active', i === curIdx); });
+        if (dotsTrack && dots.length > 0) {
+          dotsTrack.style.transform = 'translateX(' + (32.5 - curIdx * 14) + 'px)';
+          dots.forEach(function(d, i) {
+            var diff = Math.abs(i - curIdx);
+            d.classList.toggle('active', diff === 0);
+            if (diff === 0) {
+              d.style.transform = 'scale(1.35)';
+              d.style.opacity = '1';
+              d.style.background = 'var(--pink)';
+              d.style.boxShadow = '0 0 10px var(--pink)';
+              d.style.pointerEvents = 'auto';
+            } else if (diff === 1) {
+              d.style.transform = 'scale(1.0)';
+              d.style.opacity = '0.78';
+              d.style.background = 'rgba(255, 255, 255, 0.78)';
+              d.style.boxShadow = 'none';
+              d.style.pointerEvents = 'auto';
+            } else if (diff === 2) {
+              d.style.transform = 'scale(0.62)';
+              d.style.opacity = '0.45';
+              d.style.background = 'rgba(255, 255, 255, 0.42)';
+              d.style.boxShadow = 'none';
+              d.style.pointerEvents = 'auto';
+            } else {
+              d.style.transform = 'scale(0)';
+              d.style.opacity = '0';
+              d.style.boxShadow = 'none';
+              d.style.pointerEvents = 'none';
+            }
+          });
+        } else {
+          dots.forEach(function(d, i) { d.classList.toggle('active', i === curIdx); });
+        }
       }
 
       function goToSlide(idx) {
