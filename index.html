@@ -512,6 +512,154 @@
       border-radius: 99px;
     }
 
+    /* ── Developer & Technical Head Spotlight Note ── */
+    .ty-dev-card {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 980px;
+      background: linear-gradient(180deg, rgba(8, 20, 32, 0.84) 0%, rgba(6, 12, 20, 0.94) 100%);
+      border: 1.5px solid rgba(0, 240, 255, 0.45);
+      border-radius: 20px;
+      padding: clamp(24px, 5vw, 44px) clamp(20px, 5vw, 44px);
+      margin-bottom: clamp(48px, 7vh, 80px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(0, 240, 255, 0.22), inset 0 0 30px rgba(0, 240, 255, 0.06);
+      overflow: hidden;
+      text-align: left;
+    }
+    .ty-dev-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--pink), transparent);
+    }
+    .ty-dev-bracket {
+      position: absolute;
+      width: 18px; height: 18px;
+      border-color: var(--cyan);
+      border-style: solid;
+      pointer-events: none;
+      opacity: 0.85;
+    }
+    .ty-dev-bracket.tl { top: 12px; left: 12px; border-width: 2px 0 0 2px; }
+    .ty-dev-bracket.tr { top: 12px; right: 12px; border-width: 2px 2px 0 0; }
+    .ty-dev-bracket.bl { bottom: 12px; left: 12px; border-width: 0 0 2px 2px; }
+    .ty-dev-bracket.br { bottom: 12px; right: 12px; border-width: 0 2px 2px 0; }
+    .ty-dev-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.16);
+      padding-bottom: 20px;
+    }
+    .ty-dev-avatar {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.25) 0%, rgba(255, 0, 127, 0.25) 100%);
+      border: 1.5px solid var(--cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 22px rgba(0, 240, 255, 0.45);
+      flex-shrink: 0;
+    }
+    .ty-dev-avatar-icon { font-size: 28px; }
+    .ty-dev-meta { display: flex; flex-direction: column; gap: 4px; }
+    .ty-dev-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .25em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.65);
+    }
+    .ty-dev-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(22px, 3.5vw, 28px);
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+      letter-spacing: .02em;
+    }
+    .ty-dev-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.72);
+      font-weight: 400;
+    }
+    .ty-dev-body {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(14px, 1.4vw, 15.5px);
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.88);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .ty-dev-lead {
+      font-size: clamp(15px, 1.6vw, 17.5px);
+      font-weight: 500;
+      color: #fff;
+      line-height: 1.6;
+    }
+    .ty-dev-quote-block {
+      background: rgba(0, 240, 255, 0.07);
+      border-left: 3.5px solid var(--cyan);
+      padding: 16px 20px;
+      border-radius: 0 10px 10px 0;
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.95);
+      box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.04);
+    }
+    .ty-dev-creed {
+      font-family: 'Space Mono', monospace;
+      font-size: 12.5px;
+      letter-spacing: .08em;
+      color: var(--cyan);
+      text-align: center;
+      padding: 16px 22px;
+      border-radius: 12px;
+      background: rgba(0, 240, 255, 0.07);
+      border: 1px solid rgba(0, 240, 255, 0.28);
+      margin-top: 8px;
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.45);
+    }
+    .ty-dev-signature {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 10px;
+    }
+    .ty-dev-sig-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .ty-dev-sig-dept {
+      font-family: 'Inter', sans-serif;
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, 0.55);
+    }
+    .ty-dev-tag-pill {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .15em;
+      color: var(--cyan);
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      padding: 6px 14px;
+      border-radius: 99px;
+    }
+
     /* Floating Particles - Squid Game Symbols */
     .ty-symbol-particle {
       width: auto !important;
@@ -591,10 +739,10 @@
     .ty-slideshow {
       position: relative;
       width: 100%;
-      height: 540px;
+      height: 560px;
       border-radius: 20px;
       overflow: hidden;
-      background: #060608;
+      background: #030305;
       box-shadow: 0 0 50px rgba(228,0,43,0.22), 0 0 0 1px rgba(228,0,43,0.16), 0 20px 40px rgba(0,0,0,0.8);
     }
     .ty-ss-slide {
@@ -603,39 +751,62 @@
       opacity: 0;
       transition: opacity 1.2s cubic-bezier(0.4,0,0.2,1);
       display: flex;
-      align-items: stretch;
+      align-items: center;
+      justify-content: center;
       pointer-events: none;
+      background: #020204;
+      overflow: hidden;
     }
     .ty-ss-slide.active {
       opacity: 1;
       z-index: 2;
       pointer-events: auto;
     }
-    .ty-ss-slide img,
-    .ty-ss-slide video {
+    .ty-ss-bg-blur {
+      position: absolute;
+      inset: -30px;
+      width: calc(100% + 60px);
+      height: calc(100% + 60px);
+      object-fit: cover;
+      object-position: center;
+      filter: blur(32px) brightness(0.35) saturate(1.3);
+      transform: scale(1.12);
+      pointer-events: none;
+      z-index: 1;
+      display: block;
+    }
+    .ty-ss-media {
+      position: relative;
+      z-index: 2;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain !important; /* CRITICAL: Never crop or cut heads off! */
+      object-position: center center;
       display: block;
-      filter: brightness(0.92) contrast(1.04);
+      filter: brightness(0.97) contrast(1.03);
       transform: scale(1);
       transition: transform 6s ease-out;
     }
-    .ty-ss-slide.active img,
-    .ty-ss-slide.active video {
-      transform: scale(1.03);
+    .ty-ss-slide.active .ty-ss-media {
+      transform: scale(1.015);
     }
-    .ty-ss-slide video {
+    .ty-ss-slide video.ty-ss-media {
       background: #000;
     }
     .ty-ss-caption {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 24px;
+      left: 24px;
+      max-width: min(580px, calc(100% - 170px));
       z-index: 5;
-      padding: 60px 36px 28px;
-      background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);
+      padding: 14px 22px;
+      background: rgba(6, 6, 10, 0.84);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-left: 3.5px solid var(--pink);
+      border-radius: 12px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.75);
       pointer-events: none;
     }
     .ty-ss-caption-tag {
@@ -872,7 +1043,7 @@
       position: relative;
       border-radius: 14px;
       overflow: hidden;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 4 / 4.2;
       background: #080808;
       border: 1px solid rgba(255,255,255,.08);
       cursor: pointer;
@@ -883,8 +1054,18 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center 10%; /* Center at eye and head level */
       transition: transform .6s cubic-bezier(.16,1,.3,1), filter .4s ease;
       display: block;
+    }
+    .ty-photo-card.is-portrait img {
+      object-position: center 8%;
+    }
+    .ty-photo-card.is-landscape {
+      aspect-ratio: 4 / 3.2;
+    }
+    .ty-photo-card.is-landscape img {
+      object-position: center 28%;
     }
     .ty-photo-card:hover {
       transform: translateY(-5px) scale(1.02);
@@ -1214,6 +1395,27 @@
     .ty-credit-card:hover::before { opacity: 1; }
     .ty-credit-card.ty-lead { border-color: rgba(186,19,77,.22); background: rgba(186,19,77,.04); }
     .ty-credit-card.ty-lead .ty-cc-name { color: #ff4a8d; }
+    .ty-credit-card.ty-dev-credit {
+      border-color: rgba(0, 240, 255, 0.4);
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.08) 0%, rgba(6, 16, 26, 0.7) 100%);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 240, 255, 0.15);
+    }
+    .ty-credit-card.ty-dev-credit:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 35px rgba(0, 240, 255, 0.35);
+    }
+    .ty-credit-card.ty-dev-credit .ty-cc-symbol {
+      color: var(--cyan);
+      text-shadow: 0 0 14px var(--cyan);
+    }
+    .ty-credit-card.ty-dev-credit .ty-cc-role {
+      color: var(--cyan);
+      letter-spacing: .25em;
+    }
+    .ty-credit-card.ty-dev-credit .ty-cc-name {
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    }
     .ty-cc-symbol {
       font-size: 22px;
       color: rgba(186,19,77,.7);
@@ -2877,6 +3079,59 @@
         </div>
       </div>
 
+      <!-- ── DEVELOPER & TECHNICAL HEAD SPOTLIGHT NOTE ── -->
+      <div class="ty-dev-card">
+        <div class="ty-dev-bracket tl"></div>
+        <div class="ty-dev-bracket tr"></div>
+        <div class="ty-dev-bracket bl"></div>
+        <div class="ty-dev-bracket br"></div>
+
+        <div class="ty-dev-header">
+          <div class="ty-dev-avatar">
+            <span class="ty-dev-avatar-icon">💻</span>
+          </div>
+          <div class="ty-dev-meta">
+            <div class="ty-dev-badge">◈ DEVELOPER'S DISPATCH &amp; TECHNICAL ARCHIVE</div>
+            <h3 class="ty-dev-name">Kshitij Adakane</h3>
+            <div class="ty-dev-title">Technical Head · Website Developer · TRIGUNA Event Coordinator · Dept. of IIoT</div>
+          </div>
+        </div>
+
+        <div class="ty-dev-body">
+          <p class="ty-dev-lead">
+            ⚡ <em>"To every contestant who dared to step into the arena, every coordinator who stood guard at the consoles, and our faculty mentor who believed in us — a hearty thank you from the developer!"</em>
+          </p>
+
+          <p>
+            Building the official digital battleground and portal for <strong>XTASY 4.0</strong> has been one of the most fulfilling journeys of my college life. From engineering the Squid Game-inspired interactive SVG canvas and real-time audio synchronization to crafting live telemetry boot sequences, countdown timers, and seamless registration pipelines — every single line of code was written with passion and pride for our department.
+          </p>
+
+          <div class="ty-dev-quote-block">
+            "Lines of code can build an arena, but it was the electric energy of 370+ contestants, the dedication of our core team, and the trust of our mentors that gave XTASY 4.0 its beating heart."
+          </div>
+
+          <p>
+            Serving as <strong>TRIGUNA Event Coordinator</strong> while concurrently managing the technological ecosystem as <strong>Technical Head &amp; Website Developer</strong> demanded relentless hustle and precision. A heartfelt thanks to our Faculty Mentor <strong>Prof. Rajeshwari Shinde</strong> for her constant guidance and trust, our Coordinators <strong>Vidhi Ukey</strong> &amp; <strong>Roopam Zade</strong> for leading the frontline, <strong>Tushar Agashe</strong> for stellar video production, and every student volunteer whose grit made this benchmark event possible.
+          </p>
+
+          <p>
+            Seeing all of you navigate this portal, register with excitement, and compete with fierce spirit made every sleepless night completely worthwhile. Thank you for making XTASY 4.0 unforgettable!
+          </p>
+
+          <div class="ty-dev-creed">
+            &lt;/&gt; CODE CRAFTED WITH PASSION · HARDWARE SYNCHRONIZED · SIGNED OFF BY THE DEVELOPER 🚀
+          </div>
+
+          <div class="ty-dev-signature">
+            <div>
+              <div class="ty-dev-sig-name">— Kshitij Adakane</div>
+              <div class="ty-dev-sig-dept">Technical Head &amp; Web Developer · TRIGUNA Coordinator · Department of IIoT, SVPCET</div>
+            </div>
+            <div class="ty-dev-tag-pill">TECH HEAD · SITE DEV · TRIGUNA ⚡</div>
+          </div>
+        </div>
+      </div>
+
       <!-- ── MEMORIES SLIDESHOW ── -->
       <div class="ty-slideshow-wrap">
         <div class="ty-ss-label">◈ MOMENTS IN TIME · XTASY 4.0</div>
@@ -2912,7 +3167,7 @@
         <div class="ty-tab-content active" id="tyTabHighlights">
           <div class="ty-photos-grid">
             <!-- 1 -->
-            <div class="ty-photo-card" onclick="openLightbox(0)" data-cursor="circle">
+            <div class="ty-photo-card is-landscape" onclick="openLightbox(0)" data-cursor="circle">
               <img src="assets/memories/mem_01_inauguration.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/1ontSDWQja2PnMKbP88jrpnAmDXNCEyMN=w800'" alt="Inaugural Session Assembly" loading="lazy"/>
               <div class="ty-pc-overlay">
                 <div class="ty-pc-tag">○ INAUGURATION</div>
@@ -2921,7 +3176,7 @@
               <div class="ty-pc-zoom">🔍</div>
             </div>
             <!-- 2 -->
-            <div class="ty-photo-card" onclick="openLightbox(1)" data-cursor="circle">
+            <div class="ty-photo-card is-landscape" onclick="openLightbox(1)" data-cursor="circle">
               <img src="assets/memories/mem_02_anchoring.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/1n5nQse3RC3TFynvcI0TwDVfmCCSnuZ7o=w800'" alt="Event Host at the Mic" loading="lazy"/>
               <div class="ty-pc-overlay">
                 <div class="ty-pc-tag">△ ANCHORING</div>
@@ -2930,7 +3185,7 @@
               <div class="ty-pc-zoom">🔍</div>
             </div>
             <!-- 3 -->
-            <div class="ty-photo-card" onclick="openLightbox(2)" data-cursor="circle">
+            <div class="ty-photo-card is-landscape" onclick="openLightbox(2)" data-cursor="circle">
               <img src="assets/memories/mem_03_felicitation.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/1IETiuh2xgeyN9MLunS4RA95Bg5IauKRq=w800'" alt="Felicitation Ceremony on Stage" loading="lazy"/>
               <div class="ty-pc-overlay">
                 <div class="ty-pc-tag">□ FELICITATION</div>
@@ -2939,7 +3194,7 @@
               <div class="ty-pc-zoom">🔍</div>
             </div>
             <!-- 4 -->
-            <div class="ty-photo-card" onclick="openLightbox(3)" data-cursor="circle">
+            <div class="ty-photo-card is-portrait" onclick="openLightbox(3)" data-cursor="circle">
               <img src="assets/memories/mem_04_visionexpo.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/1M0VLWbQQY4IkIKiNuNsjf-paUZ_aYUYD=w800'" alt="Vision Expo IIoT Knowledge Boards" loading="lazy"/>
               <div class="ty-pc-overlay">
                 <div class="ty-pc-tag">○ VISION EXPO</div>
@@ -2948,7 +3203,7 @@
               <div class="ty-pc-zoom">🔍</div>
             </div>
             <!-- 5 -->
-            <div class="ty-photo-card" onclick="openLightbox(4)" data-cursor="circle">
+            <div class="ty-photo-card is-portrait" onclick="openLightbox(4)" data-cursor="circle">
               <img src="assets/memories/mem_05_arena_stage.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/1K8wywgh1avErmOuioJ4NIYLWqoRXNnwf=w800'" alt="Arena Stage, Automystica & Squid Arena" loading="lazy"/>
               <div class="ty-pc-overlay">
                 <div class="ty-pc-tag">△ ARENA ZONES</div>
@@ -2957,7 +3212,7 @@
               <div class="ty-pc-zoom">🔍</div>
             </div>
             <!-- 6 -->
-            <div class="ty-photo-card" onclick="openLightbox(5)" data-cursor="circle">
+            <div class="ty-photo-card is-portrait" onclick="openLightbox(5)" data-cursor="circle">
               <img src="assets/memories/mem_06_flip_the_card.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/17U4xcPTbRXX1rcBVEkkNQG8P6lVj0AeS=w800'" alt="Flip The Card Ddakji Challenge" loading="lazy"/>
               <div class="ty-pc-overlay">
                 <div class="ty-pc-tag">□ ARENA GAME</div>
@@ -2966,7 +3221,7 @@
               <div class="ty-pc-zoom">🔍</div>
             </div>
             <!-- 7 -->
-            <div class="ty-photo-card" onclick="openLightbox(6)" data-cursor="circle">
+            <div class="ty-photo-card is-portrait" onclick="openLightbox(6)" data-cursor="circle">
               <img src="assets/memories/mem_07_valedictory.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/1VomZOiokBwRb-qyXpk1cg6f0XqJkGXEJ=w800'" alt="Valedictory Ceremony Announcement" loading="lazy"/>
               <div class="ty-pc-overlay">
                 <div class="ty-pc-tag">○ VALEDICTORY</div>
@@ -2975,7 +3230,7 @@
               <div class="ty-pc-zoom">🔍</div>
             </div>
             <!-- 8 -->
-            <div class="ty-photo-card" onclick="openLightbox(7)" data-cursor="circle">
+            <div class="ty-photo-card is-portrait" onclick="openLightbox(7)" data-cursor="circle">
               <img src="assets/memories/mem_08_champions.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/13c2LFNpszh8OeoXFi6dYwIEGGervdOKh=w800'" alt="Certificate of Excellence Award" loading="lazy"/>
               <div class="ty-pc-overlay">
                 <div class="ty-pc-tag">△ CHAMPIONS</div>
@@ -2984,7 +3239,7 @@
               <div class="ty-pc-zoom">🔍</div>
             </div>
             <!-- 9 -->
-            <div class="ty-photo-card" onclick="openLightbox(8)" data-cursor="circle">
+            <div class="ty-photo-card is-portrait" onclick="openLightbox(8)" data-cursor="circle">
               <img src="assets/memories/mem_09_podium.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/1wL4rTz7ECWKCgtu6skkLhxF2YRmcKejk=w800'" alt="Contestant Excellence on Stage" loading="lazy"/>
               <div class="ty-pc-overlay">
                 <div class="ty-pc-tag">□ PODIUM FINISH</div>
@@ -2993,7 +3248,7 @@
               <div class="ty-pc-zoom">🔍</div>
             </div>
             <!-- 10 -->
-            <div class="ty-photo-card" onclick="openLightbox(9)" data-cursor="circle">
+            <div class="ty-photo-card is-portrait" onclick="openLightbox(9)" data-cursor="circle">
               <img src="assets/memories/mem_10_faculty.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/1mpbsIfM1r32Y5Gsv8iAERoehPYogIPt9=w800'" alt="IIoT Department Faculty Leadership" loading="lazy"/>
               <div class="ty-pc-overlay">
                 <div class="ty-pc-tag">○ FACULTY GUIDES</div>
@@ -3002,7 +3257,7 @@
               <div class="ty-pc-zoom">🔍</div>
             </div>
             <!-- 11 -->
-            <div class="ty-photo-card" onclick="openLightbox(10)" data-cursor="circle">
+            <div class="ty-photo-card is-portrait" onclick="openLightbox(10)" data-cursor="circle">
               <img src="assets/memories/mem_11_coordinators.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/1ZgxNX70lIn8GeCzUGMmkGUcQqD5AN_Ox=w800'" alt="Organizing Committee Leads" loading="lazy"/>
               <div class="ty-pc-overlay">
                 <div class="ty-pc-tag">△ LEADERSHIP</div>
@@ -3011,7 +3266,7 @@
               <div class="ty-pc-zoom">🔍</div>
             </div>
             <!-- 12 -->
-            <div class="ty-photo-card" onclick="openLightbox(11)" data-cursor="circle">
+            <div class="ty-photo-card is-portrait" onclick="openLightbox(11)" data-cursor="circle">
               <img src="assets/memories/mem_12_volunteers.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/18aRirmLy6dC1FwTHrKoTyuU4A0D5mn6r=w800'" alt="Student Volunteers Behind the Scenes" loading="lazy"/>
               <div class="ty-pc-overlay">
                 <div class="ty-pc-tag">□ CORE SQUAD</div>
@@ -3063,11 +3318,11 @@
             <div class="ty-cc-name">ROOPAM ZADE</div>
             <div class="ty-cc-dept">Department of Industrial IoT</div>
           </div>
-          <div class="ty-credit-card">
+          <div class="ty-credit-card ty-lead ty-dev-credit">
             <div class="ty-cc-symbol">□</div>
-            <div class="ty-cc-role">WEBSITE DEVELOPER</div>
+            <div class="ty-cc-role">TECH HEAD &amp; WEB DEVELOPER</div>
             <div class="ty-cc-name">KSHITIJ ADAKANE</div>
-            <div class="ty-cc-dept">TRIGUNA Event Coordinator</div>
+            <div class="ty-cc-dept">TRIGUNA Coordinator · Dept. of IIoT</div>
           </div>
           <div class="ty-credit-card">
             <div class="ty-cc-symbol">○</div>
@@ -3210,7 +3465,7 @@
           <div class="c-num">+91 87679 51251</div>
         </div>
         <div class="c-item" onclick="copyNum('9405476977', this)">
-          <div class="c-role">DEV</div>
+          <div class="c-role">TECH HEAD &amp; DEV (TRIGUNA COORD.)</div>
           <div class="c-name">KSHITIJ ADAKANE</div>
           <div class="c-num">+91 94054 76977</div>
         </div>
@@ -3623,10 +3878,12 @@
           var sOnly = document.createElement('style');
           if (onlyVal === 'thankyou') {
             sOnly.textContent = '#hero, #welcome, #rules, #inside { display: none !important; }';
+          } else if (onlyVal === 'devcard') {
+            sOnly.textContent = '#hero, #welcome, #rules, #inside, .ty-badge, .ty-headline, .ty-mentor-card, .ty-slideshow-wrap, .ty-memories-wrap, .ty-credits-wrap, .ty-closing { display: none !important; }';
           } else if (onlyVal === 'slideshow') {
-            sOnly.textContent = '#hero, #welcome, #rules, #inside, .ty-badge, .ty-headline, .ty-mentor-card { display: none !important; }';
+            sOnly.textContent = '#hero, #welcome, #rules, #inside, .ty-badge, .ty-headline, .ty-mentor-card, .ty-dev-card { display: none !important; }';
           } else if (onlyVal === 'gallery') {
-            sOnly.textContent = '#hero, #welcome, #rules, #inside, .ty-badge, .ty-headline, .ty-mentor-card, .ty-slideshow-wrap { display: none !important; }';
+            sOnly.textContent = '#hero, #welcome, #rules, #inside, .ty-badge, .ty-headline, .ty-mentor-card, .ty-dev-card, .ty-slideshow-wrap { display: none !important; }';
           }
           document.head.appendChild(sOnly);
         }
@@ -4052,10 +4309,14 @@
         
         var mediaHtml = '';
         if (item.type === 'video') {
-          mediaHtml = '<video muted autoplay loop playsinline preload="auto" src="' + item.src + '"></video>';
+          mediaHtml = 
+            '<video class="ty-ss-bg-blur" muted playsinline loop src="' + item.src + '" aria-hidden="true"></video>' +
+            '<video class="ty-ss-media" muted autoplay loop playsinline preload="auto" src="' + item.src + '"></video>';
         } else {
           var fb = item.id ? ' onerror="this.src=\'https://lh3.googleusercontent.com/d/' + item.id + '=w1600\'"' : '';
-          mediaHtml = '<img src="' + item.src + '"' + fb + ' alt="' + item.title + '" loading="' + (i === 0 ? 'eager' : 'lazy') + '"/>';
+          mediaHtml = 
+            '<img class="ty-ss-bg-blur" src="' + item.src + '"' + fb + ' aria-hidden="true" alt=""/>' +
+            '<img class="ty-ss-media" src="' + item.src + '"' + fb + ' alt="' + item.title + '" loading="' + (i === 0 ? 'eager' : 'lazy') + '"/>';
         }
 
         var badgeHtml = item.badge ? '<span class="ty-ss-media-badge">' + item.badge + '</span>' : '';
@@ -4086,8 +4347,8 @@
         slides.forEach(function(s, i) {
           var isActive = (i === curIdx);
           s.classList.toggle('active', isActive);
-          var vid = s.querySelector('video');
-          if (vid) {
+          var vids = s.querySelectorAll('video');
+          vids.forEach(function(vid) {
             vid.muted = true; // Ensure strictly muted / no audio
             if (isActive) {
               vid.currentTime = 0;
@@ -4095,7 +4356,7 @@
             } else {
               vid.pause();
             }
-          }
+          });
         });
         dots.forEach(function(d, i) { d.classList.toggle('active', i === curIdx); });
       }
@@ -4154,8 +4415,18 @@
         if (Math.abs(dx) > 40) { goToSlide(dx < 0 ? curIdx + 1 : curIdx - 1); resetTimer(); }
       }, { passive: true });
 
-      updateUI();
-      startTimer();
+      var spParams = new URLSearchParams(location.search);
+      var spSlide = spParams.get('slide');
+      if (spSlide !== null) {
+        goToSlide(parseInt(spSlide, 10));
+      } else {
+        updateUI();
+      }
+      if (spParams.get('snap') === '1') {
+        paused = true;
+      } else {
+        startTimer();
+      }
     })();
 
     var currentLbIdx = 0;
