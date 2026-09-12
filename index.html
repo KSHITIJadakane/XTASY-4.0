@@ -163,6 +163,701 @@
     main{width:100%;position:relative;background:#000}
     .sec{width:100%;min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden;background:#000}
 
+    /* ═══════════════════════════════════════════════
+       THANK YOU SECTION
+    ═══════════════════════════════════════════════ */
+    #thankyou {
+      min-height: 100vh;
+      background: #000;
+      padding: clamp(80px,10vh,120px) clamp(20px,5vw,80px) clamp(60px,8vh,100px);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+
+    /* Animated grid background */
+    .ty-bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(186,19,77,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(186,19,77,.035) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+      animation: tyGridFade 4s ease-in-out infinite alternate;
+    }
+    @keyframes tyGridFade {
+      0% { opacity: 0.4; }
+      100% { opacity: 1; }
+    }
+
+    /* Ambient radial glows */
+    #thankyou::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 500px;
+      background: radial-gradient(ellipse at center, rgba(186,19,77,.18) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    #thankyou::after {
+      content: '';
+      position: absolute;
+      bottom: 100px; left: 30%;
+      width: 600px; height: 350px;
+      background: radial-gradient(ellipse at center, rgba(0,240,255,.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Floating Particles */
+    .ty-particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+    }
+    .ty-particle {
+      position: absolute;
+      width: 3px; height: 3px;
+      background: rgba(186,19,77,.6);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(186,19,77,.5);
+      animation: tyParticleFloat linear infinite;
+    }
+    @keyframes tyParticleFloat {
+      0%   { transform: translateY(0) scale(1); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 0.8; }
+      100% { transform: translateY(-100vh) scale(0.3); opacity: 0; }
+    }
+
+    /* Top badge */
+    .ty-badge {
+      position: relative;
+      z-index: 10;
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(9px,1.2vw,11px);
+      letter-spacing: .38em;
+      color: var(--pink);
+      border: 1px solid rgba(186,19,77,.35);
+      padding: 7px 24px;
+      border-radius: 99px;
+      background: rgba(186,19,77,.07);
+      backdrop-filter: blur(8px);
+      margin-bottom: clamp(24px,4vh,42px);
+      white-space: nowrap;
+      text-shadow: 0 0 12px rgba(255,0,127,.5);
+      box-shadow: 0 0 18px rgba(186,19,77,.12);
+      animation: tyBadgePulse 3s ease-in-out infinite;
+    }
+    @keyframes tyBadgePulse {
+      0%,100% { box-shadow: 0 0 18px rgba(186,19,77,.12); }
+      50%      { box-shadow: 0 0 30px rgba(186,19,77,.28); }
+    }
+
+    /* Main Headline */
+    .ty-headline {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      margin-bottom: clamp(40px,6vh,72px);
+      line-height: 1;
+    }
+    .ty-h-top {
+      font-family: 'Antonio', sans-serif;
+      font-size: clamp(56px,10vw,128px);
+      font-weight: 700;
+      color: rgba(255,255,255,.08);
+      letter-spacing: .08em;
+      line-height: 1;
+      text-transform: uppercase;
+      user-select: none;
+    }
+    .ty-h-bot {
+      font-family: 'Antonio', sans-serif;
+      font-size: clamp(80px,16vw,200px);
+      font-weight: 700;
+      line-height: .9;
+      letter-spacing: -.02em;
+      text-transform: uppercase;
+      margin-top: -0.12em;
+    }
+    .ty-h-y {
+      background: linear-gradient(135deg, #ff1a8c 0%, #ff6b35 50%, #ffd700 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 40px rgba(255,0,127,.45));
+      animation: tyYShimmer 4s ease-in-out infinite alternate;
+    }
+    @keyframes tyYShimmer {
+      0%   { filter: drop-shadow(0 0 30px rgba(255,0,127,.4)); }
+      100% { filter: drop-shadow(0 0 60px rgba(255,215,0,.6)); }
+    }
+    .ty-h-sub {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(14px,2vw,20px);
+      color: rgba(255,255,255,.55);
+      letter-spacing: .04em;
+      margin-top: clamp(8px,1.5vh,20px);
+      font-weight: 400;
+    }
+
+    /* Section Label */
+    .ty-section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(9px,1.1vw,11px);
+      letter-spacing: .32em;
+      color: var(--pink);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    /* Floating Particles - Squid Game Symbols */
+    .ty-symbol-particle {
+      width: auto !important;
+      height: auto !important;
+      background: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      font-family: 'Space Mono', monospace;
+      font-size: 15px;
+      color: rgba(255, 0, 127, 0.45);
+      text-shadow: 0 0 10px rgba(255, 0, 127, 0.6);
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* ── Memories Gallery ── */
+    .ty-memories-wrap {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: clamp(56px,8vh,96px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .ty-gallery-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 10;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .ty-tab-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.6);
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 9px 22px;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: all .3s var(--ease-s);
+      backdrop-filter: blur(8px);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ty-tab-btn.active, .ty-tab-btn:hover {
+      color: #fff;
+      border-color: var(--pink);
+      background: rgba(186,19,77,.2);
+      box-shadow: 0 0 20px rgba(186,19,77,.35);
+    }
+    .ty-tab-content {
+      width: 100%;
+      display: none;
+      animation: tyFadeIn .4s cubic-bezier(.16,1,.3,1) forwards;
+    }
+    .ty-tab-content.active {
+      display: block;
+    }
+    @keyframes tyFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .ty-photos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      width: 100%;
+      margin-bottom: 28px;
+    }
+    .ty-photo-card {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      background: #080808;
+      border: 1px solid rgba(255,255,255,.08);
+      cursor: pointer;
+      transition: all .4s cubic-bezier(.16,1,.3,1);
+      box-shadow: 0 8px 24px rgba(0,0,0,.5);
+    }
+    .ty-photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .6s cubic-bezier(.16,1,.3,1), filter .4s ease;
+      display: block;
+    }
+    .ty-photo-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: var(--pink);
+      box-shadow: 0 16px 36px rgba(0,0,0,.7), 0 0 28px rgba(186,19,77,.3);
+    }
+    .ty-photo-card:hover img {
+      transform: scale(1.08);
+    }
+    .ty-pc-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.9) 0%, rgba(0,0,0,.35) 45%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 16px;
+      opacity: 0.92;
+      transition: opacity .3s ease;
+    }
+    .ty-photo-card:hover .ty-pc-overlay {
+      opacity: 1;
+    }
+    .ty-pc-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .2em;
+      color: var(--pink);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      text-shadow: 0 0 8px rgba(255,0,127,.6);
+    }
+    .ty-pc-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .02em;
+    }
+    .ty-pc-zoom {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(8,8,8,.75);
+      border: 1px solid rgba(255,255,255,.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #fff;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all .3s cubic-bezier(.16,1,.3,1);
+      backdrop-filter: blur(8px);
+    }
+    .ty-photo-card:hover .ty-pc-zoom {
+      opacity: 1;
+      transform: scale(1);
+      border-color: var(--pink);
+      color: var(--pink);
+      box-shadow: 0 0 14px rgba(255,0,127,.5);
+    }
+    .ty-gallery-frame {
+      position: relative;
+      width: 100%;
+      height: clamp(340px,45vh,520px);
+      border: 1px solid rgba(186,19,77,.25);
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(10,0,5,.6);
+      backdrop-filter: blur(12px);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.04),
+        0 8px 48px rgba(0,0,0,.6),
+        0 0 80px rgba(186,19,77,.08);
+      margin-bottom: 24px;
+    }
+    .ty-drive-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      background: transparent;
+      filter: invert(0);
+      border-radius: 16px;
+    }
+    .ty-gallery-overlay-top {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 48px;
+      background: linear-gradient(to bottom, rgba(0,0,0,.7) 0%, transparent 100%);
+      pointer-events: none;
+      border-radius: 16px 16px 0 0;
+    }
+    .ty-gallery-overlay-bot {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 48px;
+      background: linear-gradient(to top, rgba(0,0,0,.5) 0%, transparent 100%);
+      pointer-events: none;
+      border-radius: 0 0 16px 16px;
+    }
+    .ty-drive-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      color: #fff;
+      background: linear-gradient(135deg, rgba(186,19,77,.35) 0%, rgba(255,0,127,.2) 100%);
+      border: 1.5px solid rgba(255,0,127,.45);
+      padding: 13px 30px;
+      border-radius: 99px;
+      text-decoration: none;
+      transition: all .35s var(--ease-s);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 25px rgba(255,0,127,.25);
+    }
+    .ty-drive-cta-btn:hover {
+      background: linear-gradient(135deg, rgba(186,19,77,.6) 0%, rgba(255,0,127,.4) 100%);
+      border-color: var(--pink);
+      box-shadow: 0 0 45px rgba(255,0,127,.6);
+      transform: translateY(-2px) scale(1.03);
+    }
+    .ty-drive-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      padding: 3px 8px;
+      background: var(--pink);
+      color: #fff;
+      border-radius: 6px;
+      letter-spacing: .08em;
+    }
+
+    /* Lightbox Modal */
+    .ty-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(0,0,0,.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(16px, 4vw, 40px);
+      opacity: 0;
+      transition: opacity .35s ease;
+    }
+    .ty-lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+    .ty-lb-content {
+      position: relative;
+      max-width: 1000px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .ty-lb-img-wrap {
+      position: relative;
+      max-width: 100%;
+      max-height: 75vh;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1.5px solid rgba(186,19,77,.4);
+      box-shadow: 0 0 50px rgba(0,0,0,.9), 0 0 40px rgba(186,19,77,.25);
+      background: #050505;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ty-lb-img {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      display: block;
+      transition: opacity .25s ease;
+    }
+    .ty-lb-info {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      padding: 0 8px;
+    }
+    .ty-lb-caption {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      text-align: left;
+    }
+    .ty-lb-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .2em;
+      color: var(--pink);
+    }
+    .ty-lb-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .ty-lb-drive-btn {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,.8);
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.2);
+      padding: 6px 16px;
+      border-radius: 99px;
+      text-decoration: none;
+      transition: all .25s ease;
+    }
+    .ty-lb-drive-btn:hover {
+      color: #fff;
+      border-color: var(--pink);
+      background: rgba(186,19,77,.3);
+    }
+    .ty-lb-close {
+      position: absolute;
+      top: -45px;
+      right: 0;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      transition: all .25s;
+    }
+    .ty-lb-close:hover {
+      background: var(--pink);
+      border-color: var(--pink);
+      transform: rotate(90deg);
+      box-shadow: 0 0 16px var(--pink);
+    }
+    .ty-lb-prev, .ty-lb-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(8,8,8,.8);
+      border: 1px solid rgba(255,255,255,.18);
+      color: #fff;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all .25s;
+      z-index: 10;
+    }
+    .ty-lb-prev { left: -22px; }
+    .ty-lb-next { right: -22px; }
+    .ty-lb-prev:hover, .ty-lb-next:hover {
+      border-color: var(--pink);
+      color: var(--pink);
+      box-shadow: 0 0 20px rgba(255,0,127,.6);
+      transform: translateY(-50%) scale(1.1);
+    }
+    @media (max-width: 640px) {
+      .ty-lb-prev { left: 8px; }
+      .ty-lb-next { right: 8px; }
+      .ty-photos-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Team Credits ── */
+    .ty-credits-wrap {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: clamp(48px,7vh,80px);
+    }
+    .ty-credits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap: 20px;
+      width: 100%;
+    }
+    .ty-credit-card {
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      padding: clamp(20px,3vw,32px) 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      transition: all .35s var(--ease-s);
+      backdrop-filter: blur(8px);
+      position: relative;
+      overflow: hidden;
+    }
+    .ty-credit-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(186,19,77,.1) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity .35s;
+    }
+    .ty-credit-card:hover { border-color: rgba(186,19,77,.4); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.4), 0 0 24px rgba(186,19,77,.12); }
+    .ty-credit-card:hover::before { opacity: 1; }
+    .ty-credit-card.ty-lead { border-color: rgba(186,19,77,.22); background: rgba(186,19,77,.04); }
+    .ty-credit-card.ty-lead .ty-cc-name { color: #ff4a8d; }
+    .ty-cc-symbol {
+      font-size: 22px;
+      color: rgba(186,19,77,.7);
+      margin-bottom: 4px;
+      font-family: sans-serif;
+    }
+    .ty-cc-role {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .32em;
+      color: rgba(255,255,255,.4);
+      text-transform: uppercase;
+    }
+    .ty-cc-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(16px,2vw,22px);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .04em;
+    }
+    .ty-cc-dept {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      color: rgba(255,255,255,.3);
+    }
+
+    /* ── Gratitude Grid ── */
+    .ty-gratitude-wrap { width: 100%; }
+    .ty-gratitude-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      width: 100%;
+    }
+    .ty-grat-item {
+      background: rgba(255,255,255,.018);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 12px;
+      padding: 24px 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: all .3s var(--ease-s);
+    }
+    .ty-grat-item:hover {
+      border-color: rgba(0,240,255,.2);
+      background: rgba(0,240,255,.03);
+      transform: translateY(-3px);
+    }
+    .ty-grat-icon {
+      font-size: 28px;
+      line-height: 1;
+      filter: drop-shadow(0 0 10px rgba(255,255,255,.2));
+    }
+    .ty-grat-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,.8);
+      letter-spacing: .02em;
+    }
+    .ty-grat-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      color: rgba(255,255,255,.35);
+      line-height: 1.5;
+    }
+
+    /* ── Closing Statement ── */
+    .ty-closing {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding-top: clamp(32px,5vh,60px);
+    }
+    .ty-closing-line {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(186,19,77,.6), transparent);
+    }
+    .ty-closing-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(15px,2.2vw,22px);
+      font-weight: 400;
+      color: rgba(255,255,255,.65);
+      line-height: 1.65;
+      font-style: italic;
+      letter-spacing: .01em;
+    }
+    .ty-closing-quote {
+      font-family: 'Georgia', serif;
+      font-size: 1.6em;
+      color: rgba(186,19,77,.7);
+      vertical-align: -.1em;
+    }
+    .ty-closing-dept {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .25em;
+      color: rgba(255,255,255,.25);
+      text-transform: uppercase;
+    }
+
+
     /* ─── HERO ─── */
     #hero{width:100%;height:100vh;position:relative;background:#000;padding-top:0;overflow:hidden}
     .hero-canvas{width:100%;height:100%;position:relative;display:flex;justify-content:center;align-items:flex-end;background:#000;overflow:hidden}
@@ -1396,6 +2091,7 @@
     </div>
     <nav class="nav">
       <span class="nav-a on" onclick="goTo('hero')">About the Game</span>
+      <span class="nav-a" onclick="goTo('thankyou')">✦ Memories &amp; Thank You</span>
       <span class="nav-a" onclick="openContactModal()">Contact</span>
     </nav>
     <div class="hdr-right">
@@ -1417,6 +2113,7 @@
   <div class="mobile-nav-overlay" id="mobileNav">
     <div class="mobile-nav-content">
       <span class="nav-a on" onclick="goTo('hero'); toggleMobileMenu()">About the Game</span>
+      <span class="nav-a" onclick="goTo('thankyou'); toggleMobileMenu()">✦ Memories &amp; Thank You</span>
       <span class="nav-a" onclick="openContactModal(); toggleMobileMenu()">Contact</span>
       <button class="btn-cta" style="padding:12px 36px;font-size:14px;box-shadow:0 0 25px rgba(255,0,127,.8);margin:6px 0;" onclick="window.location.href='events.html'; toggleMobileMenu()">Play Game</button>
       <div id="sound-btn-mobile" class="snd-toggle playing" onclick="toggleSound()">
@@ -1629,7 +2326,256 @@
       </div>
     </section>
 
-    <!-- SECTION 5: READY TO PLAY -->
+    <!-- SECTION 5: THANK YOU -->
+    <section class="sec" id="thankyou">
+      <div class="ty-bg-grid"></div>
+      <div class="ty-particles" id="tyParticles"></div>
+
+      <!-- Top Badge -->
+      <div class="ty-badge">XTASY 4.0 — 10 SEPT 2026 — IT'S A WRAP</div>
+
+      <!-- Main Headline -->
+      <div class="ty-headline">
+        <div class="ty-h-top">THANK</div>
+        <div class="ty-h-bot"><span class="ty-h-y">YOU</span></div>
+        <div class="ty-h-sub">To everyone who made XTASY 4.0 unforgettable.</div>
+      </div>
+
+      <!-- Memories Gallery -->
+      <div class="ty-memories-wrap">
+        <div class="ty-section-label">◈ XTASY 4.0 MEMORIES &amp; HIGHLIGHTS</div>
+
+        <!-- View Tabs -->
+        <div class="ty-gallery-tabs">
+          <button class="ty-tab-btn active" id="btnTabHighlights" onclick="switchTyTab('highlights')">
+            <span>📷 PHOTO HIGHLIGHTS (12)</span>
+          </button>
+          <button class="ty-tab-btn" id="btnTabDrive" onclick="switchTyTab('drive')">
+            <span>📁 GOOGLE DRIVE FOLDER</span>
+          </button>
+        </div>
+
+        <!-- Tab 1: Curated Photo Grid -->
+        <div class="ty-tab-content active" id="tyTabHighlights">
+          <div class="ty-photos-grid">
+            <!-- 1 -->
+            <div class="ty-photo-card" onclick="openLightbox(0)" data-cursor="circle">
+              <img src="https://lh3.googleusercontent.com/d/1n5nQse3RC3TFynvcI0TwDVfmCCSnuZ7o=w800" alt="Arena Opening &amp; Kickoff" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">○ ARENA KICKOFF</div>
+                <div class="ty-pc-title">XTASY 4.0 Commences</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
+            <!-- 2 -->
+            <div class="ty-photo-card" onclick="openLightbox(1)" data-cursor="circle">
+              <img src="https://lh3.googleusercontent.com/d/1UTL-Yg-XSKR2BKevFBzlnMRZCZxfoGTE=w800" alt="Participants Assembled" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">△ PLAYER REGISTRATION</div>
+                <div class="ty-pc-title">370+ Contestants Enter</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
+            <!-- 3 -->
+            <div class="ty-photo-card" onclick="openLightbox(2)" data-cursor="circle">
+              <img src="https://lh3.googleusercontent.com/d/1ontSDWQja2PnMKbP88jrpnAmDXNCEyMN=w800" alt="Hardware Circuit Arena" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">□ HACK THE HARDWARE</div>
+                <div class="ty-pc-title">Circuit Trials &amp; Microcontrollers</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
+            <!-- 4 -->
+            <div class="ty-photo-card" onclick="openLightbox(3)" data-cursor="circle">
+              <img src="https://lh3.googleusercontent.com/d/1IETiuh2xgeyN9MLunS4RA95Bg5IauKRq=w800" alt="Strategic Showdown" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">○ AUTOMYSTICA</div>
+                <div class="ty-pc-title">Speed, Code &amp; Tactics</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
+            <!-- 5 -->
+            <div class="ty-photo-card" onclick="openLightbox(4)" data-cursor="circle">
+              <img src="https://lh3.googleusercontent.com/d/15inFH0dqyUyTSx3MuKRO-xq-nVYeZvP0=w800" alt="Triguna Expo" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">△ TRIGUNA INNOVATION</div>
+                <div class="ty-pc-title">Agritech &amp; Sustainability Pitches</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
+            <!-- 6 -->
+            <div class="ty-photo-card" onclick="openLightbox(5)" data-cursor="circle">
+              <img src="https://lh3.googleusercontent.com/d/1M0VLWbQQY4IkIKiNuNsjf-paUZ_aYUYD=w800" alt="Arena Floor" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">□ HIGH STAKES</div>
+                <div class="ty-pc-title">Survival of the Sharpest</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
+            <!-- 7 -->
+            <div class="ty-photo-card" onclick="openLightbox(6)" data-cursor="circle">
+              <img src="https://lh3.googleusercontent.com/d/1WbSZGUyczyyG2enRrD22CBTIthm992NI=w800" alt="Jury Evaluation" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">○ JUDGES DESK</div>
+                <div class="ty-pc-title">Rigorous Project Assessments</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
+            <!-- 8 -->
+            <div class="ty-photo-card" onclick="openLightbox(7)" data-cursor="circle">
+              <img src="https://lh3.googleusercontent.com/d/17D1VSFK-j09uPhCZ8g3vQ8VhUUqjH4pA=w800" alt="Crowd Energy" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">△ AUDIENCE &amp; TEAMS</div>
+                <div class="ty-pc-title">Electric Arena Energy</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
+            <!-- 9 -->
+            <div class="ty-photo-card" onclick="openLightbox(8)" data-cursor="circle">
+              <img src="https://lh3.googleusercontent.com/d/1vU-9sknVyisiOEiEXAf2L_gEqOlj0hZm=w800" alt="Teamwork in Action" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">□ TEAM SYNERGY</div>
+                <div class="ty-pc-title">Collaborative Problem Solving</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
+            <!-- 10 -->
+            <div class="ty-photo-card" onclick="openLightbox(9)" data-cursor="circle">
+              <img src="https://lh3.googleusercontent.com/d/1VSvZkYFZiCxGyJ-LTQ_6kodA0woGEK5I=w800" alt="Victory Stage" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">○ VICTORY ROUNDS</div>
+                <div class="ty-pc-title">Champions of XTASY 4.0</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
+            <!-- 11 -->
+            <div class="ty-photo-card" onclick="openLightbox(10)" data-cursor="circle">
+              <img src="https://lh3.googleusercontent.com/d/18aRirmLy6dC1FwTHrKoTyuU4A0D5mn6r=w800" alt="Organizing Squad" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">△ IIoT CORE</div>
+                <div class="ty-pc-title">The Force Behind XTASY</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
+            <!-- 12 -->
+            <div class="ty-photo-card" onclick="openLightbox(11)" data-cursor="circle">
+              <img src="https://lh3.googleusercontent.com/d/1TZ2_091XsxVYBFFJ38mejbS4mIroP-l5=w800" alt="Memories Forever" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">□ GRAND FINALE</div>
+                <div class="ty-pc-title">Memories to Last Forever</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Embedded Google Drive Folder -->
+        <div class="ty-tab-content" id="tyTabDrive">
+          <div class="ty-gallery-frame">
+            <iframe
+              src="https://drive.google.com/embeddedfolderview?id=1pdJsu9a5ccUmYTl1_zu4zlrFSxOhnoOL#grid"
+              class="ty-drive-iframe"
+              allowfullscreen
+              loading="lazy"
+              title="XTASY 4.0 Google Drive Memories Folder"
+            ></iframe>
+            <div class="ty-gallery-overlay-top"></div>
+            <div class="ty-gallery-overlay-bot"></div>
+          </div>
+        </div>
+
+        <!-- Direct Drive CTA Button -->
+        <a href="https://drive.google.com/drive/folders/1pdJsu9a5ccUmYTl1_zu4zlrFSxOhnoOL" target="_blank" rel="noreferrer" class="ty-drive-cta-btn" data-cursor="triangle">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7.71 3.5L1.15 15l3.43 6h6.56l-6.56-11.5L7.71 3.5zm8.58 0L9.73 15h13.12l-6.56-11.5zm-3.43 6l3.28 5.75L12.86 21H6.29l6.57-11.5z"/>
+          </svg>
+          <span>VIEW FULL MEMORIES ALBUM ON GOOGLE DRIVE</span>
+          <span class="ty-drive-badge">190+ PHOTOS &amp; VIDEOS ↗</span>
+        </a>
+      </div>
+
+      <!-- Team Credits -->
+      <div class="ty-credits-wrap">
+        <div class="ty-section-label">◈ THE TEAM BEHIND XTASY 4.0</div>
+        <div class="ty-credits-grid">
+          <div class="ty-credit-card ty-lead">
+            <div class="ty-cc-symbol">○</div>
+            <div class="ty-cc-role">EVENT COORDINATOR</div>
+            <div class="ty-cc-name">VIDHI UKEY</div>
+            <div class="ty-cc-dept">Department of Industrial IoT</div>
+          </div>
+          <div class="ty-credit-card ty-lead">
+            <div class="ty-cc-symbol">△</div>
+            <div class="ty-cc-role">CO-COORDINATOR</div>
+            <div class="ty-cc-name">ROOPAM ZADE</div>
+            <div class="ty-cc-dept">Department of Industrial IoT</div>
+          </div>
+          <div class="ty-credit-card">
+            <div class="ty-cc-symbol">□</div>
+            <div class="ty-cc-role">WEBSITE DEVELOPER</div>
+            <div class="ty-cc-name">KSHITIJ ADAKANE</div>
+            <div class="ty-cc-dept">TRIGUNA Event Coordinator</div>
+          </div>
+          <div class="ty-credit-card">
+            <div class="ty-cc-symbol">○</div>
+            <div class="ty-cc-role">VIDEO EDITOR</div>
+            <div class="ty-cc-name">TUSHAR AGASHE</div>
+            <div class="ty-cc-dept">Department of Industrial IoT</div>
+          </div>
+        </div>
+
+        <!-- Broader Thank Yous -->
+        <div class="ty-gratitude-wrap">
+          <div class="ty-section-label" style="margin-top:48px">◈ OUR HEARTFELT GRATITUDE TO</div>
+          <div class="ty-gratitude-grid">
+            <div class="ty-grat-item">
+              <div class="ty-grat-icon">🎓</div>
+              <div class="ty-grat-label">Faculty Mentors &amp; HOD</div>
+              <div class="ty-grat-sub">For your guidance, trust &amp; unwavering support</div>
+            </div>
+            <div class="ty-grat-item">
+              <div class="ty-grat-icon">⚡</div>
+              <div class="ty-grat-label">All Participants</div>
+              <div class="ty-grat-sub">370+ students who played, competed &amp; dared</div>
+            </div>
+            <div class="ty-grat-item">
+              <div class="ty-grat-icon">🏆</div>
+              <div class="ty-grat-label">Event Judges &amp; Experts</div>
+              <div class="ty-grat-sub">For your time, expertise &amp; fair evaluation</div>
+            </div>
+            <div class="ty-grat-item">
+              <div class="ty-grat-icon">🎭</div>
+              <div class="ty-grat-label">Volunteers &amp; Support Staff</div>
+              <div class="ty-grat-sub">The backbone who made every moment seamless</div>
+            </div>
+            <div class="ty-grat-item">
+              <div class="ty-grat-icon">📸</div>
+              <div class="ty-grat-label">Photography &amp; Media Team</div>
+              <div class="ty-grat-sub">Capturing every memory worth keeping</div>
+            </div>
+            <div class="ty-grat-item">
+              <div class="ty-grat-icon">🌱</div>
+              <div class="ty-grat-label">SVPCET Management</div>
+              <div class="ty-grat-sub">St. Vincent Pallotti College — enabling innovation</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Closing Statement -->
+      <div class="ty-closing">
+        <div class="ty-closing-line"></div>
+        <div class="ty-closing-text">
+          <span class="ty-closing-quote">"</span>
+          The game may be over — but the fire you lit in this arena will never go out.
+          <span class="ty-closing-quote">"</span>
+        </div>
+        <div class="ty-closing-dept">— Department of Industrial Internet of Things (IIoT) · XTASY 4.0</div>
+        <div class="ty-closing-line"></div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: READY TO PLAY -->
     <section class="sec" id="ready">
       <div class="ready-wrap">
         <div class="ready-row">
@@ -1673,6 +2619,27 @@
     </section>
 
   </main>
+
+  <!-- Memories Lightbox Modal -->
+  <div id="tyLightbox" class="ty-lightbox" onclick="if(event.target===this)closeLightbox()">
+    <div class="ty-lb-content">
+      <button class="ty-lb-close" onclick="closeLightbox()" aria-label="Close photo">&times;</button>
+      <button class="ty-lb-prev" onclick="prevLightbox(event)" aria-label="Previous photo">&#10094;</button>
+      <button class="ty-lb-next" onclick="nextLightbox(event)" aria-label="Next photo">&#10095;</button>
+      <div class="ty-lb-img-wrap">
+        <img id="tyLbImg" class="ty-lb-img" src="" alt="XTASY Memory"/>
+      </div>
+      <div class="ty-lb-info">
+        <div class="ty-lb-caption">
+          <span class="ty-lb-tag" id="tyLbTag">MEMORIES</span>
+          <span class="ty-lb-title" id="tyLbTitle">XTASY 4.0</span>
+        </div>
+        <a id="tyLbDriveLink" href="https://drive.google.com/drive/folders/1pdJsu9a5ccUmYTl1_zu4zlrFSxOhnoOL" target="_blank" rel="noreferrer" class="ty-lb-drive-btn">
+          Open in Drive ↗
+        </a>
+      </div>
+    </div>
+  </div>
 
   <div id="modal" onclick="if(event.target===this)closeModal()">
     <div class="mbox" data-cursor="default">
@@ -2127,12 +3094,13 @@
         }
         return;
       }
-      if(gotoTarget){
+      var targetTarget = gotoTarget || (location.hash && location.hash !== '#end' && location.hash !== '#start' ? location.hash.replace('#', '') : null);
+      if(targetTarget && document.getElementById(targetTarget)){
         document.documentElement.style.scrollBehavior = 'auto';
         document.body.style.scrollBehavior = 'auto';
         document.body.classList.add('intro-active','lit','settled');
         document.querySelectorAll('.sec').forEach(function(s){ s.classList.add('iv'); });
-        var targetEl = document.getElementById(gotoTarget);
+        var targetEl = document.getElementById(targetTarget);
         if(targetEl){
           window.scrollTo(0, targetEl.offsetTop);
         }
@@ -2155,12 +3123,17 @@
         if(!en.isIntersecting)return;
         en.target.classList.add('iv');
         var id=en.target.id;
-        var aboutLinks=document.querySelectorAll('.nav .nav-a, .mobile-nav-content .nav-a');
-        if(id==='hero'){
-          aboutLinks.forEach(function(a){if(a.innerText.trim()==='About the Game')a.classList.add('on');});
-        }else{
-          aboutLinks.forEach(function(a){if(a.innerText.trim()==='About the Game')a.classList.remove('on');});
-        }
+        var navLinks=document.querySelectorAll('.nav .nav-a, .mobile-nav-content .nav-a');
+        navLinks.forEach(function(a){
+          var txt = a.innerText.trim();
+          if(id==='hero' && txt==='About the Game'){
+            a.classList.add('on');
+          } else if(id==='thankyou' && txt.indexOf('Thank You') !== -1){
+            a.classList.add('on');
+          } else if(txt==='About the Game' || txt.indexOf('Thank You') !== -1){
+            a.classList.remove('on');
+          }
+        });
       });
     },{threshold:.12,rootMargin:'0px 0px -4% 0px'});
     document.querySelectorAll('.sec').forEach(function(s){obs.observe(s)});
@@ -2225,9 +3198,16 @@
       var now = Date.now();
       var diff = Math.floor((targetDate - now) / 1000);
       if (diff <= 0) {
-        cdClock.innerText = 'ARENA IS LIVE';
+        cdClock.innerHTML = 'EVENT CONCLUDED <span style="font-size:10px;opacity:0.85;margin-left:4px;color:var(--pink)">✦ MEMORIES</span>';
         var cdLbl = document.querySelector('.cd-lbl');
         if (cdLbl) cdLbl.innerText = 'STATUS';
+        var cd = document.getElementById('countdown');
+        if (cd && !cd.getAttribute('data-bound')) {
+          cd.setAttribute('data-bound', '1');
+          cd.style.cursor = 'pointer';
+          cd.title = 'View XTASY 4.0 Memories & Thank You';
+          cd.onclick = function() { goTo('thankyou'); };
+        }
         return;
       }
       var d = Math.floor(diff / 86400);
@@ -2274,6 +3254,125 @@
     function closeModal(){document.getElementById('modal').classList.remove('open')}
     function confirmEntry(){chord();alert('Registration received. Watch for the red light.');closeModal()}
     document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()});
+
+    /* ── 6. THANK YOU & MEMORIES CONTROLLER ── */
+    var tyMemories = [
+      { id: "1n5nQse3RC3TFynvcI0TwDVfmCCSnuZ7o", tag: "○ ARENA KICKOFF", title: "XTASY 4.0 Commences" },
+      { id: "1UTL-Yg-XSKR2BKevFBzlnMRZCZxfoGTE", tag: "△ PLAYER REGISTRATION", title: "370+ Contestants Enter" },
+      { id: "1ontSDWQja2PnMKbP88jrpnAmDXNCEyMN", tag: "□ HACK THE HARDWARE", title: "Circuit Trials & Microcontrollers" },
+      { id: "1IETiuh2xgeyN9MLunS4RA95Bg5IauKRq", tag: "○ AUTOMYSTICA", title: "Speed, Code & Tactics" },
+      { id: "15inFH0dqyUyTSx3MuKRO-xq-nVYeZvP0", tag: "△ TRIGUNA INNOVATION", title: "Agritech & Sustainability Pitches" },
+      { id: "1M0VLWbQQY4IkIKiNuNsjf-paUZ_aYUYD", tag: "□ HIGH STAKES", title: "Survival of the Sharpest" },
+      { id: "1WbSZGUyczyyG2enRrD22CBTIthm992NI", tag: "○ JUDGES DESK", title: "Rigorous Project Assessments" },
+      { id: "17D1VSFK-j09uPhCZ8g3vQ8VhUUqjH4pA", tag: "△ AUDIENCE & TEAMS", title: "Electric Arena Energy" },
+      { id: "1vU-9sknVyisiOEiEXAf2L_gEqOlj0hZm", tag: "□ TEAM SYNERGY", title: "Collaborative Problem Solving" },
+      { id: "1VSvZkYFZiCxGyJ-LTQ_6kodA0woGEK5I", tag: "○ VICTORY ROUNDS", title: "Champions of XTASY 4.0" },
+      { id: "18aRirmLy6dC1FwTHrKoTyuU4A0D5mn6r", tag: "△ IIoT CORE", title: "The Force Behind XTASY" },
+      { id: "1TZ2_091XsxVYBFFJ38mejbS4mIroP-l5", tag: "□ GRAND FINALE", title: "Memories to Last Forever" }
+    ];
+
+    var currentLbIdx = 0;
+
+    function switchTyTab(tab) {
+      var hTab = document.getElementById('tyTabHighlights');
+      var dTab = document.getElementById('tyTabDrive');
+      var bH = document.getElementById('btnTabHighlights');
+      var bD = document.getElementById('btnTabDrive');
+      if (tab === 'highlights') {
+        if (hTab) hTab.classList.add('active');
+        if (dTab) dTab.classList.remove('active');
+        if (bH) bH.classList.add('active');
+        if (bD) bD.classList.remove('active');
+      } else {
+        if (hTab) hTab.classList.remove('active');
+        if (dTab) dTab.classList.add('active');
+        if (bH) bH.classList.remove('active');
+        if (bD) bD.classList.add('active');
+      }
+      if (typeof beep === 'function') beep(700, 0.08);
+    }
+    window.switchTyTab = switchTyTab;
+
+    function openLightbox(idx) {
+      if (idx < 0 || idx >= tyMemories.length) return;
+      currentLbIdx = idx;
+      var item = tyMemories[idx];
+      var modal = document.getElementById('tyLightbox');
+      var img = document.getElementById('tyLbImg');
+      var tag = document.getElementById('tyLbTag');
+      var title = document.getElementById('tyLbTitle');
+      if (img) {
+        img.src = 'https://lh3.googleusercontent.com/d/' + item.id + '=w1600';
+        img.alt = item.title;
+      }
+      if (tag) tag.innerText = item.tag + ' · ' + (idx + 1) + ' / ' + tyMemories.length;
+      if (title) title.innerText = item.title;
+      if (modal) modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      if (typeof beep === 'function') beep(900, 0.1);
+    }
+    window.openLightbox = openLightbox;
+
+    function closeLightbox() {
+      var modal = document.getElementById('tyLightbox');
+      if (modal) modal.classList.remove('active');
+      document.body.style.overflow = '';
+      if (typeof beep === 'function') beep(450, 0.08);
+    }
+    window.closeLightbox = closeLightbox;
+
+    function prevLightbox(e) {
+      if (e) e.stopPropagation();
+      var nextIdx = (currentLbIdx - 1 + tyMemories.length) % tyMemories.length;
+      openLightbox(nextIdx);
+    }
+    window.prevLightbox = prevLightbox;
+
+    function nextLightbox(e) {
+      if (e) e.stopPropagation();
+      var nextIdx = (currentLbIdx + 1) % tyMemories.length;
+      openLightbox(nextIdx);
+    }
+    window.nextLightbox = nextLightbox;
+
+    // Keyboard controls for lightbox
+    document.addEventListener('keydown', function(e) {
+      var modal = document.getElementById('tyLightbox');
+      if (modal && modal.classList.contains('active')) {
+        if (e.key === 'Escape') closeLightbox();
+        else if (e.key === 'ArrowLeft') prevLightbox();
+        else if (e.key === 'ArrowRight') nextLightbox();
+      }
+    });
+
+    // Squid Game Floating Particles Generator for #tyParticles
+    (function initTyParticles() {
+      var container = document.getElementById('tyParticles');
+      if (!container) return;
+      var syms = ['○', '△', '□'];
+      var count = 32;
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < count; i++) {
+        var p = document.createElement('div');
+        p.className = 'ty-particle';
+        var isSym = (i % 3 === 0);
+        if (isSym) {
+          p.classList.add('ty-symbol-particle');
+          p.innerText = syms[i % 3];
+        } else {
+          var sz = (2 + Math.random() * 3).toFixed(1) + 'px';
+          p.style.width = sz;
+          p.style.height = sz;
+        }
+        p.style.left = (Math.random() * 100).toFixed(2) + '%';
+        p.style.bottom = (-15 - Math.random() * 30).toFixed(0) + 'px';
+        p.style.animationDuration = (8 + Math.random() * 10).toFixed(1) + 's';
+        p.style.animationDelay = (Math.random() * 8).toFixed(1) + 's';
+        p.style.opacity = (0.25 + Math.random() * 0.55).toFixed(2);
+        frag.appendChild(p);
+      }
+      container.appendChild(frag);
+    })();
   </script>
   <script src="assets/navigator.js"></script>
   <!-- Floating Scroll Notice / Hint Popup -->
