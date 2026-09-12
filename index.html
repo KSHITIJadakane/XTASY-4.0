@@ -3572,17 +3572,38 @@
         _s2.removeAttribute('muted');
         _s2.muted = false;
         _s2.volume = 0.5;
-        if (_s2.paused) _s2.play().catch(function(){});
-        // Sync UI
-        try {
-          if (typeof updateSoundUI === 'function') updateSoundUI(true);
-          if (typeof startAudioSaveInterval === 'function') startAudioSaveInterval();
-        } catch(e) {}
-        // Remove all unmute listeners
-        _evts.forEach(function(ev){
-          document.removeEventListener(ev, _unmute, true);
-          window.removeEventListener(ev, _unmute, true);
-        });
+        
+        var _p = _s2.play();
+        if (_p !== undefined) {
+          _p.then(function() {
+            // Success! The browser accepted this interaction.
+            try {
+              if (typeof updateSoundUI === 'function') updateSoundUI(true);
+              if (typeof startAudioSaveInterval === 'function') startAudioSaveInterval();
+            } catch(e) {}
+            // Clean up all listeners
+            _evts.forEach(function(ev){
+              document.removeEventListener(ev, _unmute, true);
+              window.removeEventListener(ev, _unmute, true);
+            });
+          }).catch(function(e) {
+            // Failed! Browser rejected this event (e.g. 'scroll' without tap).
+            // Revert state so the next interaction can try again.
+            _unmuted = false;
+            _s2.muted = true;
+            _s2.setAttribute('muted', '');
+          });
+        } else {
+          // Fallback for older browsers
+          try {
+            if (typeof updateSoundUI === 'function') updateSoundUI(true);
+            if (typeof startAudioSaveInterval === 'function') startAudioSaveInterval();
+          } catch(e) {}
+          _evts.forEach(function(ev){
+            document.removeEventListener(ev, _unmute, true);
+            window.removeEventListener(ev, _unmute, true);
+          });
+        }
       }
 
       var _evts = [
