@@ -12,18 +12,23 @@
   <style>
     :root{--pink:#BA134D;--pink-d:#8A0C36;--cyan:#00F0FF;--grn:#037A4B;--blk:#000;--wht:#fff;--t70:rgba(255,255,255,.7);--t38:rgba(255,255,255,.38);--b12:rgba(255,255,255,.12);--ease:cubic-bezier(.16,1,.3,1);--ease-s:cubic-bezier(.25,1,.5,1)}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-    html{scroll-behavior:smooth;background:#000}
-    body{width:100%;min-height:100vh;background:#000;color:#fff;font-family:'Inter',sans-serif;overflow-x:hidden;overflow-y:auto;user-select:none;cursor:none}
+    html{scroll-behavior:smooth;background:#000;-webkit-overflow-scrolling:touch;overscroll-behavior-y:none}
+    body{width:100%;min-height:100vh;background:#000;color:#fff;font-family:'Inter',sans-serif;overflow-x:hidden;overflow-y:auto;user-select:none;cursor:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    main{transform:translateZ(0);backface-visibility:hidden}
+    .sec{transform:translateZ(0);backface-visibility:hidden}
     img{display:block}
 
     /* Atmosphere */
-    .fx-grain{position:fixed;inset:0;pointer-events:none;z-index:900;opacity:.032;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-    .fx-vig{position:fixed;inset:0;pointer-events:none;z-index:12;background:radial-gradient(ellipse at center,transparent 58%,rgba(0,0,0,.75) 100%)}
-    .fx-scroll{position:fixed;inset:0;pointer-events:none;z-index:11;background:radial-gradient(ellipse at center,transparent 58%,rgba(3,122,75,0.04) 100%);transition:background 0.5s}
-    .fx-scroll.danger{background:radial-gradient(ellipse at center,transparent 50%,rgba(186,19,77,0.2) 100%)}
-    .dept-watermark{position:fixed;right:20px;top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:right center;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.4em;color:rgba(255,255,255,0.07);z-index:50;pointer-events:none;text-transform:uppercase;mix-blend-mode:overlay;white-space:nowrap}
-    body.glitch main{animation:glitch-scroll 0.3s cubic-bezier(.25,.46,.45,.94) both 2}
-    @keyframes glitch-scroll{0%{transform:translate(0)}20%{transform:translate(-3px,1px)}40%{transform:translate(-1px,-3px)}60%{transform:translate(3px,1px)}80%{transform:translate(1px,-1px)}100%{transform:translate(0)}}
+    .fx-grain{position:fixed;inset:0;pointer-events:none;z-index:900;opacity:.032;transform:translateZ(0);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+    .fx-vig{position:fixed;inset:0;pointer-events:none;z-index:12;background:radial-gradient(ellipse at center,transparent 58%,rgba(0,0,0,.75) 100%);transform:translateZ(0)}
+    .fx-scroll{position:fixed;inset:0;pointer-events:none;z-index:11;background:radial-gradient(ellipse at center,transparent 58%,rgba(3,122,75,0.04) 100%)}
+    .dept-watermark{position:fixed;right:20px;top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:right center;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.4em;color:rgba(255,255,255,0.07);z-index:50;pointer-events:none;text-transform:uppercase;white-space:nowrap}
+    @media (max-width: 768px), (pointer: coarse) {
+      .fx-grain { display: none !important; }
+      .fx-scroll { display: none !important; }
+      .cdot, .cring { display: none !important; }
+      body { cursor: auto !important; }
+    }
 
     
     /* Countdown Timer */
@@ -240,7 +245,7 @@
       100% { transform: translateY(-100vh) scale(0.3); opacity: 0; }
     }
 
-    /* Top badge */
+    /* Top badge - 3D Emergence from Screen */
     .ty-badge {
       position: relative;
       z-index: 10;
@@ -257,31 +262,94 @@
       white-space: nowrap;
       text-shadow: 0 0 12px rgba(255,0,127,.5);
       box-shadow: 0 0 18px rgba(186,19,77,.12);
-      animation: tyBadgePulse 3s ease-in-out infinite;
+      opacity: 0;
+      transform: perspective(900px) translate3d(0, -24px, -200px) scale(0.65) rotateX(10deg);
+      filter: blur(14px);
+      will-change: opacity, transform, filter;
     }
-    @keyframes tyBadgePulse {
-      0%,100% { box-shadow: 0 0 18px rgba(186,19,77,.12); }
-      50%      { box-shadow: 0 0 30px rgba(186,19,77,.28); }
+    .ty-badge.is-in-view {
+      animation: tyBadgeEmerge 1.55s cubic-bezier(0.12, 0.95, 0.22, 1) forwards;
+    }
+    @keyframes tyBadgeEmerge {
+      0% {
+        opacity: 0;
+        transform: perspective(900px) translate3d(0, -24px, -200px) scale(0.65) rotateX(10deg);
+        filter: blur(14px);
+        box-shadow: 0 0 0 rgba(186,19,77,0);
+      }
+      50% {
+        opacity: 0.85;
+        transform: perspective(900px) translate3d(0, 4px, 30px) scale(1.06) rotateX(-2deg);
+        filter: blur(1px);
+        box-shadow: 0 0 48px rgba(255,0,127,0.8);
+      }
+      78% {
+        transform: perspective(900px) translate3d(0, -2px, 10px) scale(1.02) rotateX(0.5deg);
+        filter: blur(0);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(900px) translate3d(0, 0, 0) scale(1) rotateX(0deg);
+        filter: blur(0);
+        box-shadow: 0 0 18px rgba(186,19,77,.12);
+      }
     }
 
-    /* Main Headline */
+    /* Main Headline: 3D Depth Stage Coming Directly From Screen */
     .ty-headline {
       position: relative;
       z-index: 10;
       text-align: center;
       margin-bottom: clamp(40px,6vh,72px);
       line-height: 1;
+      perspective: 1200px;
+      perspective-origin: 50% 40%;
     }
     .ty-h-top {
       font-family: 'Antonio', sans-serif;
       font-size: clamp(56px,10vw,128px);
       font-weight: 700;
       color: rgba(255,255,255,.08);
-      letter-spacing: .08em;
+      letter-spacing: .22em;
       line-height: 1;
       text-transform: uppercase;
       user-select: none;
+      opacity: 0;
+      transform: perspective(1800px) translate3d(0, 80px, -1100px) scale(0.2) rotateX(28deg);
+      filter: blur(36px) brightness(4.5);
+      will-change: opacity, transform, filter, letter-spacing;
     }
+    .ty-headline.is-in-view .ty-h-top {
+      animation: tyTopEmerge 2.1s cubic-bezier(0.12, 0.95, 0.22, 1) 0.1s forwards;
+    }
+    @keyframes tyTopEmerge {
+      0% {
+        opacity: 0;
+        transform: perspective(1800px) translate3d(0, 80px, -1100px) scale(0.2) rotateX(28deg);
+        filter: blur(36px) brightness(4.5);
+        letter-spacing: -0.06em;
+      }
+      40% {
+        opacity: 0.7;
+        filter: blur(8px) brightness(2.2);
+      }
+      68% {
+        opacity: 1;
+        filter: blur(1.5px) brightness(1.3);
+      }
+      85% {
+        transform: perspective(1800px) translate3d(0, -5px, 28px) scale(1.025) rotateX(-1.5deg);
+        filter: blur(0) brightness(1.08);
+        letter-spacing: .10em;
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(1800px) translate3d(0, 0, 0) scale(1) rotateX(0deg);
+        filter: blur(0) brightness(1);
+        letter-spacing: .08em;
+      }
+    }
+
     .ty-h-bot {
       font-family: 'Antonio', sans-serif;
       font-size: clamp(80px,16vw,200px);
@@ -290,7 +358,39 @@
       letter-spacing: -.02em;
       text-transform: uppercase;
       margin-top: -0.12em;
+      opacity: 0;
+      transform: perspective(2200px) translate3d(0, 120px, -1400px) scale(0.12) rotateX(36deg);
+      filter: blur(52px) brightness(5.5);
+      will-change: opacity, transform, filter;
     }
+    .ty-headline.is-in-view .ty-h-bot {
+      animation: tyYouSurge 2.4s cubic-bezier(0.12, 0.95, 0.22, 1) 0.28s forwards;
+    }
+    @keyframes tyYouSurge {
+      0% {
+        opacity: 0;
+        transform: perspective(2200px) translate3d(0, 120px, -1400px) scale(0.12) rotateX(36deg);
+        filter: blur(52px) brightness(5.5) drop-shadow(0 0 120px rgba(255,0,127,1));
+      }
+      35% {
+        opacity: 0.55;
+        filter: blur(20px) brightness(3) drop-shadow(0 0 90px rgba(255,0,127,1));
+      }
+      60% {
+        opacity: 1;
+        filter: blur(5px) brightness(1.8) drop-shadow(0 0 70px rgba(255,0,127,.9));
+      }
+      82% {
+        transform: perspective(2200px) translate3d(0, -10px, 60px) scale(1.06) rotateX(-3deg);
+        filter: blur(0) brightness(1.25) drop-shadow(0 0 55px rgba(255,215,0,.8));
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(2200px) translate3d(0, 0, 0) scale(1) rotateX(0deg);
+        filter: blur(0) brightness(1) drop-shadow(0 0 40px rgba(255,0,127,.45));
+      }
+    }
+
     .ty-h-y {
       background: linear-gradient(135deg, #ff1a8c 0%, #ff6b35 50%, #ffd700 100%);
       -webkit-background-clip: text;
@@ -310,6 +410,30 @@
       letter-spacing: .04em;
       margin-top: clamp(8px,1.5vh,20px);
       font-weight: 400;
+      opacity: 0;
+      transform: perspective(900px) translate3d(0, 28px, -180px) scale(0.78);
+      filter: blur(12px);
+      will-change: opacity, transform, filter;
+    }
+    .ty-headline.is-in-view .ty-h-sub {
+      animation: tySubEmerge 1.6s cubic-bezier(0.12, 0.95, 0.22, 1) 0.62s forwards;
+    }
+    @keyframes tySubEmerge {
+      0% {
+        opacity: 0;
+        transform: perspective(900px) translate3d(0, 28px, -180px) scale(0.78);
+        filter: blur(12px);
+      }
+      60% {
+        opacity: 0.9;
+        transform: perspective(900px) translate3d(0, -2px, 12px) scale(1.015);
+        filter: blur(1px);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(900px) translate3d(0, 0, 0) scale(1);
+        filter: blur(0);
+      }
     }
 
     /* Section Label */
@@ -340,6 +464,20 @@
       position: relative;
       overflow: hidden;
       text-align: left;
+
+      /* 3D Depth Entrance Transition */
+      opacity: 0;
+      transform: perspective(1200px) translate3d(0, 60px, -140px) scale(0.93) rotateX(6deg);
+      filter: blur(10px);
+      transition: opacity 1.4s cubic-bezier(0.12, 0.95, 0.22, 1),
+                  transform 1.55s cubic-bezier(0.12, 0.95, 0.22, 1),
+                  filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
+    }
+    .ty-mentor-card.is-in-view {
+      opacity: 1;
+      transform: perspective(1200px) translate3d(0, 0, 0) scale(1) rotateX(0deg);
+      filter: blur(0);
     }
     .ty-mentor-card::before {
       content: '';
@@ -372,17 +510,25 @@
       position: relative;
     }
     .ty-mentor-avatar {
-      width: clamp(52px, 7vw, 64px);
-      height: clamp(52px, 7vw, 64px);
+      width: clamp(64px, 8vw, 76px);
+      height: clamp(64px, 8vw, 76px);
       border-radius: 50%;
       background: linear-gradient(135deg, rgba(186, 19, 77, 0.4) 0%, rgba(255, 0, 127, 0.2) 100%);
-      border: 1.5px solid var(--pink);
+      border: 2px solid var(--pink);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 26px;
       flex-shrink: 0;
-      box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+      box-shadow: 0 0 24px rgba(255, 0, 127, 0.55);
+      overflow: hidden;
+      position: relative;
+    }
+    .ty-mentor-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
     }
     .ty-mentor-meta {
       display: flex;
@@ -528,6 +674,20 @@
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(0, 240, 255, 0.22), inset 0 0 30px rgba(0, 240, 255, 0.06);
       overflow: hidden;
       text-align: left;
+
+      /* 3D Depth Entrance Transition */
+      opacity: 0;
+      transform: perspective(1200px) translate3d(0, 60px, -140px) scale(0.93) rotateX(6deg);
+      filter: blur(10px);
+      transition: opacity 1.4s cubic-bezier(0.12, 0.95, 0.22, 1),
+                  transform 1.55s cubic-bezier(0.12, 0.95, 0.22, 1),
+                  filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
+    }
+    .ty-dev-card.is-in-view {
+      opacity: 1;
+      transform: perspective(1200px) translate3d(0, 0, 0) scale(1) rotateX(0deg);
+      filter: blur(0);
     }
     .ty-dev-card::before {
       content: '';
@@ -675,31 +835,43 @@
       pointer-events: none;
     }
 
-    /* ── Ambient Soft Low-Visibility Background Slideshow ── */
+    /* ── Ambient Background Pure Scenery Slideshow (Photos & Drive Drone Videos - No Faces) ── */
     .ty-ambient-slideshow {
       position: absolute;
       inset: 0;
       z-index: 1;
       pointer-events: none;
       overflow: hidden;
-      opacity: 0.18;
-      filter: brightness(0.7) blur(1.5px);
+      opacity: 0.42;
+      filter: brightness(0.88) contrast(1.12) blur(0.5px);
       mix-blend-mode: screen;
       transition: opacity 1.8s ease;
     }
     .ty-ambient-slide {
       position: absolute;
-      inset: -15px;
+      inset: -25px;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       opacity: 0;
-      transform: scale(1.05);
-      transition: opacity 2.4s cubic-bezier(0.4,0,0.2,1), transform 8s ease-out;
+      transform: scale(1.06);
+      transition: opacity 2.4s cubic-bezier(0.4,0,0.2,1), transform 9s ease-out;
+      will-change: opacity, transform;
+      overflow: hidden;
     }
     .ty-ambient-slide.active {
       opacity: 1;
       transform: scale(1);
+    }
+    .ty-ambient-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      pointer-events: none;
+      filter: contrast(1.08) brightness(0.92);
     }
 
     /* ── Memories Slideshow ── */
@@ -709,6 +881,20 @@
       width: 100%;
       max-width: 1100px;
       margin: 0 auto 56px auto;
+
+      /* 3D Depth Entrance Transition */
+      opacity: 0;
+      transform: perspective(1400px) translate3d(0, 55px, -120px) scale(0.94) rotateX(5deg);
+      filter: blur(8px);
+      transition: opacity 1.35s cubic-bezier(0.12, 0.95, 0.22, 1),
+                  transform 1.5s cubic-bezier(0.12, 0.95, 0.22, 1),
+                  filter 1.15s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
+    }
+    .ty-slideshow-wrap.is-in-view {
+      opacity: 1;
+      transform: perspective(1400px) translate3d(0, 0, 0) scale(1) rotateX(0deg);
+      filter: blur(0);
     }
     .ty-ss-label {
       font-family: 'Rajdhani', monospace;
@@ -1023,40 +1209,132 @@
     .ty-tab-content {
       width: 100%;
       display: none;
-      animation: tyFadeIn .4s cubic-bezier(.16,1,.3,1) forwards;
+      opacity: 0;
+      transform: perspective(800px) translate3d(0, 16px, -30px) scale(0.98);
+      filter: blur(4px);
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.5s ease;
+      will-change: opacity, transform, filter;
     }
     .ty-tab-content.active {
       display: block;
-    }
-    @keyframes tyFadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
+      opacity: 1;
+      transform: perspective(800px) translate3d(0, 0, 0) scale(1);
+      filter: blur(0);
     }
     .ty-photos-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
       width: 100%;
       margin-bottom: 28px;
     }
+    @media (max-width: 980px) {
+      .ty-photos-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+    }
+    @media (max-width: 640px) {
+      .ty-photos-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+    }
+    @keyframes tyCardLoadingPulse {
+      0% {
+        background-position: -200% 0;
+        box-shadow: 0 8px 24px rgba(0,0,0,.5), inset 0 0 15px rgba(255,0,127,.04);
+      }
+      50% {
+        box-shadow: 0 8px 24px rgba(0,0,0,.5), inset 0 0 25px rgba(255,0,127,.12);
+      }
+      100% {
+        background-position: 200% 0;
+        box-shadow: 0 8px 24px rgba(0,0,0,.5), inset 0 0 15px rgba(255,0,127,.04);
+      }
+    }
+
     .ty-photo-card {
       position: relative;
       border-radius: 14px;
       overflow: hidden;
       aspect-ratio: 4 / 4.2;
-      background: #080808;
+      background: radial-gradient(circle at 50% 40%, rgba(26,10,18,0.9) 0%, #060608 100%);
       border: 1px solid rgba(255,255,255,.08);
       cursor: pointer;
-      transition: all .4s cubic-bezier(.16,1,.3,1);
       box-shadow: 0 8px 24px rgba(0,0,0,.5);
+
+      /* 3D Depth Emergence from Screen */
+      opacity: 0;
+      transform: perspective(900px) translate3d(0, 34px, -50px) scale(0.95);
+      filter: blur(4px);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.8s ease,
+                  border-color 0.35s ease,
+                  box-shadow 0.35s ease;
+      will-change: opacity, transform, filter;
+    }
+
+    /* Squid Game Neon Skeleton Shimmer while Image is Loading */
+    .ty-photo-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        110deg,
+        rgba(255,255,255,0) 20%,
+        rgba(255, 0, 127, 0.08) 45%,
+        rgba(0, 240, 255, 0.08) 55%,
+        rgba(255,255,255,0) 80%
+      );
+      background-size: 250% 100%;
+      animation: tyCardLoadingPulse 2.2s infinite ease-in-out;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 1;
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .ty-photo-card.is-loaded::before,
+    .ty-photo-card:has(img.is-loaded)::before {
+      opacity: 0;
+      animation: none;
+    }
+
+    .ty-photo-card.is-in-view {
+      opacity: 1;
+      transform: perspective(900px) translate3d(0, 0, 0) scale(1);
+      filter: blur(0);
+    }
+    .ty-photo-card.is-in-view:hover {
+      transform: perspective(900px) translate3d(0, -8px, 16px) scale(1.025);
+      border-color: var(--pink);
+      box-shadow: 0 18px 45px rgba(0,0,0,.9), 0 0 32px rgba(255,0,127,.4);
     }
     .ty-photo-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center 10%; /* Center at eye and head level */
-      transition: transform .6s cubic-bezier(.16,1,.3,1), filter .4s ease;
+      opacity: 0;
+      transform: perspective(800px) scale(1.08) translate3d(0, 8px, -24px);
+      filter: blur(10px) brightness(0.7);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
       display: block;
+    }
+    .ty-photo-card img.is-loaded {
+      opacity: 1 !important;
+      transform: perspective(800px) scale(1) translate3d(0, 0, 0);
+      filter: blur(0) brightness(1);
+    }
+    .ty-photo-card.is-in-view:hover img.is-loaded {
+      transform: perspective(800px) scale(1.05) translate3d(0, 0, 0);
+      filter: contrast(1.06) brightness(1.06);
     }
     .ty-photo-card.is-portrait img {
       object-position: center 8%;
@@ -1066,6 +1344,124 @@
     }
     .ty-photo-card.is-landscape img {
       object-position: center 28%;
+    }
+    /* ── Flagship Featured Team Cards (Deserving Much Larger Area) ── */
+    .ty-photo-card.is-featured-team {
+      grid-column: 1 / -1; /* Spans entire grid width across all columns */
+      aspect-ratio: 16 / 9;
+      min-height: 440px;
+      border: 1.5px solid rgba(255, 0, 127, 0.45);
+      background: #06060a;
+      box-shadow: 0 16px 48px rgba(0,0,0,.8), 0 0 35px rgba(255,0,127,.22);
+      border-radius: 18px;
+    }
+    .ty-photo-card.is-featured-team:hover {
+      transform: translateY(-5px) scale(1.015);
+      border-color: #ff2a6d;
+      box-shadow: 0 24px 60px rgba(0,0,0,.85), 0 0 45px rgba(255,42,109,.4);
+    }
+    .ty-photo-card.is-featured-team img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 28%;
+      filter: contrast(1.03) brightness(1.02);
+    }
+    .ty-photo-card.is-featured-team.is-juniors-card {
+      aspect-ratio: 16 / 10.5;
+      border-color: rgba(0, 240, 255, 0.45);
+      box-shadow: 0 16px 48px rgba(0,0,0,.8), 0 0 35px rgba(0,240,255,.2);
+    }
+    .ty-photo-card.is-featured-team.is-juniors-card:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 24px 60px rgba(0,0,0,.85), 0 0 45px rgba(0,240,255,.35);
+    }
+    .ty-photo-card.is-featured-team.is-juniors-card img {
+      object-position: center 42%;
+    }
+    .ty-photo-card.is-featured-team.is-juniors-card .ty-pc-tag {
+      color: var(--cyan);
+      text-shadow: 0 0 12px rgba(0,240,255,.7);
+    }
+    .ty-photo-card.is-featured-team.is-juniors-card .ty-pc-zoom {
+      border-color: rgba(0,240,255,.4);
+      color: var(--cyan);
+    }
+    .ty-photo-card.is-featured-team .ty-pc-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(4,4,8,0.94) 0%, rgba(4,4,8,0.7) 20%, rgba(4,4,8,0.2) 35%, transparent 52%);
+      padding: clamp(20px, 3.2vw, 36px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .ty-photo-card.is-featured-team .ty-pc-tag {
+      font-size: 11px;
+      letter-spacing: .25em;
+      margin-bottom: 6px;
+      font-family: 'Space Mono', monospace;
+      text-transform: uppercase;
+    }
+    .ty-photo-card.is-featured-team .ty-pc-title {
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: .02em;
+      line-height: 1.25;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.9);
+    }
+    .ty-photo-card.is-featured-team .ty-pc-subtitle {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(11px, 1.1vw, 13px);
+      color: rgba(255,255,255,0.85);
+      margin-top: 6px;
+      line-height: 1.45;
+      max-width: 800px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.95);
+    }
+    .ty-photo-card.is-featured-team .ty-pc-zoom {
+      width: 40px;
+      height: 40px;
+      font-size: 16px;
+      top: 18px;
+      right: 18px;
+      background: rgba(10,10,14,0.85);
+      border: 1px solid rgba(255,0,127,0.4);
+      color: #ff4a8d;
+      opacity: 0.9;
+      transform: scale(1);
+    }
+    @media (max-width: 640px) {
+      .ty-photo-card.is-featured-team {
+        aspect-ratio: 16 / 11;
+        min-height: 280px;
+        border-radius: 14px;
+      }
+      .ty-photo-card.is-featured-team.is-juniors-card {
+        aspect-ratio: 4 / 3.4;
+        min-height: 320px;
+      }
+      .ty-photo-card.is-featured-team img {
+        object-position: center 25%;
+      }
+      .ty-photo-card.is-featured-team.is-juniors-card img {
+        object-position: center 40%;
+      }
+      .ty-photo-card.is-featured-team .ty-pc-overlay {
+        padding: 16px 14px;
+        background: linear-gradient(to top, rgba(4,4,8,0.96) 0%, rgba(4,4,8,0.72) 28%, rgba(4,4,8,0.18) 48%, transparent 68%);
+      }
+      .ty-photo-card.is-featured-team .ty-pc-title {
+        font-size: 16px;
+      }
+      .ty-photo-card.is-featured-team .ty-pc-tag {
+        font-size: 9px;
+      }
+      .ty-photo-card.is-featured-team .ty-pc-subtitle {
+        font-size: 10px;
+        margin-top: 4px;
+      }
     }
     .ty-photo-card:hover {
       transform: translateY(-5px) scale(1.02);
@@ -1205,24 +1601,28 @@
       letter-spacing: .08em;
     }
 
-    /* Lightbox Modal */
+    /* Lightbox Modal with 3D Depth Emergence */
     .ty-lightbox {
       position: fixed;
       inset: 0;
       z-index: 10000;
       background: rgba(0,0,0,.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      display: none;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      display: flex;
       align-items: center;
       justify-content: center;
       padding: clamp(16px, 4vw, 40px);
       opacity: 0;
-      transition: opacity .35s ease;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .4s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility .4s ease;
     }
     .ty-lightbox.active {
-      display: flex;
       opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
     }
     .ty-lb-content {
       position: relative;
@@ -1233,6 +1633,18 @@
       flex-direction: column;
       align-items: center;
       gap: 14px;
+      transform: perspective(1000px) translate3d(0, 32px, -110px) scale(0.9);
+      opacity: 0;
+      filter: blur(8px);
+      transition: transform 0.48s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.42s ease,
+                  filter 0.42s ease;
+      will-change: transform, opacity, filter;
+    }
+    .ty-lightbox.active .ty-lb-content {
+      transform: perspective(1000px) translate3d(0, 0, 0) scale(1);
+      opacity: 1;
+      filter: blur(0);
     }
     .ty-lb-img-wrap {
       position: relative;
@@ -1361,6 +1773,20 @@
       flex-direction: column;
       align-items: center;
       margin-bottom: clamp(48px,7vh,80px);
+
+      /* 3D Depth Entrance Transition */
+      opacity: 0;
+      transform: perspective(1200px) translate3d(0, 50px, -100px) scale(0.95) rotateX(5deg);
+      filter: blur(8px);
+      transition: opacity 1.3s cubic-bezier(0.12, 0.95, 0.22, 1),
+                  transform 1.45s cubic-bezier(0.12, 0.95, 0.22, 1),
+                  filter 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
+    }
+    .ty-credits-wrap.is-in-view {
+      opacity: 1;
+      transform: perspective(1200px) translate3d(0, 0, 0) scale(1) rotateX(0deg);
+      filter: blur(0);
     }
     .ty-credits-grid {
       display: grid;
@@ -1507,6 +1933,51 @@
     .ty-credit-card:hover::before { opacity: 1; }
     .ty-credit-card.ty-lead { border-color: rgba(186,19,77,.22); background: rgba(186,19,77,.04); }
     .ty-credit-card.ty-lead .ty-cc-name { color: #ff4a8d; }
+    .ty-credit-card.ty-coord-credit {
+      border-color: rgba(255, 0, 127, 0.35);
+      background: linear-gradient(135deg, rgba(255, 0, 127, 0.08) 0%, rgba(20, 4, 12, 0.7) 100%);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 0, 127, 0.15);
+    }
+    .ty-credit-card.ty-coord-credit:hover {
+      border-color: var(--pink);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 35px rgba(255, 0, 127, 0.35);
+    }
+    .ty-credit-card.ty-coord-credit .ty-cc-symbol {
+      color: var(--pink);
+      text-shadow: 0 0 14px var(--pink);
+    }
+    .ty-credit-card.ty-coord-credit .ty-cc-role {
+      color: var(--pink);
+      letter-spacing: .25em;
+    }
+    .ty-credit-card.ty-coord-credit .ty-cc-name {
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
+    }
+    .ty-cc-avatar {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2.5px solid rgba(255, 0, 127, 0.45);
+      box-shadow: 0 0 18px rgba(255, 0, 127, 0.32);
+      margin-bottom: 8px;
+      transition: all 0.35s var(--ease-s);
+      background: #080808;
+      flex-shrink: 0;
+    }
+    .ty-credit-card:hover .ty-cc-avatar {
+      transform: scale(1.08);
+      border-color: var(--pink);
+      box-shadow: 0 0 26px rgba(255, 0, 127, 0.65);
+    }
+    .ty-cc-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      display: block;
+    }
     .ty-credit-card.ty-dev-credit {
       border-color: rgba(0, 240, 255, 0.4);
       background: linear-gradient(135deg, rgba(0, 240, 255, 0.08) 0%, rgba(6, 16, 26, 0.7) 100%);
@@ -1635,12 +2106,27 @@
       flex-direction: column;
       align-items: center;
       gap: 8px;
-      transition: all .3s var(--ease-s);
+
+      /* 3D Depth Entrance Transition */
+      opacity: 0;
+      transform: perspective(900px) translate3d(0, 40px, -60px) scale(0.92) rotateX(8deg);
+      filter: blur(6px);
+      transition: opacity 0.9s cubic-bezier(0.12, 0.95, 0.22, 1),
+                  transform 1s cubic-bezier(0.12, 0.95, 0.22, 1),
+                  filter 0.8s ease,
+                  background 0.3s ease,
+                  border-color 0.3s ease;
+      will-change: opacity, transform, filter;
     }
-    .ty-grat-item:hover {
+    .ty-grat-item.is-in-view {
+      opacity: 1;
+      transform: perspective(900px) translate3d(0, 0, 0) scale(1) rotateX(0deg);
+      filter: blur(0);
+    }
+    .ty-grat-item.is-in-view:hover {
       border-color: rgba(0,240,255,.2);
       background: rgba(0,240,255,.03);
-      transform: translateY(-3px);
+      transform: perspective(900px) translate3d(0, -5px, 16px) scale(1.035);
     }
     .ty-grat-icon {
       font-size: 28px;
@@ -1673,6 +2159,53 @@
       align-items: center;
       gap: 20px;
       padding-top: clamp(32px,5vh,60px);
+
+      /* 3D Depth Entrance Transition */
+      opacity: 0;
+      transform: perspective(1000px) translate3d(0, 45px, -90px) scale(0.93) rotateX(7deg);
+      filter: blur(10px);
+      transition: opacity 1.3s cubic-bezier(0.12, 0.95, 0.22, 1),
+                  transform 1.45s cubic-bezier(0.12, 0.95, 0.22, 1),
+                  filter 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
+    }
+    .ty-closing.is-in-view {
+      opacity: 1;
+      transform: perspective(1000px) translate3d(0, 0, 0) scale(1) rotateX(0deg);
+      filter: blur(0);
+    }
+
+    /* ── Smooth Media Loading Transitions Across Site ── */
+    .ty-photo-card img,
+    .ty-ss-media,
+    .ty-ss-bg-blur,
+    .ty-mentor-avatar img,
+    .ty-cc-avatar img,
+    .ty-grat-icon img,
+    .ty-closing-logo,
+    .glove,
+    .card-m img,
+    .ci img,
+    .rr-mask img {
+      opacity: 0;
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.65s ease;
+      will-change: opacity, transform, filter;
+    }
+    .ty-photo-card img.is-loaded,
+    .ty-ss-media.is-loaded,
+    .ty-ss-bg-blur.is-loaded,
+    .ty-mentor-avatar img.is-loaded,
+    .ty-cc-avatar img.is-loaded,
+    .ty-grat-icon img.is-loaded,
+    .ty-closing-logo.is-loaded,
+    .glove.is-loaded,
+    .card-m img.is-loaded,
+    .ci img.is-loaded,
+    .rr-mask img.is-loaded,
+    img.is-loaded {
+      opacity: 1 !important;
     }
     .ty-closing-line {
       width: 80px;
@@ -1785,14 +2318,28 @@
     .sec.iv .rules-hdr{opacity:1;transform:translateX(0)}
     .rh-p{font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,6vw,76px);font-weight:800;color:var(--pink);letter-spacing:.06em;line-height:.92;text-align:right;text-shadow:0 0 30px rgba(255,0,127,.68)}
     .rh-w{font-family:'Space Grotesk',sans-serif;font-size:clamp(15px,2.6vw,30px);font-weight:700;color:#fff;letter-spacing:.18em;text-align:right;margin-top:5px}
-    .rules-grid{width:100%;display:grid;grid-template-columns:repeat(4,1fr);min-height:460px;border-top:1px solid var(--b12);border-bottom:1px solid var(--b12)}
-    .rc{padding:clamp(20px,3vh,36px) clamp(16px,2vw,28px);border-right:1px solid var(--b12);display:flex;flex-direction:column;position:relative;background:rgba(255,255,255,.016);transition:background .4s,border-color .4s;opacity:0;transform:translateY(46px)}
+    .rules-grid{width:100%;display:grid;grid-template-columns:repeat(4,1fr);min-height:460px;border-top:1px solid var(--b12);border-bottom:1px solid var(--b12);perspective:1000px}
+    .rc{
+      padding:clamp(20px,3vh,36px) clamp(16px,2vw,28px);
+      border-right:1px solid var(--b12);
+      display:flex;flex-direction:column;position:relative;
+      background:rgba(255,255,255,.016);
+      opacity:0;
+      transform:perspective(900px) translate3d(0, 44px, -60px) scale(0.95);
+      filter:blur(4px);
+      transition:opacity .9s cubic-bezier(0.16, 1, 0.3, 1),
+                 transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+                 filter .8s ease,
+                 background .4s,
+                 border-color .4s;
+      will-change:opacity,transform,filter;
+    }
     .rc:last-child{border-right:none}
     .rc:hover{background:rgba(255,0,127,.04);border-color:rgba(255,0,127,.3)}
-    .sec.iv .rc:nth-child(1){transition:all .82s var(--ease) .10s;opacity:1;transform:translateY(0)}
-    .sec.iv .rc:nth-child(2){transition:all .82s var(--ease) .24s;opacity:1;transform:translateY(0)}
-    .sec.iv .rc:nth-child(3){transition:all .82s var(--ease) .38s;opacity:1;transform:translateY(0)}
-    .sec.iv .rc:nth-child(4){transition:all .82s var(--ease) .52s;opacity:1;transform:translateY(0)}
+    .sec.iv .rc:nth-child(1){transition-delay:.10s;opacity:1;transform:perspective(900px) translate3d(0,0,0) scale(1);filter:blur(0)}
+    .sec.iv .rc:nth-child(2){transition-delay:.22s;opacity:1;transform:perspective(900px) translate3d(0,0,0) scale(1);filter:blur(0)}
+    .sec.iv .rc:nth-child(3){transition-delay:.34s;opacity:1;transform:perspective(900px) translate3d(0,0,0) scale(1);filter:blur(0)}
+    .sec.iv .rc:nth-child(4){transition-delay:.46s;opacity:1;transform:perspective(900px) translate3d(0,0,0) scale(1);filter:blur(0)}
     .r-num{font-family:'Space Grotesk',sans-serif;font-size:clamp(56px,7.5vw,95px);font-weight:800;color:var(--cyan);text-shadow:0 0 25px rgba(0,240,255,.68);line-height:1;margin-bottom:18px}
     .rc:nth-child(1) .r-num{margin-top:auto}
     .rc:nth-child(2) .r-num{margin-top:40px}
@@ -1808,37 +2355,37 @@
     @keyframes wd2{0%{transform:rotate(0) translateY(0)}100%{transform:rotate(-15deg) translateY(-18px)}}
 
     /* ─── INSIDE ─── */
-    #inside{padding:clamp(60px,8vh,100px) 20px}
+    #inside{padding:clamp(60px,8vh,100px) 20px;perspective:1000px}
     .inside-wrap{width:100%;max-width:1280px;display:flex;flex-direction:column;align-items:center;padding:0 clamp(10px,3vw,40px)}
-    .collage{position:relative;width:min(92vw,1100px);height:min(65vh,540px);min-height:380px}
+    .collage{position:relative;width:min(92vw,1100px);height:min(65vh,540px);min-height:380px;perspective:1000px}
     .ci{position:absolute;overflow:hidden;border:1px solid rgba(255,255,255,.14);transition:border-color .4s,box-shadow .4s}
     .ci:hover{border-color:var(--pink);box-shadow:0 0 30px rgba(255,0,127,.48)}
     .ci img{width:100%;height:100%;object-fit:cover;filter:brightness(.9) contrast(1.08);transition:transform .6s var(--ease-s),filter .6s}
     .ci:hover img{transform:scale(1.07);filter:brightness(1.06) contrast(1.1)}
-    .ci-1{top:0;left:0;width:clamp(180px,26vw,310px);aspect-ratio:1/1;box-shadow:0 10px 30px rgba(0,0,0,.88);opacity:0;transform:scale(.9);transition:all .88s var(--ease) .1s}
-    .ci-2{bottom:0;left:clamp(140px,23vw,290px);width:clamp(180px,26vw,310px);aspect-ratio:1/1;box-shadow:0 15px 35px rgba(0,0,0,.92);z-index: 60;opacity:0;transform:scale(.9);transition:all .88s var(--ease) .25s}
-    .ci-3{top:0;right:0;width:clamp(260px,44vw,540px);aspect-ratio:16/9;box-shadow:0 15px 40px rgba(255,0,127,.18);opacity:0;transform:scale(.9);transition:all .88s var(--ease) .2s}
-    .sec.iv .ci-1,.sec.iv .ci-2,.sec.iv .ci-3{opacity:1;transform:scale(1)}
+    .ci-1{top:0;left:0;width:clamp(180px,26vw,310px);aspect-ratio:1/1;box-shadow:0 10px 30px rgba(0,0,0,.88);opacity:0;transform:perspective(1000px) translate3d(-35px,25px,-80px) scale(.9);filter:blur(6px);transition:all 1s cubic-bezier(.16,1,.3,1) .1s}
+    .ci-2{bottom:0;left:clamp(140px,23vw,290px);width:clamp(180px,26vw,310px);aspect-ratio:1/1;box-shadow:0 15px 35px rgba(0,0,0,.92);z-index: 60;opacity:0;transform:perspective(1000px) translate3d(0,35px,-60px) scale(.9);filter:blur(6px);transition:all 1s cubic-bezier(.16,1,.3,1) .22s}
+    .ci-3{top:0;right:0;width:clamp(260px,44vw,540px);aspect-ratio:16/9;box-shadow:0 15px 40px rgba(255,0,127,.18);opacity:0;transform:perspective(1000px) translate3d(35px,25px,-80px) scale(.9);filter:blur(6px);transition:all 1s cubic-bezier(.16,1,.3,1) .18s}
+    .sec.iv .ci-1,.sec.iv .ci-2,.sec.iv .ci-3{opacity:1;transform:perspective(1000px) translate3d(0,0,0) scale(1);filter:blur(0)}
     .in-title{position:absolute;bottom:10px;right:0;text-align:right;z-index:20;opacity:0;transform:translateX(46px);transition:all .88s var(--ease) .35s}
     .sec.iv .in-title{opacity:1;transform:translateX(0)}
     .it-p{font-family:'Space Grotesk',sans-serif;font-size:clamp(38px,6.5vw,88px);font-weight:800;color:var(--pink);letter-spacing:.05em;line-height:.92;text-shadow:0 0 36px rgba(255,0,127,.7)}
     .it-w{font-family:'Space Grotesk',sans-serif;font-size:clamp(15px,2.8vw,34px);font-weight:700;color:#fff;letter-spacing:.16em;margin-top:4px}
 
     /* ─── READY ─── */
-    #ready{padding:clamp(60px,8vh,100px) 20px 20px}
+    #ready{padding:clamp(60px,8vh,100px) 20px 20px;perspective:1000px}
     .ready-wrap{width:100%;max-width:1200px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-    .ready-row{display:flex;align-items:center;justify-content:center;gap:clamp(8px,2.5vw,36px);margin-bottom:clamp(40px,8vh,90px)}
-    .rr-re{font-family:'Space Grotesk',sans-serif;font-size:clamp(62px,12vw,156px);font-weight:800;color:var(--pink);line-height:.84;letter-spacing:.04em;text-shadow:0 0 40px rgba(255,0,127,.78);opacity:0;transform:translateX(-42px);transition:all .92s var(--ease) .1s}
-    .rr-mask{width:clamp(180px,32vw,380px);max-height:52vh;display:flex;justify-content:center;align-items:center;opacity:0;transform:translateY(42px) scale(.9);transition:all .92s var(--ease) .2s}
+    .ready-row{display:flex;align-items:center;justify-content:center;gap:clamp(8px,2.5vw,36px);margin-bottom:clamp(40px,8vh,90px);perspective:1000px}
+    .rr-re{font-family:'Space Grotesk',sans-serif;font-size:clamp(62px,12vw,156px);font-weight:800;color:var(--pink);line-height:.84;letter-spacing:.04em;text-shadow:0 0 40px rgba(255,0,127,.78);opacity:0;transform:perspective(1000px) translate3d(-50px,0,-80px) scale(0.94);filter:blur(6px);transition:all 1s cubic-bezier(.16,1,.3,1) .1s}
+    .rr-mask{width:clamp(180px,32vw,380px);max-height:52vh;display:flex;justify-content:center;align-items:center;opacity:0;transform:perspective(1000px) translate3d(0,45px,-120px) scale(.84);filter:blur(8px);transition:all 1.1s cubic-bezier(.16,1,.3,1) .18s}
     .rr-mask img{width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 0 40px rgba(255,0,127,.3)) contrast(1.1);transition:transform .4s,filter .4s}
     .rr-mask:hover img{transform:scale(1.04);filter:drop-shadow(0 0 52px rgba(255,0,127,.62))}
-    .rr-dy{display:flex;flex-direction:column;align-items:flex-start;opacity:0;transform:translateX(42px);transition:all .92s var(--ease) .3s;position:relative}
+    .rr-dy{display:flex;flex-direction:column;align-items:flex-start;opacity:0;transform:perspective(1000px) translate3d(50px,0,-80px) scale(0.94);filter:blur(6px);transition:all 1s cubic-bezier(.16,1,.3,1) .28s;position:relative}
     .rr-dy-t{font-family:'Space Grotesk',sans-serif;font-size:clamp(62px,12vw,156px);font-weight:800;color:var(--pink);line-height:.84;letter-spacing:.04em;text-shadow:0 0 40px rgba(255,0,127,.78)}
     .rr-dy-extras{position:absolute;top:100%;left:0;margin-top:12px;display:flex;flex-direction:column;gap:12px;width:max-content}
     .rr-toplay{font-family:'Space Grotesk',sans-serif;font-size:clamp(17px,3vw,38px);font-weight:700;color:#fff;letter-spacing:.12em}
-    .sec.iv .rr-re{opacity:1;transform:translateX(0)}
-    .sec.iv .rr-mask{opacity:1;transform:translateY(0) scale(1)}
-    .sec.iv .rr-dy{opacity:1;transform:translateX(0)}
+    .sec.iv .rr-re{opacity:1;transform:perspective(1000px) translate3d(0,0,0) scale(1);filter:blur(0)}
+    .sec.iv .rr-mask{opacity:1;transform:perspective(1000px) translate3d(0,0,0) scale(1);filter:blur(0)}
+    .sec.iv .rr-dy{opacity:1;transform:perspective(1000px) translate3d(0,0,0) scale(1);filter:blur(0)}
 
     /* Footer */
     .footer{width:100%;border-top:1px solid rgba(255,255,255,.1);padding:22px clamp(16px,4vw,40px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
@@ -3193,7 +3740,7 @@
 
         <div class="ty-mentor-header">
           <div class="ty-mentor-avatar">
-            <span class="ty-mentor-avatar-icon">🎓</span>
+            <img src="assets/memories/mem_31_rajeshwari_mam_mentor.jpg" alt="Prof. Rajeshwari Shinde" loading="lazy"/>
           </div>
           <div class="ty-mentor-meta">
             <div class="ty-mentor-badge">◈ FACULTY MENTOR'S MESSAGE</div>
@@ -3320,7 +3867,7 @@
             <div class="ty-ss-dots" id="tySSdots"></div>
             <button class="ty-ss-btn" id="tySSNext" aria-label="Next memory">&#10095;</button>
           </div>
-          <div class="ty-ss-counter" id="tySSCounter">1 / 20</div>
+          <div class="ty-ss-counter" id="tySSCounter">1 / 22</div>
         </div>
       </div>
 
@@ -3331,7 +3878,7 @@
         <!-- View Tabs -->
         <div class="ty-gallery-tabs">
           <button class="ty-tab-btn active" id="btnTabHighlights" onclick="switchTyTab('highlights')">
-            <span>📷 PHOTO HIGHLIGHTS (19)</span>
+            <span>📷 PHOTO HIGHLIGHTS (22)</span>
           </button>
           <button class="ty-tab-btn" id="btnTabDrive" onclick="switchTyTab('drive')">
             <span>📁 GOOGLE DRIVE FOLDER</span>
@@ -3449,12 +3996,13 @@
               </div>
               <div class="ty-pc-zoom">🔍</div>
             </div>
-            <!-- 13 -->
-            <div class="ty-photo-card is-landscape" onclick="openLightbox(12)" data-cursor="circle">
-              <img src="assets/memories/mem_21_team_xtasy.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/1brk1HoPeYLqdezrQKbcXolGp0cx3IRuM=w800'" alt="TEAM XTASY 4.0 - All Team Photo" loading="lazy"/>
+            <!-- 13: Featured Team Spotlight -->
+            <div class="ty-photo-card is-landscape is-featured-team" onclick="openLightbox(12)" data-cursor="circle">
+              <img src="assets/memories/mem_21_team_xtasy.jpg" onerror="this.src='https://lh3.googleusercontent.com/d/1brk1HoPeYLqdezrQKbcXolGp0cx3IRuM=w1600'" alt="TEAM XTASY 4.0 - All Team Photo" loading="lazy"/>
               <div class="ty-pc-overlay">
-                <div class="ty-pc-tag">○ THE SQUAD BEHIND XTASY</div>
-                <div class="ty-pc-title">TEAM XTASY 4.0</div>
+                <div class="ty-pc-tag">★ THE SQUAD BEHIND XTASY · GRAND FINALE SPOTLIGHT</div>
+                <div class="ty-pc-title">TEAM XTASY 4.0 · The Entire Squad</div>
+                <div class="ty-pc-subtitle">40+ student committee leads, coordinators, and volunteers united on stage celebrating the landmark tech fest.</div>
               </div>
               <div class="ty-pc-zoom">🔍</div>
             </div>
@@ -3476,12 +4024,13 @@
               </div>
               <div class="ty-pc-zoom">🔍</div>
             </div>
-            <!-- 16 -->
-            <div class="ty-photo-card is-landscape" onclick="openLightbox(15)" data-cursor="circle">
+            <!-- 16: Featured 2nd Year Juniors Spotlight -->
+            <div class="ty-photo-card is-landscape is-featured-team is-juniors-card" onclick="openLightbox(15)" data-cursor="circle">
               <img src="assets/memories/mem_25_juniors_2nd_year.jpg" alt="2nd Year Juniors · The Rising Pillars of XTASY 4.0" loading="lazy"/>
               <div class="ty-pc-overlay">
-                <div class="ty-pc-tag">○ 2ND YEAR JUNIORS</div>
+                <div class="ty-pc-tag">★ 2ND YEAR JUNIORS · THE RISING PILLARS</div>
                 <div class="ty-pc-title">2nd Year Juniors · Pride of XTASY 4.0</div>
+                <div class="ty-pc-subtitle">Our phenomenal 2nd-year juniors who powered and supported the overall execution of XTASY 4.0 from start to finish!</div>
               </div>
               <div class="ty-pc-zoom">🔍</div>
             </div>
@@ -3509,6 +4058,33 @@
               <div class="ty-pc-overlay">
                 <div class="ty-pc-tag">□ CRUCIAL EVENT PILLAR</div>
                 <div class="ty-pc-title">Hemant Pardhi · Crucial XTASY Pillar</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
+            <!-- 20: Vidhi Ukey (Event Coordinator) -->
+            <div class="ty-photo-card is-portrait" onclick="openLightbox(19)" data-cursor="circle">
+              <img src="assets/memories/mem_30_vidi_coordinator.jpg" alt="Vidhi Ukey · XTASY 4.0 Event Coordinator" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">○ EVENT COORDINATOR</div>
+                <div class="ty-pc-title">Vidhi Ukey · XTASY Coordinator</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
+            <!-- 21: Roopam Zade (Co-Coordinator) -->
+            <div class="ty-photo-card is-portrait" onclick="openLightbox(20)" data-cursor="circle">
+              <img src="assets/memories/mem_29_roopam_co_coordinator.jpg" alt="Roopam Zade · XTASY 4.0 Co-Coordinator" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">△ CO-COORDINATOR</div>
+                <div class="ty-pc-title">Roopam Zade · XTASY Co-Coordinator</div>
+              </div>
+              <div class="ty-pc-zoom">🔍</div>
+            </div>
+            <!-- 22: Prof. Rajeshwari Shinde (Faculty Mentor) -->
+            <div class="ty-photo-card is-portrait" onclick="openLightbox(21)" data-cursor="circle">
+              <img src="assets/memories/mem_31_rajeshwari_mam_mentor.jpg" alt="Prof. Rajeshwari Shinde · Faculty Mentor" loading="lazy"/>
+              <div class="ty-pc-overlay">
+                <div class="ty-pc-tag">★ FACULTY MENTOR</div>
+                <div class="ty-pc-title">Prof. Rajeshwari Shinde · Faculty Mentor</div>
               </div>
               <div class="ty-pc-zoom">🔍</div>
             </div>
@@ -3544,13 +4120,19 @@
         <div class="ty-section-label">◈ THE CORE COMMITTEE BEHIND XTASY 4.0</div>
         <div class="ty-credits-grid">
           <!-- Row 1: Frontline Leadership & Tech -->
-          <div class="ty-credit-card ty-lead">
+          <div class="ty-credit-card ty-lead ty-coord-credit">
+            <div class="ty-cc-avatar">
+              <img src="assets/memories/mem_30_vidi_coordinator.jpg" alt="Vidhi Ukey" loading="lazy"/>
+            </div>
             <div class="ty-cc-symbol">○</div>
             <div class="ty-cc-role">EVENT COORDINATOR</div>
             <div class="ty-cc-name">VIDHI UKEY</div>
             <div class="ty-cc-dept">Department of Industrial IoT</div>
           </div>
-          <div class="ty-credit-card ty-lead">
+          <div class="ty-credit-card ty-lead ty-coord-credit">
+            <div class="ty-cc-avatar">
+              <img src="assets/memories/mem_29_roopam_co_coordinator.jpg" alt="Roopam Zade" loading="lazy"/>
+            </div>
             <div class="ty-cc-symbol">△</div>
             <div class="ty-cc-role">CO-COORDINATOR</div>
             <div class="ty-cc-name">ROOPAM ZADE</div>
@@ -3734,7 +4316,9 @@
           <div class="ty-section-label" style="margin-top:48px">◈ OUR HEARTFELT GRATITUDE TO</div>
           <div class="ty-gratitude-grid">
             <div class="ty-grat-item">
-              <div class="ty-grat-icon">🎓</div>
+              <div class="ty-grat-icon" style="display:flex; align-items:center; justify-content:center;">
+                <img src="assets/memories/mem_31_rajeshwari_mam_mentor.jpg" alt="Prof. Rajeshwari Shinde" style="width:36px; height:36px; border-radius:50%; object-fit:cover; object-position:center 20%; border:1.5px solid var(--pink); box-shadow:0 0 12px rgba(255,0,127,0.5);" loading="lazy"/>
+              </div>
               <div class="ty-grat-label">Prof. Rajeshwari Shinde &amp; Faculty</div>
               <div class="ty-grat-sub">Department of Industrial IoT — for mentorship, vision &amp; support</div>
             </div>
@@ -4262,10 +4846,11 @@
             animation-delay: 0s !important;
           }
           #xtasy-loader { display: none !important; }
-          .sec, .sec.iv, .rc, .ci, .in-title, .rr-mask, .rr-re, .rr-dy, .wright, .wb, .rules-hdr, .scroll-cue, #countdown {
+          .sec, .sec.iv, .rc, .ci, .in-title, .rr-mask, .rr-re, .rr-dy, .wright, .wb, .rules-hdr, .scroll-cue, #countdown, .ty-badge, .ty-h-top, .ty-h-bot, .ty-h-sub, .ty-mentor-card, .ty-dev-card, .ty-slideshow-wrap, .ty-photo-card, .ty-grat-item, .ty-credits-wrap, .ty-closing, img {
             opacity: 1 !important;
             transform: none !important;
             visibility: visible !important;
+            filter: none !important;
           }
           .rr-dy-t { display: none !important; }
         `;
@@ -4318,13 +4903,13 @@
       initIntro();
     }
 
-    /* ── 2. SCROLL REVEAL ── */
-    var obs=new IntersectionObserver(function(entries){
+    /* ── 2. SCROLL REVEAL (SECTIONS, 3D CARDS & SMOOTH ENTRANCES) ── */
+    var obs = new IntersectionObserver(function(entries){
       entries.forEach(function(en){
-        if(!en.isIntersecting)return;
+        if(!en.isIntersecting) return;
         en.target.classList.add('iv');
-        var id=en.target.id;
-        var navLinks=document.querySelectorAll('.nav .nav-a, .mobile-nav-content .nav-a');
+        var id = en.target.id;
+        var navLinks = document.querySelectorAll('.nav .nav-a, .mobile-nav-content .nav-a');
         navLinks.forEach(function(a){
           var txt = a.innerText.trim();
           if(id==='hero' && txt==='About the Game'){
@@ -4336,59 +4921,128 @@
           }
         });
       });
-    },{threshold:.12,rootMargin:'0px 0px -4% 0px'});
+    },{threshold:.08, rootMargin:'0px 0px -4% 0px'});
     document.querySelectorAll('.sec').forEach(function(s){obs.observe(s)});
 
-    function goTo(id){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'})}
+    /* Card & Block-Level Smooth 3D Depth Reveal Observer */
+    var cardObs = new IntersectionObserver(function(entries, observer){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+        entry.target.classList.add('is-in-view');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -35px 0px' });
 
-    /* ── 3. CURSOR + 3D CARD TILT ── */
-    window.addEventListener('mousemove',function(e){
-      document.body.classList.add('m-on');mx=e.clientX;my=e.clientY;
-      dot.style.left=mx+'px';dot.style.top=my+'px';
-      var cs=document.getElementById('cstage'),tc=document.getElementById('tcard');
-      if(cs&&tc){var r=cs.getBoundingClientRect();
-        if(my>=r.top&&my<=r.bottom&&mx>=r.left&&mx<=r.right){
-          var px=(mx-r.left)/r.width-.5,py=(my-r.top)/r.height-.5;
-          tc.style.transform='rotateY('+(px*36)+'deg) rotateX('+(-py*36)+'deg) translateY(-18px) scale(1.05)'
-        }
-      }
-    });
-    (function loop(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
-    
-    function attachCursorEvents(){
-      document.querySelectorAll('a,button,.card-m,.ci,.rc').forEach(function(el){
-        el.addEventListener('mouseenter',function(){
-          var shape = el.getAttribute('data-cursor') || 'circle';
-          if(shape==='triangle'){dot.classList.add('hov-triangle');ring.classList.add('hov-triangle');}
-          else if(shape==='square'){dot.classList.add('hov-square');ring.classList.add('hov-square');}
-          else{dot.classList.add('hov');ring.classList.add('hov');}
-        });
-        el.addEventListener('mouseleave',function(){
-          dot.classList.remove('hov','hov-triangle','hov-square');
-          ring.classList.remove('hov','hov-triangle','hov-square');
-        });
+    function observeCards() {
+      document.querySelectorAll('.ty-badge, .ty-headline, .ty-mentor-card, .ty-dev-card, .ty-slideshow-wrap, .ty-photo-card, .ty-credit-card, .ty-grat-item, .ty-credits-wrap, .ty-closing').forEach(function(el){
+        cardObs.observe(el);
       });
     }
-    attachCursorEvents();
+    observeCards();
 
-    /* Red Light Green Light Scroll */
-    var lastScrollY = window.scrollY, scrollTimeout;
-    window.addEventListener('scroll', function() {
-      var currentScrollY = window.scrollY;
-      var velocity = Math.abs(currentScrollY - lastScrollY);
-      var fx = document.getElementById('fx-scroll');
-      lastScrollY = currentScrollY;
-      
-      if(velocity > 35 && document.body.classList.contains('settled')) {
-        fx.classList.add('danger');
-        document.body.classList.add('glitch');
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(function(){
-          fx.classList.remove('danger');
-          document.body.classList.remove('glitch');
-        }, 300);
+    /* Smooth Image Loading Transitions Across Entire Site */
+    function initSmoothImageLoader() {
+      var photoCards = document.querySelectorAll('.ty-photo-card');
+      photoCards.forEach(function(card) {
+        var img = card.querySelector('img');
+        if (!img) return;
+        function markCardLoaded() {
+          img.classList.add('is-loaded');
+          card.classList.add('is-loaded');
+        }
+        if (img.complete && img.naturalHeight !== 0) {
+          markCardLoaded();
+        } else {
+          img.addEventListener('load', markCardLoaded, { once: true });
+          img.addEventListener('error', markCardLoaded, { once: true });
+        }
+      });
+
+      var mediaImgs = document.querySelectorAll('.ty-ss-media, .ty-ss-bg-blur, .ty-mentor-avatar img, .ty-cc-avatar img, .ty-grat-icon img, .ty-closing-logo, .glove, .card-m img, .ci img, .rr-mask img');
+      mediaImgs.forEach(function(img) {
+        if (img.complete && (img.naturalHeight !== 0 || img.tagName === 'VIDEO')) {
+          img.classList.add('is-loaded');
+        } else {
+          img.addEventListener('load', function() { img.classList.add('is-loaded'); }, { once: true });
+          img.addEventListener('loadeddata', function() { img.classList.add('is-loaded'); }, { once: true });
+          img.addEventListener('error', function() { img.classList.add('is-loaded'); }, { once: true });
+        }
+      });
+      setTimeout(function() {
+        photoCards.forEach(function(card) {
+          card.classList.add('is-loaded');
+          var img = card.querySelector('img');
+          if (img) img.classList.add('is-loaded');
+        });
+        mediaImgs.forEach(function(img) { img.classList.add('is-loaded'); });
+      }, 1600);
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSmoothImageLoader);
+    } else {
+      initSmoothImageLoader();
+    }
+
+    function goTo(id){
+      var el=document.getElementById(id);
+      if(el){
+        el.scrollIntoView({behavior:'smooth'});
+        if(id==='thankyou'){
+          /* Staggered triggers so each element enters in cinematic order */
+          setTimeout(function(){
+            var b = document.querySelector('.ty-badge');
+            if(b) b.classList.add('is-in-view');
+          }, 200);
+          setTimeout(function(){
+            var h = document.querySelector('.ty-headline');
+            if(h) h.classList.add('is-in-view');
+          }, 400);
+          setTimeout(function(){
+            var mc = document.querySelector('.ty-mentor-card');
+            if(mc) mc.classList.add('is-in-view');
+          }, 700);
+          setTimeout(function(){
+            var dc = document.querySelector('.ty-dev-card');
+            if(dc) dc.classList.add('is-in-view');
+          }, 900);
+        }
       }
-    });
+    }
+
+    /* ── 3. CURSOR + 3D CARD TILT (Desktop only) ── */
+    var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    if (!isTouch) {
+      window.addEventListener('mousemove',function(e){
+        document.body.classList.add('m-on');mx=e.clientX;my=e.clientY;
+        dot.style.left=mx+'px';dot.style.top=my+'px';
+        var cs=document.getElementById('cstage'),tc=document.getElementById('tcard');
+        if(cs&&tc){var r=cs.getBoundingClientRect();
+          if(my>=r.top&&my<=r.bottom&&mx>=r.left&&mx<=r.right){
+            var px=(mx-r.left)/r.width-.5,py=(my-r.top)/r.height-.5;
+            tc.style.transform='rotateY('+(px*36)+'deg) rotateX('+(-py*36)+'deg) translateY(-18px) scale(1.05)'
+          }
+        }
+      }, { passive: true });
+      (function loop(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+      
+      function attachCursorEvents(){
+        document.querySelectorAll('a,button,.card-m,.ci,.rc').forEach(function(el){
+          el.addEventListener('mouseenter',function(){
+            var shape = el.getAttribute('data-cursor') || 'circle';
+            if(shape==='triangle'){dot.classList.add('hov-triangle');ring.classList.add('hov-triangle');}
+            else if(shape==='square'){dot.classList.add('hov-square');ring.classList.add('hov-square');}
+            else{dot.classList.add('hov');ring.classList.add('hov');}
+          });
+          el.addEventListener('mouseleave',function(){
+            dot.classList.remove('hov','hov-triangle','hov-square');
+            ring.classList.remove('hov','hov-triangle','hov-square');
+          });
+        });
+      }
+      attachCursorEvents();
+    }
+
+    /* Ultra-smooth accelerated scrolling enabled */
 
     /* Countdown Timer logic (Synced to 10 September 2026, 09:00:00 IST) */
     var cdClock = document.querySelector('.cd-clock');
@@ -4588,40 +5242,95 @@
         tag: "□ CRUCIAL EVENT PILLAR",
         title: "Hemant Pardhi · Crucial XTASY Pillar",
         caption: "Hemant Pardhi – a crucial member and pillar of the XTASY 4.0 team who contributed tirelessly to the overall success and execution of the festival."
+      },
+      {
+        id: "local_mem_30_vidi",
+        local_src: "assets/memories/mem_30_vidi_coordinator.jpg",
+        tag: "○ EVENT COORDINATOR",
+        title: "Vidhi Ukey · XTASY Coordinator",
+        caption: "Vidhi Ukey – our dedicated XTASY 4.0 Event Coordinator leading front-line execution, managing arrangements, and coordinating teams across the entire fest."
+      },
+      {
+        id: "local_mem_29_roopam",
+        local_src: "assets/memories/mem_29_roopam_co_coordinator.jpg",
+        tag: "△ CO-COORDINATOR",
+        title: "Roopam Zade · XTASY Co-Coordinator",
+        caption: "Roopam Zade – our esteemed XTASY 4.0 Co-Coordinator whose steadfast leadership, coordination, and guidance ensured seamless fest operations."
+      },
+      {
+        id: "local_mem_31_rajeshwari",
+        local_src: "assets/memories/mem_31_rajeshwari_mam_mentor.jpg",
+        tag: "★ FACULTY MENTOR",
+        title: "Prof. Rajeshwari Shinde · Faculty Mentor",
+        caption: "Prof. Rajeshwari Shinde – our beloved Faculty Mentor from the Department of Industrial Internet of Things (IIoT), SVPCET, whose constant mentorship, vision, encouragement, and trust powered Team XTASY 4.0 to achieve greatness."
       }
     ];
 
-    /* ── Ambient Soft Low-Visibility Background Slideshow ── */
+    /* ── Ambient Background Slideshow (Pure Scenery, Arena & Drive Drone Footage - No Faces) ── */
     (function initAmbientSlideshow() {
       var container = document.getElementById('tyAmbientSlideshow');
       if (!container) return;
-      var bgImages = [
-        'assets/memories/mem_05_arena_stage.jpg',
-        'assets/memories/mem_08_champions.jpg',
-        'assets/memories/mem_10_faculty.jpg',
-        'assets/memories/mem_19_thekedar_vaibhav_kshitij.jpg',
-        'assets/memories/mem_20_planners_layout_designers.jpg',
-        'assets/memories/mem_21_team_xtasy.jpg',
-        'assets/memories/mem_24_hack_the_hardware_lab.jpg',
-        'assets/memories/mem_25_juniors_2nd_year.jpg',
-        'assets/memories/mem_26_media_head_tushar.jpg',
-        'assets/memories/mem_27_romit_core_pillar.jpg',
-        'assets/memories/mem_28_hemant_core_pillar.jpg'
+      var ambientItems = [
+        { type: 'video', src: 'assets/memories/ambient_drone_xtasy.mp4' },
+        { type: 'image', src: 'assets/neon_hall_hd.jpg' },
+        { type: 'image', src: 'assets/memories/mem_05_arena_stage.jpg' },
+        { type: 'video', src: 'assets/memories/ambient_reveal_clip.mp4' },
+        { type: 'image', src: 'assets/pink_corridor_hd.jpg' },
+        { type: 'image', src: 'assets/memories/mem_06_flip_the_card.jpg' },
+        { type: 'image', src: 'assets/gameplay_hd.jpg' },
+        { type: 'image', src: 'assets/memories/mem_24_hack_the_hardware_lab.jpg' },
+        { type: 'image', src: 'assets/frontman_mask_hd.jpg' },
+        { type: 'image', src: 'assets/memories/mem_18_vision_expo_best_poster.jpg' },
+        { type: 'image', src: 'assets/invite_hand_hd.jpg' }
       ];
       var slides = [];
       var curBg = 0;
-      bgImages.forEach(function(src, i) {
+      ambientItems.forEach(function(item, i) {
         var s = document.createElement('div');
         s.className = 'ty-ambient-slide' + (i === 0 ? ' active' : '');
-        s.style.backgroundImage = 'url("' + src + '")';
+        if (item.type === 'video') {
+          var vid = document.createElement('video');
+          vid.className = 'ty-ambient-video';
+          vid.src = item.src;
+          vid.autoplay = true;
+          vid.muted = true;
+          vid.loop = true;
+          vid.playsInline = true;
+          vid.setAttribute('muted', '');
+          vid.setAttribute('playsinline', '');
+          vid.preload = 'auto';
+          s.appendChild(vid);
+          if (i === 0) {
+            vid.play().catch(function(){});
+          }
+        } else {
+          s.style.backgroundImage = 'url("' + item.src + '")';
+        }
         container.appendChild(s);
         slides.push(s);
       });
+
       setInterval(function() {
-        slides[curBg].classList.remove('active');
+        var prevSlide = slides[curBg];
+        prevSlide.classList.remove('active');
+        var prevVid = prevSlide.querySelector('video');
+        if (prevVid) {
+          setTimeout(function() {
+            try { prevVid.pause(); } catch(e) {}
+          }, 2400);
+        }
+
         curBg = (curBg + 1) % slides.length;
-        slides[curBg].classList.add('active');
-      }, 5500);
+        var nextSlide = slides[curBg];
+        nextSlide.classList.add('active');
+        var nextVid = nextSlide.querySelector('video');
+        if (nextVid) {
+          try {
+            nextVid.currentTime = 0;
+            nextVid.play().catch(function(){});
+          } catch(e) {}
+        }
+      }, 6500);
     })();
 
     /* ── Cinematic Memories Showcase Slideshow (Photos & Muted Videos) ── */
@@ -4635,162 +5344,25 @@
       var nextBtn    = document.getElementById('tySSNext');
       var progressEl = document.getElementById('tySSProgress');
 
-      var showcaseItems = [
-        {
-          type: 'video',
-          src: 'assets/memories/xtasy_video_opening.mp4',
-          tag: '▶ ARENA OPENING',
-          badge: 'EVENT VIDEO',
-          title: 'XTASY 4.0 Live Kickoff',
-          desc: 'The opening pulse of the arena as contestants arrived and the games began.'
-        },
-        {
+      var showcaseItems = tyMemories.map(function(m) {
+        var badge = '';
+        if (m.local_src.indexOf('mem_31_rajeshwari') !== -1) badge = '★ FACULTY MENTOR';
+        else if (m.local_src.indexOf('mem_21_team_xtasy') !== -1) badge = '★ GRAND SPOTLIGHT';
+        else if (m.local_src.indexOf('mem_25_juniors') !== -1) badge = '★ PRIDE OF XTASY';
+        else if (m.local_src.indexOf('mem_30_vidi') !== -1 || m.local_src.indexOf('mem_29_roopam') !== -1) badge = '★ LEADERSHIP';
+        else if (m.local_src.indexOf('mem_26_media') !== -1) badge = '🎬 CINEMATOGRAPHY';
+        else if (m.local_src.indexOf('mem_19_thekedar') !== -1) badge = '□ THEKEDAR';
+        
+        return {
           type: 'image',
-          src: 'assets/memories/mem_02_anchoring.jpg',
-          id: '1n5nQse3RC3TFynvcI0TwDVfmCCSnuZ7o',
-          tag: '○ INAUGURAL WELCOME',
-          title: 'Inaugural Address & Welcome Speech',
-          desc: 'Khushi Neware delivering the opening address and warm welcome to HOD, department faculty, and the esteemed guest from Bajaj BMS.'
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_14_inauguration_podium.jpg',
-          id: '1UTL-Yg-XSKR2BKevFBzlnMRZCZxfoGTE',
-          tag: '○ INAUGURATION',
-          title: 'Inauguration Kickoff by Khushi Neware',
-          desc: 'Khushi Neware commencing the official XTASY 4.0 inauguration ceremony from the main podium.'
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_03_felicitation.jpg',
-          id: '1IETiuh2xgeyN9MLunS4RA95Bg5IauKRq',
-          tag: '□ FELICITATION',
-          title: 'Honouring Mentors & Guests',
-          desc: 'Memento presentation honoring the leadership that guided XTASY 4.0.'
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_05_arena_stage.jpg',
-          id: '1K8wywgh1avErmOuioJ4NIYLWqoRXNnwf',
-          tag: '△ ARENA ZONES',
-          title: 'Stage, Automystica & Squid Arena',
-          desc: 'Official challenge zones and 3D stage lettering prepared for the showdown.'
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_06_flip_the_card.jpg',
-          id: '17U4xcPTbRXX1rcBVEkkNQG8P6lVj0AeS',
-          tag: '□ ARENA GAME',
-          title: 'Flip The Card · Ddakji Challenge',
-          desc: 'Contestants putting nerve and reflexes to the test in high-stakes mini-games.'
-        },
-        {
-          type: 'video',
-          src: 'assets/memories/xtasy_video_finale.mp4',
-          tag: '▶ GRAND FINALE',
-          badge: 'STAGE VIDEO',
-          title: 'XTASY 4.0 Valedictory & Applause',
-          desc: 'Cheers and celebratory moments as champions and organizers united on stage.'
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_08_champions.jpg',
-          id: '13c2LFNpszh8OeoXFi6dYwIEGGervdOKh',
-          tag: '△ CHAMPIONS',
-          title: 'Certificate of Excellence Award',
-          desc: 'Official appreciation certificates awarded to the event achievers.'
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_10_faculty.jpg',
-          id: '1mpbsIfM1r32Y5Gsv8iAERoehPYogIPt9',
-          tag: '○ FACULTY GUIDES',
-          title: 'Sushant Sir & Shyam Sir',
-          desc: 'Sushant Sir (left) and Shyam Sir (right) – our pillars of support who backed us directly with tools, equipment, and directions at the right time.'
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_16_promotion_documentation.jpg',
-          id: '1KA5_Obc8IPT-krNGKfxACOAD5Giyd1bF',
-          tag: '○ CORE LEADERSHIP',
-          title: 'Promotion & Registration Pillars',
-          desc: 'Charul Sawajkar and Abhaya Deogade on stage, united in celebrating the monumental success of XTASY 4.0.'
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_18_vision_expo_best_poster.jpg',
-          id: '1iaK9ckR_jwJnTcCtthZ8WwLDqExJvXQY',
-          tag: '○ VISION EXPO WINNER',
-          title: 'Vision Expo · Best Technical Poster',
-          desc: 'The best poster selected from Vision Expo, displayed on the honor shelf for our guests from Bajaj BMS.'
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_19_thekedar_vaibhav_kshitij.jpg',
-          tag: '□ THEKEDAR & TECH HEAD',
-          title: 'Vaibhav Ghode & Kshitij Adakane',
-          desc: "Vaibhav Ghode (left) – our hardware mastermind nicknamed 'THEKEDAR' for his precision measurement, cutting, and fabrication skills that physically brought the arena to life, alongside Tech Head Kshitij Adakane (right)."
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_20_planners_layout_designers.jpg',
-          tag: '○ EVENT PLANNERS & LAYOUT DESIGN',
-          title: 'The Event Backbone · Planning & Layout Team',
-          desc: "Kashish Muneshwar, Chaitrali Bele, Pradnya Khonde, and Vidhi Ukey – the main planners and layout designers who served as the backbone of XTASY 4.0."
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_21_team_xtasy.jpg',
-          id: '1brk1HoPeYLqdezrQKbcXolGp0cx3IRuM',
-          tag: '○ THE SQUAD BEHIND XTASY',
-          title: 'TEAM XTASY 4.0',
-          desc: 'The entire XTASY 4.0 squad – 40+ student leads, coordinators, and volunteers on stage celebrating the landmark tech fest.'
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_22_inauguration_assembly.jpg',
-          id: '1g1cRptSX-X8lT0braTu9JnTqhym78gFl',
-          tag: '△ INAUGURATION CEREMONY',
-          title: 'Inaugural Assembly · HoD, Staff & Guests',
-          desc: 'HoD Dr. M. Shriraghavan (in yellow shirt), department staff, faculty mentors, and honored guests opening XTASY 4.0.'
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_24_hack_the_hardware_lab.jpg',
-          id: '15inFH0dqyUyTSx3MuKRO-xq-nVYeZvP0',
-          tag: '△ HACK THE HARDWARE',
-          title: 'Hack The Hardware · Live Arena Battle',
-          desc: 'Contestants competing live on laptops in the computer lab during the intense Hack The Hardware challenge.'
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_25_juniors_2nd_year.jpg',
-          tag: '○ 2ND YEAR JUNIORS',
-          title: '2nd Year Juniors · Pride of XTASY 4.0',
-          desc: 'Our phenomenal 2nd-year juniors assembled on the main stage—the tireless backbone supporting the entire fest.'
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_26_media_head_tushar.jpg',
-          tag: '○ MEDIA HEAD & CINEMATOGRAPHY',
-          title: 'Tushar Agashe · Solo Media Powerhouse',
-          desc: 'All official video reels, cinematography, camera framing, and post-production editing for XTASY 4.0 were executed by Tushar Agashe.'
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_27_romit_core_pillar.jpg',
-          tag: '○ CRUCIAL EVENT PILLAR',
-          title: 'Romit · Crucial XTASY Pillar',
-          desc: 'Crucial helper and pillar Romit whose dedication powered overall operations and execution across XTASY 4.0.'
-        },
-        {
-          type: 'image',
-          src: 'assets/memories/mem_28_hemant_core_pillar.jpg',
-          tag: '□ CRUCIAL EVENT PILLAR',
-          title: 'Hemant Pardhi · Crucial XTASY Pillar',
-          desc: 'Crucial team member Hemant Pardhi standing tall as a core operational pillar of XTASY 4.0.'
-        }
-      ];
+          src: m.local_src,
+          id: m.id,
+          tag: m.tag,
+          badge: badge,
+          title: m.title,
+          desc: m.caption
+        };
+      });
 
       var slides = [];
       var dots   = [];
@@ -4815,13 +5387,14 @@
         var mediaHtml = '';
         if (item.type === 'video') {
           mediaHtml = 
-            '<video class="ty-ss-bg-blur" muted playsinline loop src="' + item.src + '" aria-hidden="true"></video>' +
-            '<video class="ty-ss-media" muted autoplay loop playsinline preload="auto" src="' + item.src + '"></video>';
+            '<video class="ty-ss-bg-blur" muted playsinline loop src="' + item.src + '" onloadeddata="this.classList.add(\'is-loaded\')" aria-hidden="true"></video>' +
+            '<video class="ty-ss-media" muted autoplay loop playsinline preload="auto" src="' + item.src + '" onloadeddata="this.classList.add(\'is-loaded\')"></video>';
         } else {
           var fb = item.id ? ' onerror="this.src=\'https://lh3.googleusercontent.com/d/' + item.id + '=w1600\'"' : '';
+          var safeAlt = (item.title || '').replace(/"/g, '&quot;');
           mediaHtml = 
-            '<img class="ty-ss-bg-blur" src="' + item.src + '"' + fb + ' aria-hidden="true" alt=""/>' +
-            '<img class="ty-ss-media" src="' + item.src + '"' + fb + ' alt="' + item.title + '" loading="' + (i === 0 ? 'eager' : 'lazy') + '"/>';
+            '<img class="ty-ss-bg-blur" src="' + item.src + '"' + fb + ' onload="this.classList.add(\'is-loaded\')" aria-hidden="true" alt=""/>' +
+            '<img class="ty-ss-media" src="' + item.src + '"' + fb + ' alt="' + safeAlt + '" loading="' + (i === 0 ? 'eager' : 'lazy') + '" onload="this.classList.add(\'is-loaded\')"/>';
         }
 
         var badgeHtml = item.badge ? '<span class="ty-ss-media-badge">' + item.badge + '</span>' : '';
@@ -4846,6 +5419,9 @@
           dots.push(dot);
         }
       });
+      if (typeof initSmoothImageLoader === 'function') {
+        initSmoothImageLoader();
+      }
 
       function updateUI() {
         if (counterEl) counterEl.innerText = (curIdx + 1) + ' / ' + showcaseItems.length;
@@ -5072,14 +5648,21 @@
         hint.classList.remove('sh-visible');
       }
 
+      var hintHidden = false;
       function onUserScroll() {
         if (window.scrollY > 45) {
-          hideScrollHint();
+          if (!hintHidden) {
+            hideScrollHint();
+            hintHidden = true;
+          }
         } else {
-          var loader = document.getElementById('xtasy-loader');
-          var isLoaderActive = loader && (loader.style.display !== 'none' && !loader.classList.contains('loaded'));
-          if (!isLoaderActive && !document.body.classList.contains('loader-active')) {
-            showScrollHint();
+          if (hintHidden) {
+            var loader = document.getElementById('xtasy-loader');
+            var isLoaderActive = loader && (loader.style.display !== 'none' && !loader.classList.contains('loaded'));
+            if (!isLoaderActive && !document.body.classList.contains('loader-active')) {
+              showScrollHint();
+              hintHidden = false;
+            }
           }
         }
       }
