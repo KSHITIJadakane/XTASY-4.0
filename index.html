@@ -323,6 +323,195 @@
       text-align: center;
     }
 
+    /* ── Faculty Mentor Spotlight Note ── */
+    .ty-mentor-card {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 980px;
+      background: linear-gradient(180deg, rgba(22, 10, 18, 0.78) 0%, rgba(10, 6, 12, 0.9) 100%);
+      border: 1.5px solid rgba(186, 19, 77, 0.4);
+      border-radius: 20px;
+      padding: clamp(24px, 5vw, 44px) clamp(20px, 5vw, 44px);
+      margin-bottom: clamp(48px, 7vh, 80px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(186, 19, 77, 0.2), inset 0 0 30px rgba(255, 0, 127, 0.05);
+      position: relative;
+      overflow: hidden;
+      text-align: left;
+    }
+    .ty-mentor-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ba134d 20%, var(--pink) 50%, #ffd700 80%, transparent);
+    }
+    .ty-mentor-bracket {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-color: var(--pink);
+      pointer-events: none;
+    }
+    .ty-mentor-bracket.tl { top: 8px; left: 8px; border-top: 2px solid; border-left: 2px solid; }
+    .ty-mentor-bracket.tr { top: 8px; right: 8px; border-top: 2px solid; border-right: 2px solid; }
+    .ty-mentor-bracket.bl { bottom: 8px; left: 8px; border-bottom: 2px solid; border-left: 2px solid; }
+    .ty-mentor-bracket.br { bottom: 8px; right: 8px; border-bottom: 2px solid; border-right: 2px solid; }
+
+    .ty-mentor-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+    }
+    .ty-mentor-avatar {
+      width: clamp(52px, 7vw, 64px);
+      height: clamp(52px, 7vw, 64px);
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(186, 19, 77, 0.4) 0%, rgba(255, 0, 127, 0.2) 100%);
+      border: 1.5px solid var(--pink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+      box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+    }
+    .ty-mentor-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .ty-mentor-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .25em;
+      color: var(--pink);
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-shadow: 0 0 8px rgba(255, 0, 127, 0.5);
+    }
+    .ty-mentor-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(20px, 3.2vw, 28px);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: .02em;
+      line-height: 1.15;
+    }
+    .ty-mentor-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.55);
+      letter-spacing: .03em;
+    }
+
+    .ty-mentor-body {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(14px, 1.8vw, 16px);
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.84);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .ty-mentor-lead {
+      font-size: clamp(16px, 2.1vw, 19px);
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.6;
+    }
+    .ty-mentor-quote-block {
+      background: rgba(255, 255, 255, 0.025);
+      border-left: 3px solid var(--pink);
+      padding: 16px 20px;
+      border-radius: 0 12px 12px 0;
+      margin: 8px 0;
+    }
+    .ty-mentor-points {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 10px;
+      margin: 10px 0;
+      list-style: none;
+      padding: 0;
+    }
+    .ty-mentor-point-item {
+      background: rgba(186, 19, 77, 0.08);
+      border: 1px solid rgba(186, 19, 77, 0.25);
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.9);
+      transition: all .25s ease;
+    }
+    .ty-mentor-point-item:hover {
+      border-color: var(--pink);
+      background: rgba(186, 19, 77, 0.15);
+      transform: translateX(4px);
+    }
+    .ty-mentor-point-icon {
+      color: var(--pink);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .ty-mentor-creed {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      letter-spacing: .08em;
+      color: #ffd700;
+      text-align: center;
+      padding: 18px 24px;
+      border-radius: 12px;
+      background: rgba(255, 215, 0, 0.05);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      margin-top: 10px;
+      text-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+    }
+    .ty-mentor-signature {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 12px;
+    }
+    .ty-mentor-sig-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .ty-mentor-sig-dept {
+      font-family: 'Inter', sans-serif;
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, 0.45);
+    }
+    .ty-mentor-tag-pill {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .15em;
+      color: var(--pink);
+      background: rgba(255, 0, 127, 0.1);
+      border: 1px solid rgba(255, 0, 127, 0.3);
+      padding: 6px 14px;
+      border-radius: 99px;
+    }
+
     /* Floating Particles - Squid Game Symbols */
     .ty-symbol-particle {
       width: auto !important;
@@ -2341,6 +2530,76 @@
         <div class="ty-h-sub">To everyone who made XTASY 4.0 unforgettable.</div>
       </div>
 
+      <!-- Spotlight Note: Prof. Rajeshwari Shinde -->
+      <div class="ty-mentor-card">
+        <div class="ty-mentor-bracket tl"></div>
+        <div class="ty-mentor-bracket tr"></div>
+        <div class="ty-mentor-bracket bl"></div>
+        <div class="ty-mentor-bracket br"></div>
+
+        <div class="ty-mentor-header">
+          <div class="ty-mentor-avatar">
+            <span class="ty-mentor-avatar-icon">🎓</span>
+          </div>
+          <div class="ty-mentor-meta">
+            <div class="ty-mentor-badge">◈ FACULTY MENTOR'S MESSAGE</div>
+            <h3 class="ty-mentor-name">Prof. Rajeshwari Shinde</h3>
+            <div class="ty-mentor-title">Department of Industrial Internet of Things (IIoT) · SVPCET</div>
+          </div>
+        </div>
+
+        <div class="ty-mentor-body">
+          <p class="ty-mentor-lead">
+            ✨ <em>"As XTASY 4.0 comes to an end, I just want to take a moment to pause, look back, and truly appreciate each and every one of you. ❤️"</em>
+          </p>
+
+          <p>
+            What you all have accomplished in such a short span of time is nothing short of incredible. The dedication, hard work, creativity, patience, energy, and countless hours that went into making this event happen truly deserve the biggest round of applause. 👏🏻✨
+          </p>
+
+          <div class="ty-mentor-quote-block">
+            It wasn’t an easy journey. There were tight deadlines, last-minute changes, unexpected challenges, pressure, and moments when things may not have gone exactly as planned. But through it all, you stepped up, took responsibility, supported one another, found solutions, and kept moving forward. And that is what makes this team truly special. ❤️🔥
+          </div>
+
+          <p>
+            A very special and heartfelt thank you to our <strong>Coordinator and Co-Coordinator</strong> 🌟 — for leading from the front, guiding the team, taking on countless responsibilities, managing challenges, and constantly motivating everyone. Your support, patience, and leadership gave the entire team the confidence to keep going and give their very best. Your contribution to XTASY 4.0 will always be deeply appreciated. ❤️
+          </p>
+
+          <p>
+            A huge thank you to all the <strong>Event Heads</strong> for taking ownership of your respective events and giving them your all. Your leadership, responsibility, and ability to bring your teams together played a crucial role in making everything come together so beautifully. 🙌🏻✨ And to each and every team member — this appreciation is equally yours. ❤️
+          </p>
+
+          <p>
+            So today, I don’t just want to say <em>“Congratulations.”</em> I want to say <strong>“Thank you.”</strong> ❤️
+          </p>
+
+          <ul class="ty-mentor-points">
+            <li class="ty-mentor-point-item"><span class="ty-mentor-point-icon">○</span> Thank you for your time</li>
+            <li class="ty-mentor-point-item"><span class="ty-mentor-point-icon">△</span> Thank you for your patience</li>
+            <li class="ty-mentor-point-item"><span class="ty-mentor-point-icon">□</span> Thank you for your hard work</li>
+            <li class="ty-mentor-point-item"><span class="ty-mentor-point-icon">○</span> Thank you for showing up when it mattered</li>
+            <li class="ty-mentor-point-item"><span class="ty-mentor-point-icon">△</span> Thank you for helping each other</li>
+            <li class="ty-mentor-point-item"><span class="ty-mentor-point-icon">□</span> Thank you for giving a piece of yourselves to XTASY 4.0 ✨</li>
+          </ul>
+
+          <p>
+            The event may be over, but the memories we created, the friendships we strengthened, the lessons we learned, and the bond we built as a team will stay with us far beyond XTASY 4.0. ❤️ I am genuinely proud of each and every one of you. You didn’t just make XTASY 4.0 happen — you made it special. 🌟
+          </p>
+
+          <div class="ty-mentor-creed">
+            ✨ THIS WAS XTASY 4.0 · THIS WAS OUR JOURNEY · AND THIS WILL ALWAYS BE OUR ACHIEVEMENT ✨
+          </div>
+
+          <div class="ty-mentor-signature">
+            <div>
+              <div class="ty-mentor-sig-name">— Prof. Rajeshwari Shinde</div>
+              <div class="ty-mentor-sig-dept">Faculty Mentor · Dept. of Industrial Internet of Things (IIoT), SVPCET</div>
+            </div>
+            <div class="ty-mentor-tag-pill">PROUD &amp; GRATEFUL · TEAM XTASY 4.0 🫶🏻</div>
+          </div>
+        </div>
+      </div>
+
       <!-- Memories Gallery -->
       <div class="ty-memories-wrap">
         <div class="ty-section-label">◈ XTASY 4.0 MEMORIES &amp; HIGHLIGHTS</div>
@@ -2530,8 +2789,8 @@
           <div class="ty-gratitude-grid">
             <div class="ty-grat-item">
               <div class="ty-grat-icon">🎓</div>
-              <div class="ty-grat-label">Faculty Mentors &amp; HOD</div>
-              <div class="ty-grat-sub">For your guidance, trust &amp; unwavering support</div>
+              <div class="ty-grat-label">Prof. Rajeshwari Shinde &amp; Faculty</div>
+              <div class="ty-grat-sub">Department of Industrial IoT — for mentorship, vision &amp; support</div>
             </div>
             <div class="ty-grat-item">
               <div class="ty-grat-icon">⚡</div>
