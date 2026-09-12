@@ -3568,6 +3568,8 @@
           var _t2 = parseFloat(sessionStorage.getItem('xtasy_audio_time'));
           if (!isNaN(_t2) && _t2 > 0) _s2.currentTime = _t2;
         } catch(e) {}
+        // CRITICAL: removeAttribute('muted') required for iOS Safari & Firefox
+        _s2.removeAttribute('muted');
         _s2.muted = false;
         _s2.volume = 0.5;
         if (_s2.paused) _s2.play().catch(function(){});
@@ -3583,10 +3585,16 @@
         });
       }
 
-      var _evts = ['pointerdown','touchstart','mousedown','click','keydown','scroll'];
+      var _evts = [
+        'touchstart','touchend','pointerdown','pointerup',
+        'mousedown','mouseup','click',
+        'keydown','keyup',
+        'scroll','wheel',
+        'mousemove'
+      ];
       _evts.forEach(function(ev){
-        document.addEventListener(ev, _unmute, { capture: true, passive: true, once: true });
-        window.addEventListener(ev, _unmute, { capture: true, passive: true, once: true });
+        document.addEventListener(ev, _unmute, { capture: true, passive: true });
+        window.addEventListener(ev, _unmute, { capture: true, passive: true });
       });
 
       // Also auto-unmute when loader finishes (if no prior gesture)
