@@ -1940,11 +1940,11 @@
 
       /* 3D Depth Entrance Transition */
       opacity: 0;
-      transform: perspective(1200px) translate3d(0, 50px, -100px) scale(0.95) rotateX(5deg);
-      filter: blur(8px);
-      transition: opacity 1.3s cubic-bezier(0.12, 0.95, 0.22, 1),
-                  transform 1.45s cubic-bezier(0.12, 0.95, 0.22, 1),
-                  filter 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: perspective(1200px) translate3d(0, 40px, -60px) scale(0.97) rotateX(3deg);
+      filter: blur(4px);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: opacity, transform, filter;
     }
     .ty-credits-wrap.is-in-view {
@@ -1952,6 +1952,47 @@
       transform: perspective(1200px) translate3d(0, 0, 0) scale(1) rotateX(0deg);
       filter: blur(0);
     }
+    /* Staggered individual card entrance */
+    .ty-credit-card {
+      /* ─── Base visual styles ─── */
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      padding: clamp(20px,3vw,32px) 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(8px);
+      position: relative;
+      overflow: hidden;
+      /* ─── Entrance animation ─── */
+      opacity: 0;
+      transform: translateY(20px) scale(0.97);
+      transition: opacity 0.48s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.52s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.35s ease,
+                  box-shadow 0.35s ease;
+    }
+    .ty-credits-wrap.is-in-view .ty-credit-card {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    /* Stagger each card with a delay */
+    .ty-credits-wrap.is-in-view .ty-credit-card:nth-child(1)  { transition-delay: 0.04s; }
+    .ty-credits-wrap.is-in-view .ty-credit-card:nth-child(2)  { transition-delay: 0.09s; }
+    .ty-credits-wrap.is-in-view .ty-credit-card:nth-child(3)  { transition-delay: 0.14s; }
+    .ty-credits-wrap.is-in-view .ty-credit-card:nth-child(4)  { transition-delay: 0.19s; }
+    .ty-credits-wrap.is-in-view .ty-credit-card:nth-child(5)  { transition-delay: 0.24s; }
+    .ty-credits-wrap.is-in-view .ty-credit-card:nth-child(6)  { transition-delay: 0.29s; }
+    .ty-credits-wrap.is-in-view .ty-credit-card:nth-child(7)  { transition-delay: 0.34s; }
+    .ty-credits-wrap.is-in-view .ty-credit-card:nth-child(8)  { transition-delay: 0.39s; }
+    .ty-credits-wrap.is-in-view .ty-credit-card:nth-child(9)  { transition-delay: 0.44s; }
+    .ty-credits-wrap.is-in-view .ty-credit-card:nth-child(10) { transition-delay: 0.49s; }
+    .ty-credits-wrap.is-in-view .ty-credit-card:nth-child(11) { transition-delay: 0.54s; }
+    .ty-credits-wrap.is-in-view .ty-credit-card:nth-child(12) { transition-delay: 0.59s; }
+    .ty-credits-wrap.is-in-view .ty-credit-card:nth-child(n+13) { transition-delay: 0.62s; }
     .ty-credits-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -2070,21 +2111,6 @@
       text-transform: uppercase;
     }
 
-    .ty-credit-card {
-      background: rgba(255,255,255,.025);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 14px;
-      padding: clamp(20px,3vw,32px) 24px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      transition: all .35s var(--ease-s);
-      backdrop-filter: blur(8px);
-      position: relative;
-      overflow: hidden;
-    }
     .ty-credit-card::before {
       content: '';
       position: absolute;
@@ -5211,10 +5237,11 @@
         entry.target.classList.add('is-in-view');
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -35px 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px 100px 0px' });
 
     function observeCards() {
-      document.querySelectorAll('.ty-badge, .ty-headline, .ty-mentor-card, .ty-dev-card, .ty-slideshow-wrap, .ty-photo-card, .ty-credit-card, .ty-grat-item, .ty-credits-wrap, .ty-closing').forEach(function(el){
+      /* Note: .ty-credit-card is animated via parent .ty-credits-wrap — no need to observe individually */
+      document.querySelectorAll('.ty-badge, .ty-headline, .ty-mentor-card, .ty-dev-card, .ty-slideshow-wrap, .ty-photo-card, .ty-grat-item, .ty-credits-wrap, .ty-closing').forEach(function(el){
         cardObs.observe(el);
       });
     }
